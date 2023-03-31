@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
+#include <stdbool.h>
+#include <stdlib.h>
 
 #define MAX 100
 
@@ -25,42 +27,79 @@ void OndaDigital(char onda[]) {
     }
 }
 
-char *CadenaValida (char entrada[], int largo, char permitidos[]) {                     
-    int valido, i, CharValido;
-    do {
-        entrada[strcspn(entrada, "\n")] = '\0';
-        valido = 1;
-        CharValido = 0;
-        for (i = 0; i < largo ; i++) {
-            for (int t = 0 ; t < strlen(permitidos) ; t++){
-                entrada[i] = toupper(entrada[i]);
-                printf("%c", entrada[i]);
-                if (entrada[i] != permitidos[t] && entrada[i] != '\0') {
-                    CharValido++;
-                }
-                if (CharValido == strlen(permitidos)) {
-                    printf("\n <! Entrada invalida. Ingrese una secuencia valida: ");
-                    valido = 0;
-                    break;
-                }
-            }    
-            if (valido == 0) {
-                break;
-            }
+void copiar_cadena_desde_x_hasta_y (char* destino, char* origen, int x, int y) {
+
+    int i = 0;
+
+    for (int j = x; i < y; j++) {
+
+        destino[i] = origen[j];
+        i++;
+
+    }
+
+}
+
+bool es_onda_valida (char* cadena) {
+
+    bool cadena_valida = true;
+
+    int i = 0;
+
+    while ((i < strlen(cadena)) && (cadena_valida)) {
+
+        if ((cadena[i] != 'L') && (cadena[i] != 'H')) {
+
+            cadena_valida = false;
+
         }
-        if (valido == 0) {
-            fgets(entrada, largo, stdin);
-        }
-    } while (valido == 1);
-    return entrada;
+
+        i++;
+
+    }
+
+    return cadena_valida;
+
 }
 
 void main () {
-    int cantidad, bandera;
-    char estados[3] = "LH ";
+   
     char onda[MAX];
-    for (int i = 0; i <= cantidad; i++) onda[i] = '\0';
+    
+    for (int i = 0; i <= MAX; i++) onda[i] = '\0';
+    
     printf(" << Ingrese los valores de la onda (H/L) en mayuscula: ");
     fgets(onda, MAX, stdin);
-    OndaDigital(CadenaValida(onda, MAX, estados));                      // La función recursiva funciona correctamente, falta terminar la función de validación
+    
+    char* onda_aux; // Desde aquí hasta línea 114 es para quitar el \n obtenido por fgets.
+
+    onda_aux = (char*) calloc (strlen(onda)+1, sizeof(char));   //Uso calloc porque no conozco strlen(onda), ya que depende del usuario.
+                                                                //+1 espacio para \0
+
+    if (onda_aux != NULL) {
+
+        copiar_cadena_desde_x_hasta_y(onda_aux, onda, 0, strlen(onda)-1); //Elimina el \n obtenido con fgets;
+
+        strcpy(onda, onda_aux);  //Finalmente, regresa el contenido limpio a onda.
+
+        free(onda_aux);
+
+    } else {
+
+        printf("Memoria insuficiente.\n");
+
+    }
+    
+    if (es_onda_valida(onda)) {
+
+        printf("\n");
+        OndaDigital(onda);
+        printf("\n");
+
+    } else {
+
+        printf("La cadena ingresada no es una onda válida.\n");
+
+    }
+
 }
