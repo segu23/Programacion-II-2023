@@ -24,7 +24,7 @@ void main () {
     char onda[MAX];
     for (int i = 0; i < MAX; i++) onda[i] = '\0';
     do {
-         printf("\n << Ingrese los valores de la onda (H/L) en mayuscula: ");
+         printf("\n << Ingrese los valores de la onda (H/L): ");
          fgets(onda, MAX, stdin);
     }while(!CadenaValida(onda,  permitidos));
     OndaDigital(onda, 0);                                                          // La función recursiva funciona correctamente, falta terminar la función de validación
