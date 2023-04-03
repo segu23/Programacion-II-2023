@@ -1,4 +1,4 @@
-# Práctica I: Recursividad
+# Trabajo Práctico Nro. 1: Recursividad
 
 Participantes:
   - Maria Nazarena Gonzalez (Leg.190217)
