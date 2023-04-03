@@ -20,9 +20,10 @@ void OndaDigital(char onda[], int i) {
 }
 
 void main () {
-    char permitidos[5] = {'L', 'H', 'l', 'h', '\0'};
+    char permitidos[3] = {'L', 'H', '\0'};
     char onda[MAX];
     for (int i = 0; i < MAX; i++) onda[i] = '\0';
+    //memset(onda, '\0', MAX);
     do {
          printf("\n << Ingrese los valores de la onda (H/L): ");
          fgets(onda, MAX, stdin);

@@ -61,7 +61,7 @@ int EntradaEntera(char buffer[], int nroNat, int LimInferior, int LimSuperior) {
 
 /*
 Instrucciones de uso de la función "CadenaValida": esta función retorna un int como booleano (1 = V, 0 = F) dado una cadena de caracteres que se desea verficar 
-y otra cadena con los caracteres permitidos por el programador, e.g. CadenaValida(entrada, {'a', 'b', 'c', '\0'})
+y otra cadena con los caracteres permitidos (en mayúscula) por el programador, e.g. CadenaValida(entrada, {'a', 'b', 'c', '\0'})
 */
 int CadenaValida(char entrada[],  char permitidos[]) {
     int valido = 1 , i;
