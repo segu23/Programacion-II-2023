@@ -22,6 +22,7 @@ void main () {
     char filtro[100];
     int numero, factor;
     for (int i = 0 ; i < 100 ; i++) filtro[i] = '\0';
+    printf("\n // Implementación de recursividad - TP Nro. 1 - Punto 2");
     printf("\n << Ingrese un numero entero: ");
     fgets(filtro, 100, stdin);
     numero = EntradaEntera(filtro, 1, 0, 0);

@@ -59,4 +59,21 @@ int EntradaEntera(char buffer[], int nroNat, int LimInferior, int LimSuperior) {
     return numero;
 }
 
+/*
+Instrucciones de uso de la función "CadenaValida": esta función retorna un int como booleano (1 = V, 0 = F) dado una cadena de caracteres que se desea verficar 
+y otra cadena con los caracteres permitidos (en mayúscula) por el programador, e.g. CadenaValida(entrada, {'a', 'b', 'c', '\0'})
+*/
+int CadenaValida(char entrada[],  char permitidos[]) {
+    int valido = 1 , i;
+    entrada[strcspn(entrada, "\n")] = '\0';
+    for (i = 0; entrada[i] != '\0' && valido != 0; i++) {
+           entrada[i] = toupper(entrada[i]);
+           if (strrchr(permitidos,  entrada[i]) == NULL) {
+               printf(" !! Cadena invalida...... ¡¡\n");
+               valido = 0;
+            }
+    }   
+    return valido;
+}
+
 #endif
