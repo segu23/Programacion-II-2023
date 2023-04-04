@@ -28,6 +28,6 @@ void main () {
          printf("\n << Ingrese los valores de la onda (H/L): ");
          fgets(onda, MAX, stdin);
     }while(!CadenaValida(onda,  permitidos));
-    OndaDigital(onda, 0);                                                          // La función recursiva funciona correctamente, falta terminar la función de validación
+    OndaDigital(onda, 0);                                                       
     printf("\n");
 }
