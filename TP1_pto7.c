@@ -24,9 +24,10 @@ void main () {
     char onda[MAX];
     for (int i = 0; i < MAX; i++) onda[i] = '\0';
     //memset(onda, '\0', MAX);
+    printf("\n // Implementación de recursividad - TP Nro. 1 - Punto 7");
     do {
-         printf("\n << Ingrese los valores de la onda (H/L): ");
-         fgets(onda, MAX, stdin);
+        printf("\n << Ingrese los valores de la onda (H/L): ");
+        fgets(onda, MAX, stdin);
     }while(!CadenaValida(onda,  permitidos));
     OndaDigital(onda, 0);                                                       
     printf("\n");

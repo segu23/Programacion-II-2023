@@ -24,6 +24,7 @@ void main() {
     int n, b;
     char filtro[100];
     for (int i = 0 ; i < 100 ; i++) filtro[i] = '\0';
+    printf("\n // Implementación de recursividad - TP Nro. 1 - Punto 10");
     printf("\n < Ingrese el numero a explotar: ");
     fgets(filtro, MAX, stdin);
     n = EntradaEntera(filtro, 1, 0, MAX);
