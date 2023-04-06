@@ -30,5 +30,4 @@ scanf ("%i",&n);
         printf ("El numero ingresado no pude ser negativo, por favor ingrese otro: \n");           
     }
 }
-system("pause");
 } 
