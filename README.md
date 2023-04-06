@@ -5,6 +5,7 @@ Participantes:
   - Valentín Joel Romero Monteagudo (Leg. 190306)
   - Segundo Nazareno Schmidt (Leg. 193970)
   - Santiago Alejo Conti (Leg. 168849)
+  - Agustín Ignacio Gonzalez (Leg. 175631)
 
 Profesor a Cargo de la Asignatura: 
   - Mario Perello
