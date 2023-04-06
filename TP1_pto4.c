@@ -1,5 +1,4 @@
-
-
+#include "TP1_Validacion.h"
 #include <stdio.h>
 /*4. Dados los números enteros m y n, construir una función recursiva que devuelva el
 cociente de ambos, calculando el mismo mediante restas sucesivas. Se deberá tener
@@ -15,11 +14,10 @@ float division(int n,int m,float c,float r){
         n=n-m;
         r=r+c;
     }
-
     if(n==m){
         r+=c;
         resultado= r;}
-    else if (r>=1){
+    else if (r>=1||r==0){
         c=0.1;
         resultado=(r+=division(n*10,m,c,0));}
     else if (r>=0.1){
@@ -38,11 +36,17 @@ float division(int n,int m,float c,float r){
 int main(){
     int n,m;
     float r=0;
-    printf("ingrese un numero:");
-    scanf("%i",&n);
-    printf("ingrese otro numero:");
-    scanf("%i",&m);
-    float a=division(n,m,1.0,r);
-    printf("%f",a);
+    char filtro[100];
+    for (int i = 0 ; i < 100 ; i++) filtro[i] = '\0';
+    printf("\n << Ingrese un numero entero: ");
+    fgets(filtro, 100, stdin);
+    n= EntradaEntera(filtro, 1, 0, 0);
+    fflush(stdin);
+    printf("\n << Ingrese otro numero entero: ");
+    for (int i = 0 ; i < 100 ; i++) filtro[i] = '\0';
+    fgets(filtro, 100, stdin);
+    m = EntradaEntera(filtro, 1, 0, 0);
+    fflush(stdin);
+    printf(" >> Division: %10.4f\n", division(n,m,1.0,r));
     return 0;
 }
