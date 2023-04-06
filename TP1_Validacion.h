@@ -31,24 +31,26 @@ ambos limites con un mismo valor, e.g. "EntradaEntera(entrada, 1, 0, 0)".
 int EntradaEntera(char buffer[], int nroNat, int LimInferior, int LimSuperior) {
     int valido, numero;
     do {
+        buffer[strcspn(buffer, "\n")] = '\0';
         valido = 1;
         if (nroNat == 1 && strchr(buffer, ',') != NULL || strchr(buffer, '.') != NULL) {
             valido = 0;
             printf("\n <! Entrada invalida (decimal); ingrese un valor entero: ");
+
         }       
         if (sscanf(buffer, "%d", &numero) != 1) {
             valido = 0;
-            printf("\n <! Entrada invalida (alfabetica); ingrese un valor entero: ");
+            printf("\n <! Entrada invalida (alfabetico); ingrese un valor entero: ");
         } else {
             if (nroNat == 1 && numero <= 0) {
                 valido = 0;
                 printf("\n <! Entrada invalida (valor no natural); ingrese un valor entero: ");
             }
-            if (nroNat == 1 && numero <= LimSuperior && LimSuperior != LimInferior) {
+            if (nroNat == 1 && numero > LimSuperior && LimSuperior != LimInferior) {
                 valido = 0;
                 printf("\n <! Entrada invalida (valor fuera de rango); ingrese un valor entero: ");
             }
-            if (nroNat == 1 && numero >= LimInferior && LimSuperior != LimInferior) {
+            if (nroNat == 1 && numero < LimInferior && LimSuperior != LimInferior) {
                 valido = 0;
                 printf("\n <! Entrada invalida (valor fuera de rango); ingrese un valor entero: ");
             }
