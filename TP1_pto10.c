@@ -6,7 +6,6 @@
 #define MIN 1
 // Implementación de recursividad - TP Nro. 1 - Punto 10
 
-
 // Función recursiva directa multiple: calcula los diferentes valores producto de la descomposición de N por B.
 int Explosion(int n, int b, int *lista, int pos) {
     if (n <= b) { 
@@ -23,19 +22,19 @@ int Explosion(int n, int b, int *lista, int pos) {
 void main() {
     int n, b;
     char filtro[100];
-    for (int i = 0 ; i < 100 ; i++) filtro[i] = '\0';
-    printf("\n // Implementación de recursividad - TP Nro. 1 - Punto 10");
-    printf("\n < Ingrese el numero a explotar: ");
+    memset(filtro, '\0', 100);
+    printf("\n // Implementación de recursividad - TP Nro. 1 - Punto 10 \n");
+    printf("\n << Ingrese el numero a explotar: ");
     fgets(filtro, MAX, stdin);
     n = EntradaEntera(filtro, 1, 0, MAX);
     fflush(stdin);
-    printf("\n < Ingrese el valor de la bomba (nro. natural): ");
+    printf("\n << Ingrese el valor de la bomba (nro. natural): ");
     fgets(filtro, MAX, stdin);
-    for (int i = 0 ; i < 100 ; i++) filtro[i] = '\0';
-    b = EntradaEntera(filtro, 1, MIN, MAX);
+    b = EntradaEntera(filtro, 1, 0, 0);
     fflush(stdin);
     int *lista = (int *) malloc(sizeof(int) * n); 
-    int pos = Explosion(n, b, lista, 0); 
+    int pos = Explosion(n, b, lista, 0);
+    printf("\n >> Fragmentos: ");
     for (int i = 0; i < pos; i++) { 
         printf("%d ", lista[i]);
     }
