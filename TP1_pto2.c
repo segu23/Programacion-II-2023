@@ -25,12 +25,12 @@ void main () {
     printf("\n // Implementación de recursividad - TP Nro. 1 - Punto 2");
     printf("\n << Ingrese un numero entero: ");
     fgets(filtro, 100, stdin);
-    numero = EntradaEntera(filtro, 1, 0, 0);
+    numero = EntradaEntera(filtro, 0, 0, 0);
     fflush(stdin);
     printf(" << Ingrese el factor para realizar la multiplicación: ");
     for (int i = 0 ; i < 100 ; i++) filtro[i] = '\0';
     fgets(filtro, 100, stdin);
-    factor = EntradaEntera(filtro, 1, 0, 0);
+    factor = EntradaEntera(filtro, 0, 0, 0);
     fflush(stdin);
     printf(" >> Producto: %d\n", Producto(factor, numero));
 }
