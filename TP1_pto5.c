@@ -55,7 +55,5 @@ int main(){
 			c[i]=c[i+1];
 		}
 	}
-	printf("%15s",Puntos(c));
+	printf("%s",Puntos(c));
 }
-
-
