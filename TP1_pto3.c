@@ -1,33 +1,24 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+#include "TP1_Validacion.h"
 
-int terminoSeridFibonacci (int n) {
-if (n == 0){
-    return 0; 
-}
-else if ( n == 1)
-{
-    return 1;
-}
-else
-{
-return (terminoSeridFibonacci(n-1) + terminoSeridFibonacci(n-2));
-}
+#define MAX 100
+
+// Implementación de recursividad - TP Nro. 1 - Punto 3
+
+// Función recursiva multiple: calcula el k-ésimo número de la serie de Fibonacci.
+long SerieDeFibonacci (int pos) {
+    if (pos < 2) return pos;
+    else return (SerieDeFibonacci(pos - 1) + SerieDeFibonacci(pos - 2)); 
 }
 
-int main (){
-int n = 0;
-bool aux = false;
-printf ("ingrese el termino de la serie fibonacci que desee saber: \n");   
-while (aux == false){ 
-scanf ("%i",&n);  
-    if (n >= 0) {
-        printf ("termino de la serie fibonacci: %i  \n",terminoSeridFibonacci(n));
-        aux = true;        
-    }   
-    else {
-        printf ("El numero ingresado no pude ser negativo, por favor ingrese otro: \n");           
-    }
+void main () {
+    char filtro[MAX];
+    int numero, termino;
+    memset(filtro, MAX, '\0');
+    printf("\n // Implementación de recursividad - TP Nro. 1 - Punto 3");
+    printf("\n << Ingrese el nro. de termino (menor a 40) de la serie de Fibonacci que desea calcular: ");
+    fgets(filtro, MAX, stdin);
+    termino = EntradaEntera(filtro, 0, 0, 40);                                      // Verifica que la entrada se encuentre en el intervalo [1; 40]
+    numero = SerieDeFibonacci(termino);
+    printf("\n >> Valor del termino %d: %d", termino, numero);
 }
-} 

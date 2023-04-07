@@ -46,11 +46,11 @@ int EntradaEntera(char buffer[], int nroNat, int LimInferior, int LimSuperior) {
                 valido = 0;
                 printf("\n <! Entrada invalida (valor no natural); ingrese un valor entero: ");
             }
-            if (nroNat == 1 && numero > LimSuperior && LimSuperior != LimInferior) {
+            if (numero > LimSuperior && LimSuperior != LimInferior) {
                 valido = 0;
                 printf("\n <! Entrada invalida (valor fuera de rango); ingrese un valor entero: ");
             }
-            if (nroNat == 1 && numero < LimInferior && LimSuperior != LimInferior) {
+            if (numero < LimInferior && LimSuperior != LimInferior) {
                 valido = 0;
                 printf("\n <! Entrada invalida (valor fuera de rango); ingrese un valor entero: ");
             }
