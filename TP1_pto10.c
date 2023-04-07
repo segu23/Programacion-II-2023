@@ -26,7 +26,7 @@ void main() {
     printf("\n // Implementación de recursividad - TP Nro. 1 - Punto 10 \n");
     printf("\n << Ingrese el numero a explotar: ");
     fgets(filtro, MAX, stdin);
-    n = EntradaEntera(filtro, 1, 0, MAX);
+    n = EntradaEntera(filtro, 1, 0, 0);
     fflush(stdin);
     printf("\n << Ingrese el valor de la bomba (nro. natural): ");
     fgets(filtro, MAX, stdin);
