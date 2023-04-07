@@ -4,8 +4,6 @@
 #include <stdbool.h>
 #include "TP1_Validacion.h"
 
-#define MAX 1000
-
 void mostrarChinos(char * chinos, int cantidadDeChinos, int index){
     int cantidadDeCaracteres = (cantidadDeChinos*6)-1;
     if(index == 0){
@@ -27,7 +25,7 @@ void mostrarChinos(char * chinos, int cantidadDeChinos, int index){
     chinos[baseDerecha+2] = ')';
     index++;
 
-
+    // caso base
     if(index == cantidadDeChinos){
         printf("%s\n", chinos);
     }else{
@@ -39,11 +37,10 @@ int main(){
     char filtro[100];
     char *chinos;
     printf(" << Ingrese el nivel de formación de los Chinos: ");
-    fgets(filtro, MAX, stdin);
+    fgets(filtro, 100, stdin);
     int nivel = EntradaEntera(filtro, 1, 0, 0);
     fflush(stdin);
     printf(" << Vista frontal de la delegación:\n\n");
-    bool valido = false;
     mostrarChinos(chinos, nivel, 0);
     return 0;
 }

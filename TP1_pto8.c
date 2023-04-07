@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include "TP1_Validacion.h"
 
 /*
 Definir una función recursiva que dado un conjunto devuelva una lista con los
@@ -27,20 +28,22 @@ void imprimirSubconjuntos(int *subconjunto, int longitud)
 
 void buscarSubconjuntos(int *conjunto, int longitud, int *subconjunto, int longitud_subconjunto, int suma_deseada)
 {
-    int i, suma_actual = 0;
+    int suma_actual = 0;
 
-    for (i = 0; i < longitud_subconjunto; i++)
+    for (int i = 0; i < longitud_subconjunto; i++)
     {
         suma_actual += subconjunto[i];
     }
 
-    if (suma_actual == suma_deseada)
+    // caso base de subconjunto válido
+    if (suma_actual == suma_deseada && longitud_subconjunto > 0)
     {
         imprimirSubconjuntos(subconjunto, longitud_subconjunto);
         return;
     }
 
-    if (suma_actual > suma_deseada || longitud == 0)
+
+    if (longitud == 0)
     {
         return;
     }
@@ -55,6 +58,7 @@ void subconjuntosQueSumanN(int *conjunto, int longitud, int suma_deseada)
 {
     int *subconjunto = malloc(sizeof(int) * longitud);
 
+    // llamado a la funcion recursiva
     buscarSubconjuntos(conjunto, longitud, subconjunto, 0, suma_deseada);
 
     free(subconjunto);
@@ -62,61 +66,28 @@ void subconjuntosQueSumanN(int *conjunto, int longitud, int suma_deseada)
 
 int main()
 {
-    int longitud;
-    printf("Por favor, escribe la cantidad de números que quieres ingresar: \n");
-    bool longitudValida = false;
-    while (!longitudValida)
-    {
-        printf("Ingrese un número: ");
-        fflush(stdin);
-        if (scanf("%d", &longitud) == 1 && longitud >= 0)
-        {
-            longitudValida = true;
-        }
-        else
-        {
-            printf("Entrada inválida. Intente de nuevo.\n");
-        }
-    }
+    char filtro[100];
+    printf(" << Por favor, escribe la cantidad de números que quieres ingresar: ");
+    fgets(filtro, 100, stdin);
+    int longitud = EntradaEntera(filtro, 1, 0, 0);
+    fflush(stdin);
 
     int conjunto[longitud];
 
     for (int i = 0; i < longitud; i++)
     {
-        printf("Por favor, escribe el número para la posición %i: \n", i);
-        bool valido = false;
-        while (!valido)
-        {
-            printf("Ingrese un número: ");
-            fflush(stdin);
-            if (scanf("%d", &conjunto[i]) == 1 && conjunto[i] >= 0)
-            {
-                valido = true;
-            }
-            else
-            {
-                printf("Entrada inválida. Intente de nuevo.\n");
-            }
-        }
+        printf(" << Por favor, escribe el número para la posición %i: ", i);
+        fgets(filtro, 100, stdin);
+        conjunto[i] = EntradaEntera(filtro, 0, 0, 0);
+        fflush(stdin);
     }
 
     int target;
 
-    printf("Por favor, escribe el número objetivo: \n");
-    bool valido = false;
-    while (!valido)
-    {
-        printf("Ingrese un número: ");
-        fflush(stdin);
-        if (scanf("%d", &target) == 1 && target >= 0)
-        {
-            valido = true;
-        }
-        else
-        {
-            printf("Entrada inválida. Intente de nuevo.\n");
-        }
-    }
+    printf(" << Por favor, escribe el número objetivo: ");
+    fgets(filtro, 100, stdin);
+    target = EntradaEntera(filtro, 0, 0, 0);
+    fflush(stdin);
 
     subconjuntosQueSumanN(conjunto, longitud, target);
 
