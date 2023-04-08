@@ -43,7 +43,7 @@ int main(){
     for (int i = 0 ; i < 100 ; i++) filtro[i] = '\0';
     printf("\n << Ingrese un numero entero: ");
     fgets(filtro, 100, stdin);
-    n= EntradaEntera(filtro, 1, 0, 0);
+    n= EntradaEntera(filtro, 1, 1, 99999);                  // Verifica que la entrada sea un entero natural que este dentro del intervalo [1; 99999]
     fflush(stdin);
     printf("\n << Ingrese otro numero entero: ");
     for (int i = 0 ; i < 100 ; i++) filtro[i] = '\0';
