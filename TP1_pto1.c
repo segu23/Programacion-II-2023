@@ -4,7 +4,7 @@
 #include<string.h>
 #include<ctype.h>
 
-// Implementación de recursividad - TP Nro. 1 - Punto 3
+// Implementación de recursividad - TP Nro. 1 - Punto 1
 
 // Función recursiva directa: verifica si la cadena de entrada es palindromo para todos los casos.
 void copiar_cadena_desde_x_hasta_y (char* destino, char* origen, int x, int y) {
