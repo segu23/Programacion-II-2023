@@ -4,7 +4,7 @@
 #include "TP1_Validacion.h"
 
 /*
-// Implementación de recursividad - TP Nro. 1 - Punto 8
+Implementación de recursividad - TP Nro. 1 - Punto 8
 
 Definir una función recursiva que dado un conjunto devuelva una lista con los
 subconjuntos del mismo tales que la suma de los elementos de cada subconjunto
