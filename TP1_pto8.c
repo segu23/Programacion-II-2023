@@ -4,6 +4,8 @@
 #include "TP1_Validacion.h"
 
 /*
+// Implementación de recursividad - TP Nro. 1 - Punto 8
+
 Definir una función recursiva que dado un conjunto devuelva una lista con los
 subconjuntos del mismo tales que la suma de los elementos de cada subconjunto
 sumen una cantidad dada. Por ejemplo: Dado el conjunto A = {10, 3, 1, 7, 4, 2}. La
@@ -69,7 +71,7 @@ int main()
     char filtro[100];
     printf(" << Por favor, escribe la cantidad de números que quieres ingresar: ");
     fgets(filtro, 100, stdin);
-    int longitud = EntradaEntera(filtro, 1, 0, 0);
+    int longitud = EntradaEntera(filtro, 1, 0, 100);
     fflush(stdin);
 
     int conjunto[longitud];
@@ -78,7 +80,7 @@ int main()
     {
         printf(" << Por favor, escribe el número para la posición %i: ", i);
         fgets(filtro, 100, stdin);
-        conjunto[i] = EntradaEntera(filtro, 0, 0, 0);
+        conjunto[i] = EntradaEntera(filtro, 0, -99999, 99999);
         fflush(stdin);
     }
 
@@ -86,7 +88,7 @@ int main()
 
     printf(" << Por favor, escribe el número objetivo: ");
     fgets(filtro, 100, stdin);
-    target = EntradaEntera(filtro, 0, 0, 0);
+    target = EntradaEntera(filtro, 0, -99999, 99999);
     fflush(stdin);
 
     subconjuntosQueSumanN(conjunto, longitud, target);
