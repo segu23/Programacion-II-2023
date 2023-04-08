@@ -4,6 +4,8 @@
 #include "TP1_Validacion.h"
 
 /*
+Implementación de recursividad - TP Nro. 1 - Punto 9
+
 Escribir una función recursiva que implemente el método que se describe para saber si
 un número es divisible por 7. Se separa la primera cifra de la derecha, se la multiplica
 por 2, y se resta este producto de lo que queda a la izquierda y así sucesivamente,
