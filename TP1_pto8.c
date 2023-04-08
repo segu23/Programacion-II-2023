@@ -13,49 +13,41 @@ subconjuntosQueSumanN ({10, 3, 1, 7, 4, 2}, 7) => {{3, 4}, {1, 4, 2}, {7}}
 subconjuntosQueSumanN ({10, 3, 1, 7, 4, 2}, 10) => {{10}, {3,7}, {3, 1, 4, 2}, {1, 7, 2}}
 */
 
-void imprimirSubconjuntos(int *subconjunto, int longitud)
-{
-    int i;
+void imprimirSubconjuntos(int *subconjunto, int longitud){
     printf("{");
-    for (i = 0; i < longitud; i++)
-    {
-        printf("%d", subconjunto[i]);
-        if (i != longitud - 1)
+    for (int i = 0; i < longitud; i++){
+        printf("%i", subconjunto[i]);
+        if (i < longitud - 1){
             printf(", ");
+        }
     }
     printf("}\n");
 }
 
-void buscarSubconjuntos(int *conjunto, int longitud, int *subconjunto, int longitud_subconjunto, int suma_deseada)
-{
+void buscarSubconjuntos(int *conjunto, int longitud, int *subconjunto, int longitud_subconjunto, int suma_deseada){
     int suma_actual = 0;
 
-    for (int i = 0; i < longitud_subconjunto; i++)
-    {
+    for (int i = 0; i < longitud_subconjunto; i++){
         suma_actual += subconjunto[i];
     }
 
     // caso base de subconjunto válido
-    if (suma_actual == suma_deseada && longitud_subconjunto > 0)
-    {
+    if (suma_actual == suma_deseada && longitud_subconjunto > 0){
         imprimirSubconjuntos(subconjunto, longitud_subconjunto);
         return;
     }
 
-
-    if (longitud == 0)
-    {
+    // caso base fin del conjunto original
+    if (longitud == 0){
         return;
     }
 
     subconjunto[longitud_subconjunto] = conjunto[0];
     buscarSubconjuntos(conjunto + 1, longitud - 1, subconjunto, longitud_subconjunto + 1, suma_deseada);
-
     buscarSubconjuntos(conjunto + 1, longitud - 1, subconjunto, longitud_subconjunto, suma_deseada);
 }
 
-void subconjuntosQueSumanN(int *conjunto, int longitud, int suma_deseada)
-{
+void subconjuntosQueSumanN(int *conjunto, int longitud, int suma_deseada){
     int *subconjunto = malloc(sizeof(int) * longitud);
 
     // llamado a la funcion recursiva
@@ -64,8 +56,7 @@ void subconjuntosQueSumanN(int *conjunto, int longitud, int suma_deseada)
     free(subconjunto);
 }
 
-int main()
-{
+int main(){
     char filtro[100];
     printf(" << Por favor, escribe la cantidad de números que quieres ingresar: ");
     fgets(filtro, 100, stdin);
@@ -74,8 +65,7 @@ int main()
 
     int conjunto[longitud];
 
-    for (int i = 0; i < longitud; i++)
-    {
+    for (int i = 0; i < longitud; i++){
         printf(" << Por favor, escribe el número para la posición %i: ", i);
         fgets(filtro, 100, stdin);
         conjunto[i] = EntradaEntera(filtro, 0, 0, 0);
