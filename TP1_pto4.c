@@ -1,5 +1,8 @@
 #include "TP1_Validacion.h"
 #include <stdio.h>
+
+// Implementación de recursividad - TP Nro. 1 - Punto 4
+
 /*4. Dados los números enteros m y n, construir una función recursiva que devuelva el
 cociente de ambos, calculando el mismo mediante restas sucesivas. Se deberá tener
 en cuenta que en el caso de que la división no sea exacta, se devolverán hasta 4 cifras
@@ -40,7 +43,7 @@ int main(){
     for (int i = 0 ; i < 100 ; i++) filtro[i] = '\0';
     printf("\n << Ingrese un numero entero: ");
     fgets(filtro, 100, stdin);
-    n= EntradaEntera(filtro, 1, 0, 0);
+    n= EntradaEntera(filtro, 1, 1, 99999);                  // Verifica que la entrada sea un entero natural que este dentro del intervalo [1; 99999]
     fflush(stdin);
     printf("\n << Ingrese otro numero entero: ");
     for (int i = 0 ; i < 100 ; i++) filtro[i] = '\0';

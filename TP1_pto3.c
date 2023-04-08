@@ -16,9 +16,11 @@ void main () {
     int numero, termino;
     memset(filtro, MAX, '\0');
     printf("\n // Implementación de recursividad - TP Nro. 1 - Punto 3");
-    printf("\n << Ingrese el nro. de termino (menor a 40) de la serie de Fibonacci que desea calcular: ");
+
+    printf("\n << Ingrese el nro. de termino (menor o igual a 40) de la serie de Fibonacci que desea calcular: ");
     fgets(filtro, MAX, stdin);
-    termino = EntradaEntera(filtro, 0, 0, 40);                                      // Verifica que la entrada se encuentre en el intervalo [1; 40]
+    termino = EntradaEntera(filtro, 0, 0, 40);                                      // Verifica que la entrada sea un entero que se encuentre en el intervalo [0; 40]
     numero = SerieDeFibonacci(termino);
+
     printf("\n >> Valor del termino %d: %d", termino, numero);
 }

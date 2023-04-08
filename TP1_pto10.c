@@ -24,17 +24,18 @@ void main() {
     char filtro[100];
     memset(filtro, '\0', 100);
     printf("\n // Implementación de recursividad - TP Nro. 1 - Punto 10 \n");
+
     printf("\n << Ingrese el numero a explotar: ");
     fgets(filtro, MAX, stdin);
-    n = EntradaEntera(filtro, 1, 0, MAX);
-    fflush(stdin);
+    n = EntradaEntera(filtro, 1, -9999, 9999);                                      // Verifica que la entrada sea un entero natural que este dentro del intervalo [-9999; 9999]
+
     printf("\n << Ingrese el valor de la bomba (nro. natural): ");
     fgets(filtro, MAX, stdin);
-    b = EntradaEntera(filtro, 1, 0, 0);
-    fflush(stdin);
+    b = EntradaEntera(filtro, 1, 1, 9999);                                          // Verifica que la entrada sea un entero natural que este dentro del intervalo [1; 9999]
     int *lista = (int *) malloc(sizeof(int) * n); 
     int pos = Explosion(n, b, lista, 0);
     printf("\n >> Fragmentos: ");
+
     for (int i = 0; i < pos; i++) { 
         printf("%d ", lista[i]);
     }

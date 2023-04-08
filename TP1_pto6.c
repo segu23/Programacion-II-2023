@@ -4,6 +4,8 @@
 #include <stdbool.h>
 #include "TP1_Validacion.h"
 
+// Implementación de recursividad - TP Nro. 1 - Punto 6
+
 void mostrarChinos(char * chinos, int cantidadDeChinos, int index){
     int cantidadDeCaracteres = (cantidadDeChinos*6)-1;
     if(index == 0){

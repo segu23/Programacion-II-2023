@@ -21,16 +21,17 @@ int Producto(int m, int n) {
 void main () {
     char filtro[100];
     int numero, factor;
-    for (int i = 0 ; i < 100 ; i++) filtro[i] = '\0';
-    printf("\n // Implementación de recursividad - TP Nro. 1 - Punto 2");
+    memset(filtro, 100, '\0');
+    printf("\n // Implementación de recursividad - TP Nro. 1 - Punto 2 \n");
+
     printf("\n << Ingrese un numero entero: ");
     fgets(filtro, 100, stdin);
-    numero = EntradaEntera(filtro, 0, 0, 0);
-    fflush(stdin);
-    printf(" << Ingrese el factor para realizar la multiplicación: ");
-    for (int i = 0 ; i < 100 ; i++) filtro[i] = '\0';
+    numero = EntradaEntera(filtro, 0, -99999, 99999);                                // Verifica que la entrada sea un entero que se encuentre en el intervalo [-99999, 99999]           
+
+    printf("\n << Ingrese el factor para realizar la multiplicación: ");
+    memset(filtro, 100, '\0');
     fgets(filtro, 100, stdin);
-    factor = EntradaEntera(filtro, 0, 0, 0);
-    fflush(stdin);
-    printf(" >> Producto: %d\n", Producto(factor, numero));
+    factor = EntradaEntera(filtro, 0, -99999, 99999);                                // Verifica que la entrada sea un entero que se encuentre en el intervalo [-99999, 99999]
+
+    printf("\n >> Producto: %d\n", Producto(factor, numero));
 }

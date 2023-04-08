@@ -20,8 +20,7 @@ todos los espacios del vector deben estar inicializados con el carácter "\0" an
 
 2do parámetro (int nroNat): parámetro de uso opcional, funciona como un booleano (1 = verdadero, 0 = falso). 
 Si se desea que la entrada solo admita nros. naturales se debe poner este parámetro en 1, e.g. "EntradaEntera(entrada, 1, 0, 0)". 
-en caso contrario, ponga 0, e.g. "EntradaEntera(entrada, 1, 0, 0)". También determina la funcionalidad de verificar la presencia de comas
-"," o ".", si la nroNat es "1" entonces saldra el mensaje de error para reingreso.
+en caso contrario, ponga 0, e.g. "EntradaEntera(entrada, 1, 0, 0)". 
 
 3er parámetro y 4to parámetro (int LimInferior, int LimSuperior): Si se desea, la función puede verificar que la entrada se encuentre 
 dentro de un rango dado incluyendo los extremos,  e.g. "EntradaEntera(entrada, 1, 1, 5)". Para inhabilitar esta funcionalidad se debe poner 
@@ -33,29 +32,32 @@ int EntradaEntera(char buffer[], int nroNat, int LimInferior, int LimSuperior) {
     do {
         buffer[strcspn(buffer, "\n")] = '\0';
         valido = 1;
-        if (nroNat == 1 && strchr(buffer, ',') != NULL || strchr(buffer, '.') != NULL) {
+        if (strchr(buffer, ',') != NULL || strchr(buffer, '.') != NULL) {
             valido = 0;
-            printf("\n <! Entrada invalida (decimal); ingrese un valor entero: ");
+            printf("\n <! Entrada invalida (decimal)");
 
         }       
         if (sscanf(buffer, "%d", &numero) != 1) {
             valido = 0;
-            printf("\n <! Entrada invalida (alfabetico); ingrese un valor entero: ");
+            printf("\n <! Entrada invalida (alfabetico)");
         } else {
             if (nroNat == 1 && numero <= 0) {
                 valido = 0;
-                printf("\n <! Entrada invalida (valor no natural); ingrese un valor entero: ");
+                printf("\n <! Entrada invalida (valor no natural)");
             }
             if (numero > LimSuperior && LimSuperior != LimInferior) {
                 valido = 0;
-                printf("\n <! Entrada invalida (valor fuera de rango); ingrese un valor entero: ");
+                printf("\n <! Entrada invalida (valor fuera de rango)");
             }
             if (numero < LimInferior && LimSuperior != LimInferior) {
                 valido = 0;
-                printf("\n <! Entrada invalida (valor fuera de rango); ingrese un valor entero: ");
+                printf("\n <! Entrada invalida (valor fuera de rango)");
             }
         }
-        if (valido == 0) fgets(buffer, 100, stdin);
+        if (valido == 0) {
+            printf("\n << Ingrese un valor valido: ");
+            fgets(buffer, 100, stdin);
+        }
     } while (valido == 0);
     fflush(stdin);
     return numero;
