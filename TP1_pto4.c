@@ -1,5 +1,8 @@
 #include "TP1_Validacion.h"
 #include <stdio.h>
+
+// Implementación de recursividad - TP Nro. 1 - Punto 4
+
 /*4. Dados los números enteros m y n, construir una función recursiva que devuelva el
 cociente de ambos, calculando el mismo mediante restas sucesivas. Se deberá tener
 en cuenta que en el caso de que la división no sea exacta, se devolverán hasta 4 cifras
