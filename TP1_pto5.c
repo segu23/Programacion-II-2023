@@ -2,6 +2,8 @@
 #include<stdlib.h>
 #include <string.h>
 
+// Implementación de recursividad - TP Nro. 1 - Punto 5
+
 char *Puntos(char C[]){
     int largo = strlen(C);
     int i, casoBase;
