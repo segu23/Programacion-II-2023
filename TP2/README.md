@@ -1,4 +1,4 @@
-#Trabajo Práctico Nro. 1: Listas
+#Trabajo Práctico Nro. 2: Listas
 
 Participantes:
  - Maria Nazarena Gonzalez (Leg.190217)
