@@ -44,9 +44,9 @@ bool divisiblePor7(int numero){
 
 int main(){
     char filtro[100];
-    printf(" << Ingrese el número que quieres comprobar que sea divisible por 7: ");
+    printf("\n << Ingrese el número que quieres comprobar que sea divisible por 7: ");
     fgets(filtro, 100, stdin);
-    int numero = EntradaEntera(filtro, 1, 0, 0);
+    int numero = EntradaEntera(filtro, 0, 0, 0);
     fflush(stdin);
     if(divisiblePor7(numero)){
         printf(" << El número %i SI es divisible por 7.\n", numero);
