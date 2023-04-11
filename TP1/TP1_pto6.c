@@ -37,12 +37,13 @@ void mostrarChinos(char * chinos, int cantidadDeChinos, int index){
 
 int main(){
     char filtro[100];
-    char *chinos;
+    char *chinos = NULL;
     printf(" << Ingrese el nivel de formación de los Chinos: ");
     fgets(filtro, 100, stdin);
     int nivel = EntradaEntera(filtro, 1, 0, 0);
     fflush(stdin);
     printf(" << Vista frontal de la delegación:\n\n");
     mostrarChinos(chinos, nivel, 0);
+    free(chinos);
     return 0;
 }
