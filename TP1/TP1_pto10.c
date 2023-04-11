@@ -19,7 +19,7 @@ int Explosion(int n, int b, int *lista, int pos) {
     return pos; 
 }
 
-void main() {
+int main() {
     int n, b;
     char filtro[100];
     memset(filtro, '\0', 100);
@@ -31,7 +31,7 @@ void main() {
 
     printf("\n << Ingrese el valor de la bomba (nro. natural): ");
     fgets(filtro, MAX, stdin);
-    b = EntradaEntera(filtro, 1, 1, 9999);                                          // Verifica que la entrada sea un entero natural que este dentro del intervalo [1; 9999]
+    b = EntradaEntera(filtro, 1, 2, 9999);                                          // Verifica que la entrada sea un entero natural que este dentro del intervalo [1; 9999]
     int *lista = (int *) malloc(sizeof(int) * n); 
     int pos = Explosion(n, b, lista, 0);
     printf("\n >> Fragmentos: ");
@@ -41,6 +41,7 @@ void main() {
     }
     printf("\n");
     free(lista); 
+    return 1;
 }
 
 
