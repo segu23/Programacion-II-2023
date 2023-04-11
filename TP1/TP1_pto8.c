@@ -26,7 +26,7 @@ void imprimirSubconjuntos(int *subconjunto, int longitud){
     printf("}\n");
 }
 
-void buscarSubconjuntos(int *conjunto, int longitud, int *subconjunto, int longitud_subconjunto, int suma_deseada){
+void buscarSubconjuntos(int *conjunto, int longitud, int *subconjunto, int longitud_subconjunto, int suma_deseada, int *cont){
     int suma_actual = 0;
 
     for (int i = 0; i < longitud_subconjunto; i++){
@@ -36,6 +36,7 @@ void buscarSubconjuntos(int *conjunto, int longitud, int *subconjunto, int longi
     // caso base de subconjunto válido
     if (suma_actual == suma_deseada && longitud_subconjunto > 0){
         imprimirSubconjuntos(subconjunto, longitud_subconjunto);
+        cont[0]++;
         return;
     }
 
@@ -45,15 +46,17 @@ void buscarSubconjuntos(int *conjunto, int longitud, int *subconjunto, int longi
     }
 
     subconjunto[longitud_subconjunto] = conjunto[0];
-    buscarSubconjuntos(conjunto + 1, longitud - 1, subconjunto, longitud_subconjunto + 1, suma_deseada);
-    buscarSubconjuntos(conjunto + 1, longitud - 1, subconjunto, longitud_subconjunto, suma_deseada);
+    buscarSubconjuntos(conjunto + 1, longitud - 1, subconjunto, longitud_subconjunto + 1, suma_deseada, cont);
+    buscarSubconjuntos(conjunto + 1, longitud - 1, subconjunto, longitud_subconjunto, suma_deseada, cont);
 }
 
 void subconjuntosQueSumanN(int *conjunto, int longitud, int suma_deseada){
     int *subconjunto = malloc(sizeof(int) * longitud);
-
+    int cont[1] = {0};
     // llamado a la funcion recursiva
-    buscarSubconjuntos(conjunto, longitud, subconjunto, 0, suma_deseada);
+    buscarSubconjuntos(conjunto, longitud, subconjunto, 0, suma_deseada, cont);
+
+    if(cont[0] == 0) printf("// No se encontraron subconjuntos //");
 
     free(subconjunto);
 }
