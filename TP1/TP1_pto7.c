@@ -10,10 +10,10 @@
 void OndaDigital(char onda[], int i) {
     if (onda[i] != '\0') {
         if (onda[i] != ' ') {
-            if      (i != 0 && onda[i - 1] != 'H' && onda[i] == 'H') printf("|¯¯");
+            if      (i != 0 && onda[i - 1] != 'H' && onda[i] == 'H') printf("|--");
             else if (i != 0 && onda[i - 1] != 'L' && onda[i] == 'L') printf("|_");
             else if (onda[i] == 'L') printf("_");
-            else if (onda[i] == 'H') printf("¯¯");  
+            else if (onda[i] == 'H') printf("--");  
         }  
         OndaDigital(onda, ++i);
     }
