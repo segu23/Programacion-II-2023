@@ -97,8 +97,9 @@ void l_borrar (Lista lista, int clave) {
     while ((p != NULO) && (lista->cursor[p].siguiente != NULO)) {                   // Similar a punteros, solo no olvidar encadenar el libre
         if (lista->cursor[actual.siguiente].datos->clave == clave) {
             temp = lista->cursor[actual.siguiente];
-            lista->cursor[p].siguiente = lista->cursor[temp.siguiente].siguiente;   // Punto de control; posible error de lógica
+            lista->cursor[p].siguiente = temp.siguiente;                            // Punto de control; posible error de lógica
             lista->cantidad--;
+            actual = lista->cursor[actual.siguiente];
         }
         else actual = lista->cursor[actual.siguiente];
     }
