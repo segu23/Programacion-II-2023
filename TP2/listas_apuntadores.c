@@ -7,12 +7,12 @@ static const int TAMANIO_MAXIMO = 100;
 #ifndef TP2_Listas_Apuntadores
 #define TP2_Listas_Apuntadores
 
-struct Nodo {                                                                       // Se agrega el concepto de Nodo
+struct Nodo {                                                                       
     TipoElemento datos;
     struct Nodo *siguiente;
 };
 
-struct ListaRep {                                                                   // Esta es la lista en esta implementación
+struct ListaRep {                                                                   
     struct Nodo *inicio;
     int cantidad;
 };
@@ -83,7 +83,7 @@ void l_borrar (Lista lista, int clave) {
             lista->cantidad--;
         } 
         else actual = actual->siguiente;
-    }
+    } 
 }
 
 void l_insertar (Lista lista, TipoElemento elemento, int pos) {
@@ -116,9 +116,8 @@ void l_eliminar (Lista lista, int pos) {
         } 
         else {
             for (int i = 0; i < pos - 2; i++) {                                     // Busca la posición para eliminar
-                actual = actual->siguiente;
+                actual = actual->siguiente;                                         // actual apunta al nodo en posición (pos - 1)
             }
-            // actual apunta al nodo en posición (pos - 1)
             struct Nodo *temp = actual->siguiente;                                  // nodo en pos
             actual->siguiente = temp->siguiente;                                    // nodo en pos + 1
             free(temp);

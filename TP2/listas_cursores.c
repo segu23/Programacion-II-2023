@@ -27,7 +27,7 @@ struct IteradorRep {
 
 Lista l_crear () {
     Lista nueva_lista = (Lista) malloc(sizeof(struct ListaRep));
-    nueva_lista->cursor = (Lista) calloc(TAMANIO_MAXIMO, sizeof(struct Nodo));      // ?
+    nueva_lista->cursor = (Lista) calloc(TAMANIO_MAXIMO, sizeof(struct Nodo));   
     nueva_lista->cantidad = 0;
     nueva_lista->inicio = NULO;
     for (int i = 0; i < TAMANIO_MAXIMO - 2; i++) {                                  // Encadeno todos los libres
@@ -59,38 +59,30 @@ TipoElemento l_recuperar (Lista lista, int pos) {
     return temp2->datos;
 }
 
-TipoElemento l_recuperar (Lista lista, int pos) {
-    struct Nodo temp;
-    temp.siguiente = lista->inicio;
-    for (int i = 0 ; i < pos - 1 ; ) {
-        
-    }
-    return temp.datos;
-}
-
 void l_agregar (Lista lista, TipoElemento elemento) {
     if (l_es_llena(lista)) return;                                                  //Controlo la lista llena
-    int p;
-    p = lista->libre;                                                               // Tomo el primer libre
-    lista->libre = lista->cursor[p].siguiente;
-    lista->cursor[p].datos = elemento;                                              // Asigno el dato
-    lista->cursor[p].siguiente = NULO;
+    int pos;
+    pos = lista->libre;                                                               // Tomo el primer libre
+    lista->libre = lista->cursor[pos].siguiente;
+    lista->cursor[pos].datos = elemento;                                              // Asigno el dato
+    lista->cursor[pos].siguiente = NULO;
     if (lista->inicio == NULO) {                                                    // Controlo que no sea el primero de la lista
-        lista->inicio = p;
+        lista->inicio = pos;
     } 
     else {
         int q = lista->inicio;                                                      // lo ubico al final
         while (lista->cursor[q].siguiente != NULO) {
             q = lista->cursor[q].siguiente;
         }
-        lista->cursor[q].siguiente = p;                                             // Lo conecto con el ultimo
+        lista->cursor[q].siguiente = pos;                                             // Lo conecto con el ultimo
     }
     lista->cantidad++;
 }
 
 void l_borrar (Lista lista, int clave) {
     if (l_es_vacia(lista)) return;                                                  // Controlo la lista vacia
-    int q; int p = lista->inicio;
+    int q; 
+    int p = lista->inicio;
     while ((p != NULO) && (lista->cursor[p].datos->clave == clave)) {               // borro las claves que coinciden con el inicio
         q = p;
         lista->inicio = lista->cursor[p].siguiente;
@@ -100,8 +92,15 @@ void l_borrar (Lista lista, int clave) {
         p = lista->inicio;                                                          // Vuelvo a intentar desde el inicio
     }
     p = lista->inicio;                                                              // Borro las claves en el resto de la lista
+    struct Nodo actual = lista->cursor[p];
+    struct Nodo temp;
     while ((p != NULO) && (lista->cursor[p].siguiente != NULO)) {                   // Similar a punteros, solo no olvidar encadenar el libre
-        //
+        if (lista->cursor[actual.siguiente].datos->clave == clave) {
+            temp = lista->cursor[actual.siguiente];
+            lista->cursor[p].siguiente = lista->cursor[temp.siguiente].siguiente;   // Punto de control; posible error de lógica
+            lista->cantidad--;
+        }
+        else actual = lista->cursor[actual.siguiente];
     }
 }
 
@@ -126,24 +125,25 @@ void l_insertar (Lista lista, TipoElemento elemento, int pos) {
     lista->cantidad++;
 }
 
-void l_eliminar (Lista lista, int pos) {
-    int p;                                                                          // Falta controlar lista vacia
+void l_eliminar(Lista lista, int pos) {
+    int p;
     int actual = lista->inicio;
+    if (l_es_vacia == true) return;
     if (1 <= pos && pos <= l_longitud(lista)) {
-        if (pos == 1) {                                                             // borra la primer posicion hay que cambiar el Inicio
+        if (pos == 1) {
             p = actual;
             lista->inicio = lista->cursor[actual].siguiente;
             lista->cursor[p].siguiente = lista->libre;
-            lista->libre = p;                                                       // Devuelvo al libre el nodo que elimine (saque de la lista)
+            lista->libre = p;
         } 
         else {
             for (int i = 0; i < pos - 2; i++) {
-            actual = lista->cursor[actual].siguiente;
-            }                                                                       // actual apunta al nodo en posición (pos - 1)
+                actual = lista->cursor[actual].siguiente;                           // actual apunta al nodo en posición (pos - 1)
+            }
             p = lista->cursor[actual].siguiente;                                    // nodo en pos
             lista->cursor[actual].siguiente = lista->cursor[p].siguiente;           // nodo en pos + 1
             lista->cursor[lista->libre].siguiente = p;
-            lista->libre = p;                                                       // Devuelvo al libre el nodo que elimine (saque de la lista)
+            lista->libre = p;
         }
         lista->cantidad--;
     }
@@ -177,13 +177,19 @@ Iterador iterador (Lista lista) {
 }
 
 bool hay_siguiente (Iterador iterador) {
-    return (iterador->posicionActual != NULL); 
+    return (iterador->posicionActual != NULO); 
 }
 
 TipoElemento siguiente (Iterador iterador) {
     TipoElemento actual = l_recuperar(iterador->lista, (iterador->posicionActual)+1); 
-    iterador->posicionActual = iterador->posicionActual->siguiente;
+    int posActual = iterador->posicionActual;
+    iterador->posicionActual = iterador->lista->cursor[posActual].siguiente;            // %
     return actual;
 }
+/*
+%:  la estructuctura "iterador" referencia por dirección "lista" a campo "cursor" perteneciente a "ListaRep" que almacena la 
+    dirección primera del espacio de memoria "cursor", con "posiciónActual" se puede indexar al "Nodo" correspondiente que almacena 
+    la posición "siguiente" del siguiente nodo. 
+*/
 
 #endif
