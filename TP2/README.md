@@ -1,6 +1,6 @@
-#Trabajo Práctico Nro. 2: Listas
+# Trabajo Práctico Nro. 2: Listas
 
-Participantes:
+## Participantes:
  - Maria Nazarena Gonzalez (Leg.190217)
  - Valentín Joel Romero Monteagudo (Leg. 190306)
  - Segundo Nazareno Schmidt (Leg. 193970)
@@ -8,10 +8,10 @@ Participantes:
  - Agustín Ignacio Gonzalez (Leg. 175631)
  - Ausqui Mateo Javier (Leg. 190236)
  
-Profesor a Cargo de la Asignatura:
+## Profesor a Cargo de la Asignatura:
  - Mario Perello
  
-Trabajos Prácticos a Cargo de:
+## Trabajos Prácticos a Cargo de:
  - Claudia Reinaudi
  - José Racker
  - Pablo Chale
