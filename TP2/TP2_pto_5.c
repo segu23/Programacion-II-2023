@@ -95,7 +95,7 @@ int main(){
     fflush(stdin);
     printf(" << Ingrese el fin del intervalo a calcular: ");
     fgets(filtro, 100, stdin);
-    int finIntervalo = EntradaEntera(filtro, 0, 0, 0);
+    int finIntervalo = EntradaEntera(filtro, 0, comienzoIntervalo, 9999999);
     fflush(stdin);
 
     calcular_funcion_en_intervalo(funcion, comienzoIntervalo, finIntervalo);
