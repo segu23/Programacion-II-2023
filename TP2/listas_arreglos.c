@@ -32,7 +32,7 @@ bool l_es_llena (Lista lista) {
     return lista->cantidad == TAMANIO_MAXIMO; 
 }
 
-int l_ongitud (Lista lista) {
+int l_longitud (Lista lista) {
     return lista->cantidad;
 }
 
