@@ -6,7 +6,6 @@
 
 int Sublista(Lista Lis ,Lista Lis2)
 {
-    int i =1;
     int B =1;       //  B me devuelve el resultado <<B = 1: La lista 2 es sublista de la lista 1>>
     TipoElemento X; //                           <<B = 2: La lista 1 es sublista de la lista 2>>
     TipoElemento Z; //                           <<B = 3: Las listas son iguales>>
@@ -16,15 +15,14 @@ int Sublista(Lista Lis ,Lista Lis2)
     Iterador I2;
 
         if (l_longitud(Lis) >= l_longitud(Lis2)){       //  Si la lista 1 es mayor a la lista 2, verifico si la lista 2 es sub lista de la lista 1.
-            I2= iterador(Lis2);                         //  Se ingresa tambien para comprobar si las listas son iguales.
+            I2= iterador(Lis2);   
+            X = l_recuperar(Lis2, 1);                     //  Se ingresa tambien para comprobar si las listas son iguales.
             while(B==1 && hay_siguiente(I2)){
-                X = l_recuperar(Lis2, i);
                 Z = l_buscar(Lis, X->clave);
                 if (Z == NULL){
                 B = 0;  
                 }
                 X= siguiente(I2);
-                i++;
             }
                 
             if (l_longitud(Lis)==l_longitud(Lis2) && B == 1){               //<--Comprueba si las listason iguales.
@@ -34,15 +32,13 @@ int Sublista(Lista Lis ,Lista Lis2)
         }else if (l_longitud(Lis) < l_longitud(Lis2)){      //Si la lista 2 es mayor a la lista 1, verifico si la lista 1 es sub lista de la lista 2.
             B= 2;
             I1= iterador(Lis);
-                
+            X = l_recuperar(Lis, 1);   
             while(B==2 && hay_siguiente(I1)){
-                X = l_recuperar(Lis, i);
                 Z = l_buscar(Lis2, X->clave);
                 if (Z == NULL){
                     B = 0;  
                 }
                 X= siguiente(I1);
-                i++;
             }   
         }
         
@@ -53,7 +49,7 @@ int Sublista(Lista Lis ,Lista Lis2)
 void main()
 {
     int i, Cant , Resultado;
-    char Valor[20];
+    int Valor;
     Lista L;
     Lista LL;
     TipoElemento H;
@@ -69,18 +65,22 @@ void main()
     fflush( stdin );
     i = 1;
     while (i <= Cant) {
-        printf("\n Ingrese un valor %d para la lista 1:", i);
-        fgets(Valor, 3, stdin);
-		Valor[strcspn(Valor, "\n")] = '\0';
-        fflush( stdin );
-        H= l_buscar(L,Valor[0]);
-        if (H != NULL){
-            printf("Error, Valor repetido");
+        printf("\n Ingrese el entero %d para la lista 1:", i);
+        //fgets(Valor, 3, stdin);
+		//Valor[strcspn(Valor, "\n")] = '\0';
+        if (scanf("%d",&Valor)== 0){
+            printf("\n Error, ingrese enteros");
+            fflush( stdin );
         }else{
-            H = te_crear(Valor[0]);
-            l_agregar(L, H);
-            i = i + 1;
-        }    
+            H= l_buscar(L,Valor);
+            if (H != NULL){
+                printf("\n Error, Valor repetido");
+            }else{
+                H = te_crear(Valor);
+                l_agregar(L, H);
+                i = i + 1;
+            }    
+        }
     }
 
     printf("\n Ingrese el tamanio de la lista 2:");
@@ -91,17 +91,22 @@ void main()
     fflush( stdin );
     i = 1;
     while (i <= Cant) {
-        printf("\n Ingrese un valor %d para la lista 2:", i);
-        fgets(Valor, 3, stdin);
-		Valor[strcspn(Valor, "\n")] = '\0';
-        fflush( stdin );
-        H= l_buscar(LL,Valor[0]);
-        if (H != NULL){
-            printf("Error, Valor repetido");
+        printf("\n Ingrese el entero %d para la lista 2:", i);
+        //fgets(Valor, 3, stdin);
+		//Valor[strcspn(Valor, "\n")] = '\0';
+        if (scanf("%d",&Valor)== 0){
+            printf("\n Error, ingrese enteros");
+            fflush( stdin );
         }else{
-            H = te_crear(Valor[0]);
-            l_agregar(LL, H);
-            i = i +1;
+            
+            H= l_buscar(LL,Valor);
+            if (H != NULL){
+                printf("\n Error, Valor repetido");
+            }else{
+                H = te_crear(Valor);
+                l_agregar(LL, H);
+                i = i +1;
+            }
         }
     }
     printf("\n ---------------------------------\n");
@@ -116,7 +121,7 @@ void main()
         printf("\n La lista 1 es sublista de la lista 2");
 
     }else if(Resultado==3){
-        printf("\n Las listas son iguales");
+        printf("\n Las listas son iguales, por lo tanto cada una es sublista de la otra");
     
     }else if(Resultado == 0){
         printf("\n No se encontraron sublistas");
