@@ -22,14 +22,12 @@ int Sublista(Lista Lis ,Lista Lis2)
                 Z = l_buscar(Lis, X->clave);
                 if (Z == NULL){
                 B = 0;  
-                }else{
-                    l_borrar(Lis, Z->clave);
                 }
                 X= siguiente(I2);
                 i++;
             }
                 
-            if (l_longitud(Lis)==0){               //<--Comprueba si las listason iguales.
+            if (l_longitud(Lis)==l_longitud(Lis2) && B == 1){               //<--Comprueba si las listason iguales.
                 B= 3;
             }
             
@@ -42,8 +40,6 @@ int Sublista(Lista Lis ,Lista Lis2)
                 Z = l_buscar(Lis2, X->clave);
                 if (Z == NULL){
                     B = 0;  
-                }else{
-                    l_borrar(Lis2, Z->clave);
                 }
                 X= siguiente(I1);
                 i++;
@@ -74,7 +70,9 @@ void main()
     i = 1;
     while (i <= Cant) {
         printf("\n Ingrese un valor %d para la lista 1:", i);
-        gets(Valor);
+        fgets(Valor, 3, stdin);
+		Valor[strcspn(Valor, "\n")] = '\0';
+        fflush( stdin );
         H= l_buscar(L,Valor[0]);
         if (H != NULL){
             printf("Error, Valor repetido");
@@ -94,7 +92,9 @@ void main()
     i = 1;
     while (i <= Cant) {
         printf("\n Ingrese un valor %d para la lista 2:", i);
-        gets(Valor);
+        fgets(Valor, 3, stdin);
+		Valor[strcspn(Valor, "\n")] = '\0';
+        fflush( stdin );
         H= l_buscar(LL,Valor[0]);
         if (H != NULL){
             printf("Error, Valor repetido");
@@ -104,9 +104,9 @@ void main()
             i = i +1;
         }
     }
-
-    //l_mostrarLista(L);
-    //l_mostrarLista(LL);
+    printf("\n ---------------------------------\n");
+    l_mostrarLista(L);
+    l_mostrarLista(LL);
     printf("\n ---------------------------------\n");
     
     Resultado = (Sublista(L,LL));
