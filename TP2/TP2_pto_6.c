@@ -8,15 +8,15 @@ int Sublista(Lista Lis ,Lista Lis2)
 {
     int B =1;       //  B me devuelve el resultado <<B = 1: La lista 2 es sublista de la lista 1>>
     TipoElemento X; //                           <<B = 2: La lista 1 es sublista de la lista 2>>
-    TipoElemento Z; //                           <<B = 3: Las listas son iguales>>
+    TipoElemento Z; //                           <<B = 3: Las listas son sublistas entre si>>
                     //                           <<B = 0: No se encontraron sublistas>>
     
     Iterador I1;
     Iterador I2;
 
         if (l_longitud(Lis) >= l_longitud(Lis2)){       //  Si la lista 1 es mayor a la lista 2, verifico si la lista 2 es sub lista de la lista 1.
-            I2= iterador(Lis2);   
-            X = l_recuperar(Lis2, 1);                     //  Se ingresa tambien para comprobar si las listas son iguales.
+            I2= iterador(Lis2);                         //  Se ingresa tambien para comprobar si las listas son iguales.
+            X = l_recuperar(Lis2, 1);                     
             while(B==1 && hay_siguiente(I2)){
                 Z = l_buscar(Lis, X->clave);
                 if (Z == NULL){
@@ -25,7 +25,7 @@ int Sublista(Lista Lis ,Lista Lis2)
                 X= siguiente(I2);
             }
                 
-            if (l_longitud(Lis)==l_longitud(Lis2) && B == 1){               //<--Comprueba si las listason iguales.
+            if (l_longitud(Lis)==l_longitud(Lis2) && B == 1){               //<--Comprueba si las lista son iguales.
                 B= 3;
             }
             
@@ -62,12 +62,15 @@ void main()
         printf("\n Error, ingrese numeros");
         return;
     }
+    if (Cant < 0 || Cant > 100){
+        printf("\n El tamanio de la lista debe ser positivo y menor o igual que 100");
+        return;
+    }
     fflush( stdin );
     i = 1;
     while (i <= Cant) {
         printf("\n Ingrese el entero %d para la lista 1:", i);
-        //fgets(Valor, 3, stdin);
-		//Valor[strcspn(Valor, "\n")] = '\0';
+        
         if (scanf("%d",&Valor)== 0){
             printf("\n Error, ingrese enteros");
             fflush( stdin );
@@ -88,12 +91,15 @@ void main()
         printf("\n Error, ingrese numeros");
         return;
     }
+     if (Cant < 0 || Cant > 100){
+        printf("\n El tamanio de la lista debe ser positivo y menor o igual que 100");
+        return;
+    }
     fflush( stdin );
     i = 1;
     while (i <= Cant) {
         printf("\n Ingrese el entero %d para la lista 2:", i);
-        //fgets(Valor, 3, stdin);
-		//Valor[strcspn(Valor, "\n")] = '\0';
+        
         if (scanf("%d",&Valor)== 0){
             printf("\n Error, ingrese enteros");
             fflush( stdin );
@@ -128,3 +134,5 @@ void main()
     }
 }
 
+// La complejidad algoritmica de la funcion sublista es de algo de O(n^2) orden cuadratico, ya que para saber si alguna de las listas es sublista de otra, recorro la
+// lista mas corta y por cada elemento de esta uso l_buscar en la otra lista que tambien la recorre, entonces teenemos N*N*O(1)= O(n^2)
