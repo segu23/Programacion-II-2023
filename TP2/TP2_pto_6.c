@@ -132,6 +132,9 @@ void main()
     }else if(Resultado == 0){
         printf("\n No se encontraron sublistas");
     }
+    
+    free(L);
+    free(LL);
 }
 
 // La complejidad algoritmica de la funcion sublista es de algo de O(n^2) orden cuadratico, ya que para saber si alguna de las listas es sublista de otra, recorro la
