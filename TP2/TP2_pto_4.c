@@ -1,7 +1,8 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
-#include"listas.h"
+#include"listas_arreglos.c"
+#include"tipo_elemento.c"
 #include"Validacion.h"
 
 #define MAX_BUFFER 101
@@ -288,7 +289,7 @@ void informar_resultado(int resultado) {
 
 }
 
-void cargarListas (cantidad, lista) {
+void cargarListas (int cantidad, Lista lista) {
     char filtro[100];
     int numero;
     TipoElemento elemento;
@@ -297,7 +298,7 @@ void cargarListas (cantidad, lista) {
         printf(" << Ingrese el elemento en posicion %i: ", i+1);
         fgets(filtro, 100, stdin);
         numero = EntradaEntera(filtro, 0, 0, 0);
-        elemento = te_crear_con_valor(i, (void *) numero);
+        elemento = te_crear(numero);
         l_agregar(lista, elemento);
     }
 }
@@ -311,23 +312,13 @@ int main () {
     char filtro[100];
     printf(" << Ingrese la cantidad de elementos de la Lista nro. 1: ");
     fgets(filtro, 100, stdin);
-    int cantidad = EntradaEntera(filtro, 1, 1, 99);
-    cargarListas(cantidad, l1);
+    int cantidadl1 = EntradaEntera(filtro, 1, 1, 99);
+    cargarListas(cantidadl1, l1);
 
     printf(" << Ingrese la cantidad de elementos de la Lista nro. 2: ");
     fgets(filtro, 100, stdin);
-    int cantidad = EntradaEntera(filtro, 1, 1, 99);
-    cargarListas(cantidad, l2);
-    
-    /*
-    l_agregar(l1, te_crear_con_valor(9, (int*)5));
-    l_agregar(l1, te_crear_con_valor(8, (int*)4));
-    l_agregar(l1, te_crear_con_valor(7, (int*)7));
-
-    l_agregar(l2, te_crear_con_valor(22, (int*)5));
-    l_agregar(l2, te_crear_con_valor(10, (int*)2));
-    l_agregar(l2, te_crear_con_valor(19, (int*)2));
-    */
+    int cantidadl2 = EntradaEntera(filtro, 1, 1, 99);
+    cargarListas(cantidadl2, l2);
 
     l_mostrarLista(l1);
     l_mostrarLista(l2);
