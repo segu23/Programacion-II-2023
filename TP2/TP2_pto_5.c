@@ -4,8 +4,8 @@
 #include <math.h>
 #include "Validacion.h"
 
-#include "listas_arreglos.c"
-#include "tipo_elemento.c"
+#include "listas.h"
+#include "tipo_elemento.h"
 
 void mostrar_funcion(Lista funcion){
     Iterador iter = iterador(funcion);
