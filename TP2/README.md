@@ -26,4 +26,4 @@
  
  ## Complejidad Punto 6:
  - La complejidad algoritmica de la funcion sublista es de algo de O(n^2) orden cuadratico, ya que para saber si alguna de las listas es sublista de otra, recorro la
-   lista mas corta y por cada elemento de esta uso l_buscar en la otra lista que tambien la recorre, entonces teenemos N*N*O(1)= O(n^2)
+   lista mas corta y por cada elemento de esta uso l_buscar en la otra lista que tambien la recorre, entonces tenemos N*N*O(1) = O(n^2).
