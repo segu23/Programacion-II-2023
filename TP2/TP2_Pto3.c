@@ -6,8 +6,9 @@
 #include "Validacion.h"
 #include <string.h>
 
-#include "listas_arreglos.c"
-#include "tipo_elemento.c"
+#include "listas.h"
+#include "tipo_elemento.h"
+
 //recibe directamente los dos elementos y los compara
 bool es_divisible (int x1, int x2) {
     //int residuo;
