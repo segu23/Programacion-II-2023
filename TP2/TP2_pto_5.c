@@ -66,7 +66,6 @@ int main(){
     printf(" << Ingrese el grado de la función: ");
     fgets(filtro, 100, stdin);
     int grado = EntradaEntera(filtro, 0, 0, 0);
-    fflush(stdin);
 
     for(int i = grado; i >= 0; i--){
         TipoElemento coeficiente;
@@ -78,7 +77,6 @@ int main(){
         fgets(filtro, 100, stdin);
         int coeficiente_ingresado[1];
         coeficiente_ingresado[0] = EntradaEntera(filtro, 0, 0, 0);
-        fflush(stdin);
         coeficiente = te_crear_con_valor(i, (void *) coeficiente_ingresado[0]);
         l_agregar(funcion, coeficiente);
     }
@@ -92,11 +90,9 @@ int main(){
     printf(" << Ingrese el comienzo del intervalo a calcular: ");
     fgets(filtro, 100, stdin);
     int comienzoIntervalo = EntradaEntera(filtro, 0, 0, 0);
-    fflush(stdin);
     printf(" << Ingrese el fin del intervalo a calcular: ");
     fgets(filtro, 100, stdin);
     int finIntervalo = EntradaEntera(filtro, 0, comienzoIntervalo, 9999999);
-    fflush(stdin);
 
     calcular_funcion_en_intervalo(funcion, comienzoIntervalo, finIntervalo);
 
