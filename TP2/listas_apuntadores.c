@@ -50,7 +50,7 @@ TipoElemento l_recuperar (Lista lista, int pos) {
 
 void l_agregar (Lista lista, TipoElemento elemento) {
     if (l_es_llena(lista)) return;                                                  // si esta llena no agrega
-    struct Nodo *nuevo_nodo = (Nodo *) malloc(sizeof(struct Nodo));
+    struct Nodo *nuevo_nodo = malloc(sizeof(struct Nodo));
     nuevo_nodo->datos = elemento;
     nuevo_nodo->siguiente = NULL;
     if (lista->inicio == NULL) {
@@ -88,7 +88,7 @@ void l_borrar (Lista lista, int clave) {
 
 void l_insertar (Lista lista, TipoElemento elemento, int pos) {
     if (l_es_llena(lista)) return;                                                   // Si esta llena no inserta
-    struct Nodo *nuevo_nodo = (Nodo *) malloc(sizeof(struct Nodo));
+    struct Nodo *nuevo_nodo = malloc(sizeof(struct Nodo));
     nuevo_nodo->datos = elemento;
     nuevo_nodo->siguiente = NULL;
     if (pos == 1) {
