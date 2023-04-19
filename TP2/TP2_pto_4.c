@@ -1,8 +1,10 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<stdbool.h>
-#include"listas_arreglos.c"
-#include"tipo_elemento.c"
+
+#include"listas.h"
+#include"tipo_elemento.h"
+
 #include"Validacion.h"
 
 #define MAX_BUFFER 101
