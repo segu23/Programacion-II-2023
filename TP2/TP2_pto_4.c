@@ -1,10 +1,22 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<stdbool.h>
 #include"listas.h"
+#include"Validacion.h"
+
+#define MAX_BUFFER 101
+
+//IMPORTANTE: La recepción de claves de lista para el testeo está acotada en [-1000, 1000].
+
+const int MAX_CLAVE = 1000;
+const int MIN_CLAVE = -1000;
 
 const int MENOR = -1;
 const int IGUALES = 0;
 const int MAYOR = 1;
+
+const char SI = 's';
+const char NO = 'n';
 
 /*
     El algoritmo compara dos listas ordenadas por clave de menor a mayor (de mayor a menor vale tambien)
@@ -13,7 +25,7 @@ const int MAYOR = 1;
 
 /*
     La complejidad algorìtmica temporal de la solución (obviando el ordenamiento) es: O(n).
-    Siendo n la cantidad de elementos de la lista de menor longitud.
+    Siendo n la lista de menor longitud.
 
     EL peor de los casos (dentro de comparar listas) es que ambas listas tengan elementos y difieran en longitud.
     En este caso, se comparan elementos de ambas n veces y luego se añade al contador correspondiente la cantidad faltante.
@@ -23,13 +35,64 @@ const int MAYOR = 1;
     Nota: Si se considera el ordenamiento, debido a que es bubblesort, la complejidad temporal se vuelve O(n^2).
 
     La complejidad algorítmica espacial de la solución (incluso considerando el ordenamiento) es: O(m).
-    Siendo m la cantidad de elementos de la lista de mayor longitud.
+    Siendo m la lista de mayor longitud.
 
     La cota se da dado que, en el peor de los casos, se tienen dos listas no vacías de tamaño diferente.
     Una es más grande que la otra, por ende, determina la cota espacial.
  */
 
 //Añadi una funcion de ordenamiento, para facilitar el procedimiento del algoritmo
+
+void cargar_buffer (char buffer[]) {
+
+    for (int i = 0; i < MAX_BUFFER; i++) {
+
+        buffer[i] = '\0';
+
+    }
+
+}
+
+void cargar_lista_solo_claves (Lista lista) {
+
+    int i = 0;
+
+    char buffer[MAX_BUFFER];
+    cargar_buffer(buffer);
+
+    char cargar_otro_elemento[2];    //Para cargar el char
+    cargar_otro_elemento[0] = SI;
+    cargar_otro_elemento[1] = 0;
+    cargar_otro_elemento[2] = '\0';
+
+
+    int clave_a_cargar = 0;
+
+    while ((i < 100) && (cargar_otro_elemento[0] == SI)) {
+
+        printf("\nIngrese una clave para el elemento de la lista[-1000, 1000]: ");
+        fgets(buffer, 100, stdin);
+        clave_a_cargar = EntradaEntera(buffer, 0, MIN_CLAVE, MAX_CLAVE);
+        l_agregar(lista, te_crear(clave_a_cargar));
+
+
+        printf("\n¿Desea cargar otro elemento más?[s/n]: ");
+        fgets(cargar_otro_elemento, 2, stdin);
+        while(getchar() != '\n');
+
+        while((cargar_otro_elemento[0] != SI) && (cargar_otro_elemento[0] != NO)) {
+
+            printf("\n¿Desea cargar otro elemento más?[s/n]: ");
+            fgets(cargar_otro_elemento, 2, stdin);
+            while(getchar() != '\n');
+
+        }
+
+        i++;
+
+    }
+
+}
 
 //Devuelve una clave segun sea el primero menor, igual o mayor al segundo
 int comparar_enteros (int primero, int segundo) {
@@ -231,13 +294,10 @@ int main () {
     Lista l1 = l_crear();
     Lista l2 = l_crear();
 
-    l_agregar(l1, te_crear_con_valor(9, (int*)5));
-    l_agregar(l1, te_crear_con_valor(8, (int*)4));
-    l_agregar(l1, te_crear_con_valor(7, (int*)7));
-
-    l_agregar(l2, te_crear_con_valor(22, (int*)5));
-    l_agregar(l2, te_crear_con_valor(10, (int*)2));
-    l_agregar(l2, te_crear_con_valor(19, (int*)2));
+    printf("--Carga de lista 1--\n\n");
+    cargar_lista_solo_claves(l1);
+    printf("\n--Carga de lista 2--\n\n");
+    cargar_lista_solo_claves(l2);
 
     l_mostrarLista(l1);
     l_mostrarLista(l2);
@@ -251,7 +311,6 @@ int main () {
     int resultado = comparar_listas(l1, l2);
 
     informar_resultado(resultado);
-
 
     free(l1);
     free(l2);
