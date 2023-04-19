@@ -16,3 +16,10 @@
  - José Racker
  - Pablo Chale
  - Mariano Goldman
+
+## Complejidad Punto 4:
+ - La cota de complejidad algorìtmica temporal de la solución es: O(n).
+   Siendo n la lista de menor longitud.
+ - La cota de complejidad algorítmica espacial de la solución es: O(m).
+   Siendo m la cantidad de elementos de la lista de mayor longitud.
+ - Ver en justificaciòn en comentarios de archivo TP2_pto_4.c.

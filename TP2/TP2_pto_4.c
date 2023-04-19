@@ -13,7 +13,7 @@ const int MAYOR = 1;
 
 /*
     La complejidad algorìtmica temporal de la solución (obviando el ordenamiento) es: O(n).
-    Siendo n la lista de menor longitud.
+    Siendo n la cantidad de elementos de la lista de menor longitud.
 
     EL peor de los casos (dentro de comparar listas) es que ambas listas tengan elementos y difieran en longitud.
     En este caso, se comparan elementos de ambas n veces y luego se añade al contador correspondiente la cantidad faltante.
@@ -23,7 +23,7 @@ const int MAYOR = 1;
     Nota: Si se considera el ordenamiento, debido a que es bubblesort, la complejidad temporal se vuelve O(n^2).
 
     La complejidad algorítmica espacial de la solución (incluso considerando el ordenamiento) es: O(m).
-    Siendo m la lista de mayor longitud.
+    Siendo m la cantidad de elementos de la lista de mayor longitud.
 
     La cota se da dado que, en el peor de los casos, se tienen dos listas no vacías de tamaño diferente.
     Una es más grande que la otra, por ende, determina la cota espacial.
