@@ -78,7 +78,7 @@ void main()
 
     printf("\n Ingrese el tamanio de la lista 1: ");
     fgets(filtro, 100, stdin);
-    Cant = EntradaEntera(filtro, 1, 1, 100);
+    Cant = EntradaEntera(filtro, 0, 0, 100);
     
     i = 1;
     while (i <= Cant) {
@@ -99,7 +99,7 @@ void main()
 
     printf("\n Ingrese el tamanio de la lista 2:");
     fgets(filtro, 100, stdin);
-    Cant = EntradaEntera(filtro, 1, 1, 100);
+    Cant = EntradaEntera(filtro, 0, 0, 100);
 
     i = 1;
     while (i <= Cant) {
