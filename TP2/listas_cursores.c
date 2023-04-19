@@ -194,10 +194,5 @@ TipoElemento siguiente (Iterador iterador) {
     iterador->posicionActual = iterador->lista->cursor[posActual].siguiente;            // %
     return actual;
 }
-/*
-%:  la estructuctura "iterador" referencia por dirección "lista" a campo "cursor" perteneciente a "ListaRep" que almacena la 
-    dirección primera del espacio de memoria "cursor", con "posiciónActual" se puede indexar al "Nodo" correspondiente que almacena 
-    la posición "siguiente" del siguiente nodo. 
-*/
 
 #endif
