@@ -1,9 +1,9 @@
 #include <stdio.h>
 #include<stdlib.h>
+
 #include"listas.h"
-#include"listas_arreglos.c"
 #include"tipo_elemento.h"
-#include"tipo_elemento.c"
+
 #include "Validacion.h"
 //---------------------------------------------------
 // Encabezados
