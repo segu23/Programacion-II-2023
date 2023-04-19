@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include "Listas.h"
 #include "tipo_elemento.h"
-#include <string.h>
+#include "Validacion.h"
 
 int Sublista(Lista Lis ,Lista Lis2)
 {
@@ -20,9 +22,18 @@ int Sublista(Lista Lis ,Lista Lis2)
             while(B==1 && hay_siguiente(I2)){
                 Z = l_buscar(Lis, X->clave);
                 if (Z == NULL){
-                B = 0;  
+                    B = 0;
+                    printf("No se encontró el %i\n", X->clave);
                 }
                 X= siguiente(I2);
+            }
+
+            if(l_longitud(Lis)>1){
+                Z = l_buscar(Lis, X->clave);
+                if (Z == NULL){
+                    B = 0;
+                    printf("No se encontró el %i\n", X->clave);
+                }
             }
                 
             if (l_longitud(Lis)==l_longitud(Lis2) && B == 1){               //<--Comprueba si las lista son iguales.
@@ -36,10 +47,17 @@ int Sublista(Lista Lis ,Lista Lis2)
             while(B==2 && hay_siguiente(I1)){
                 Z = l_buscar(Lis2, X->clave);
                 if (Z == NULL){
-                    B = 0;  
+                    B = 0;
+                    printf("No se encontró el %i\n", X->clave);
                 }
                 X= siguiente(I1);
             }   
+
+            Z = l_buscar(Lis2, X->clave);
+            if (Z == NULL){
+                B = 0;
+                printf("No se encontró el %i\n", X->clave);
+            }
         }
         
     
@@ -48,6 +66,7 @@ int Sublista(Lista Lis ,Lista Lis2)
 
 void main()
 {
+    char filtro[100];
     int i, Cant , Resultado;
     int Valor;
     Lista L;
@@ -57,64 +76,48 @@ void main()
     L = l_crear();
     LL = l_crear();
 
-    printf("\n Ingrese el tamanio de la lista 1:");
-    if (scanf("%d",&Cant)== 0){
-        printf("\n Error, ingrese numeros");
-        return;
-    }
-    if (Cant < 0 || Cant > 100){
-        printf("\n El tamanio de la lista debe ser positivo y menor o igual que 100");
-        return;
-    }
-    fflush( stdin );
+    printf("\n Ingrese el tamanio de la lista 1: ");
+    fgets(filtro, 100, stdin);
+    Cant = EntradaEntera(filtro, 1, 1, 100);
+    
     i = 1;
     while (i <= Cant) {
         printf("\n Ingrese el entero %d para la lista 1:", i);
+        fgets(filtro, 100, stdin);
+        Valor = EntradaEntera(filtro, 1, 0, 0);
         
-        if (scanf("%d",&Valor)== 0){
-            printf("\n Error, ingrese enteros");
-            fflush( stdin );
-        }else{
-            H= l_buscar(L,Valor);
-            if (H != NULL){
-                printf("\n Error, Valor repetido");
-            }else{
-                H = te_crear(Valor);
-                l_agregar(L, H);
-                i = i + 1;
-            }    
+        H = l_buscar(L,Valor);
+        if (H != NULL){
+            printf("\n Error, Valor repetido");
         }
+        else{
+            H = te_crear(Valor);
+            l_agregar(L, H);
+            i = i + 1;
+        }    
     }
 
     printf("\n Ingrese el tamanio de la lista 2:");
-    if (scanf("%d",&Cant)== 0){
-        printf("\n Error, ingrese numeros");
-        return;
-    }
-     if (Cant < 0 || Cant > 100){
-        printf("\n El tamanio de la lista debe ser positivo y menor o igual que 100");
-        return;
-    }
-    fflush( stdin );
+    fgets(filtro, 100, stdin);
+    Cant = EntradaEntera(filtro, 1, 1, 100);
+
     i = 1;
     while (i <= Cant) {
-        printf("\n Ingrese el entero %d para la lista 2:", i);
-        
-        if (scanf("%d",&Valor)== 0){
-            printf("\n Error, ingrese enteros");
-            fflush( stdin );
-        }else{
-            
-            H= l_buscar(LL,Valor);
-            if (H != NULL){
-                printf("\n Error, Valor repetido");
-            }else{
-                H = te_crear(Valor);
-                l_agregar(LL, H);
-                i = i +1;
-            }
+        printf("\n Ingrese el entero %d para la lista 2: ", i);
+        fgets(filtro, 100, stdin);
+        Valor = EntradaEntera(filtro, 1, 0, 0);
+
+        H= l_buscar(LL,Valor);
+        if (H != NULL){
+            printf("\n Error, Valor repetido");
         }
+        else{
+            H = te_crear(Valor);
+            l_agregar(LL, H);
+            i = i + 1;
+        } 
     }
+
     printf("\n ---------------------------------\n");
     l_mostrarLista(L);
     l_mostrarLista(LL);
