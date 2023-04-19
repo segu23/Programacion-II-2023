@@ -288,16 +288,46 @@ void informar_resultado(int resultado) {
 
 }
 
+void cargarListas (cantidad, lista) {
+    char filtro[100];
+    int numero;
+    TipoElemento elemento;
+    for(int i = 0; i < cantidad; i++){
+        TipoElemento elemento;
+        printf(" << Ingrese el elemento en posicion %i: ", i+1);
+        fgets(filtro, 100, stdin);
+        numero = EntradaEntera(filtro, 0, 0, 0);
+        elemento = te_crear_con_valor(i, (void *) numero);
+        l_agregar(lista, elemento);
+    }
+}
+
 //El main es para hacer tests, ya viene con una prueba cargada
 int main () {
 
     Lista l1 = l_crear();
     Lista l2 = l_crear();
 
-    printf("--Carga de lista 1--\n\n");
-    cargar_lista_solo_claves(l1);
-    printf("\n--Carga de lista 2--\n\n");
-    cargar_lista_solo_claves(l2);
+    char filtro[100];
+    printf(" << Ingrese la cantidad de elementos de la Lista nro. 1: ");
+    fgets(filtro, 100, stdin);
+    int cantidad = EntradaEntera(filtro, 1, 1, 99);
+    cargarListas(cantidad, l1);
+
+    printf(" << Ingrese la cantidad de elementos de la Lista nro. 2: ");
+    fgets(filtro, 100, stdin);
+    int cantidad = EntradaEntera(filtro, 1, 1, 99);
+    cargarListas(cantidad, l2);
+    
+    /*
+    l_agregar(l1, te_crear_con_valor(9, (int*)5));
+    l_agregar(l1, te_crear_con_valor(8, (int*)4));
+    l_agregar(l1, te_crear_con_valor(7, (int*)7));
+
+    l_agregar(l2, te_crear_con_valor(22, (int*)5));
+    l_agregar(l2, te_crear_con_valor(10, (int*)2));
+    l_agregar(l2, te_crear_con_valor(19, (int*)2));
+    */
 
     l_mostrarLista(l1);
     l_mostrarLista(l2);
