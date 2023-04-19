@@ -148,11 +148,24 @@ void l_eliminar(Lista lista, int pos) {
 TipoElemento l_buscar (Lista lista, int clave) {
     int inicio = lista->inicio;
     struct Nodo actual = lista->cursor[inicio];
+    if(l_es_vacia(lista)){
+        return NULL;
+    }
+    if(actual.siguiente == NULO){
+        if (actual.datos->clave == clave) {
+            return actual.datos;
+        }
+    }
     while (actual.siguiente != NULO) {
         if (actual.datos->clave == clave) {
             return actual.datos;
         }
         actual = lista->cursor[actual.siguiente];
+        if(actual.siguiente == NULO){
+            if (actual.datos->clave == clave) {
+                return actual.datos;
+            }
+        }
     }
     return NULL;
 }
