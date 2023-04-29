@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "pilas.c"
+#include "pilas_arreglos.c"
 #include "tipo_elemento.c"
 
 int main(){
