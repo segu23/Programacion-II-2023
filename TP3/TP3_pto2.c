@@ -45,14 +45,14 @@ bool p_existe (Pila pila, int clave) {
     TipoElemento aux;
     Pila Paux = p_crear();
 
-    while (p_es_vacia(pila) != true) {
+    while (!p_es_vacia(pila)) {
         aux = p_desapilar(pila);
 
         if (aux->clave == clave) encontrada = true;
         p_apilar(Paux, aux);
     }
 
-    while (p_es_vacia(Paux) != true) {
+    while (!p_es_vacia(Paux)) {
         p_apilar(pila, p_desapilar(Paux));
     }
 
@@ -67,11 +67,11 @@ void p_insertar (Pila pila, TipoElemento elemento, int posicion) {
     int cont = 0;
     Pila Paux = p_crear();
 
-    while (p_es_vacia(pila)) {
+    while (!p_es_vacia(pila)) {
         p_apilar(Paux, p_desapilar(pila));
     }
     
-    while (p_es_vacia(Paux) != true) {
+    while (!p_es_vacia(Paux)) {
 
         if (cont++ == posicion) p_apilar(pila, elemento);
         else                    p_apilar(pila, p_desapilar(Paux)); 
@@ -88,14 +88,14 @@ void p_borrar_primero (Pila pila, int clave) {
     TipoElemento aux;
     Pila Paux = p_crear();
 
-    while (p_es_vacia(pila) != true) {
+    while (!p_es_vacia(pila)) {
         aux = p_desapilar(pila);
 
         if (aux->clave == clave && primera) primera = false;
         else                               p_apilar(Paux, aux);
     }
 
-    while (p_es_vacia(Paux) != true) {
+    while (!p_es_vacia(Paux)) {
         p_apilar(pila, p_desapilar(Paux));
     }
 
@@ -123,7 +123,7 @@ void p_intercambiar_posicion (Pila pila, int pos1, int pos2) {
     TipoElemento TEsegunda;
     Pila Paux = p_crear();
 
-    while (p_es_vacia(pila)) {
+    while (!p_es_vacia(pila)) {
         cont++;
         aux = p_desapilar(pila);
 
@@ -134,7 +134,7 @@ void p_intercambiar_posicion (Pila pila, int pos1, int pos2) {
     }
     
     cont = 0;
-    while (p_es_vacia(Paux) != true) {
+    while (!p_es_vacia(Paux)) {
         cont++;
 
         if      (cont == primera) p_apilar(pila, TEprimera);
@@ -153,11 +153,11 @@ Pila p_duplicar (Pila pila) {
     Pila Pdup = p_crear();
     TipoElemento aux;
 
-    while (p_es_vacia(pila)) {
+    while (!p_es_vacia(pila)) {
         p_apilar(Paux, p_desapilar(pila));
     }
     
-    while (p_es_vacia(Paux) != true) {
+    while (!p_es_vacia(Paux)) {
         aux = p_desapilar(Paux);
         p_apilar(pila, aux);
         p_apilar(Pdup, aux);
@@ -174,11 +174,11 @@ int p_cantidad (Pila pila) {
     Pila Paux = p_crear();
     int cont = 0;
 
-    while (p_es_vacia(pila)) {
+    while (!p_es_vacia(pila)) {
         p_apilar(Paux, p_desapilar(pila));
     }
     
-    while (p_es_vacia(Paux) != true) {
+    while (!p_es_vacia(Paux)) {
         cont++;
         p_apilar(pila, p_desapilar(Paux));
     }
