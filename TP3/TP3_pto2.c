@@ -237,6 +237,7 @@ int main () {
 
                 if (existe) printf("\n >> El elemento con clave %d existe en la pila base", clave);
                 else        printf("\n >> El elemento con clave %d no existe en la pila base", clave);
+                system("pause");
             } break;
                 
             case 2: {
@@ -252,6 +253,7 @@ int main () {
                 p_insertar(pl, elemento, posicion);
                 printf("\n >> Pila base actualizada: ");
                 p_mostrar(pl);
+                system("pause");
             } break;
 
             case 3: {
@@ -262,6 +264,7 @@ int main () {
                 p_borrar_primero(pl, clave);
                 printf("\n >> Pila base actualizada: ");
                 p_mostrar(pl);
+                system("pause");
             } break;
 
             case 4: {
@@ -276,6 +279,7 @@ int main () {
                 p_intercambiar_posicion(pl, pos1, pos2);
                 printf("\n >> Pila base actualizada: ");
                 p_mostrar(pl);
+                system("pause");
             } break;
 
             case 5: {
@@ -284,10 +288,12 @@ int main () {
                 p_mostrar(pl);
                 printf("\n >> Pila duplicada: ");
                 p_mostrar(Pdup);
+                system("pause");
             } break;
 
             case 6: {
                 printf("\n >> Cantidad de elementos de la pila base: %d", p_cantidad(pl));
+                system("pause");
             } break;
 
             default: break;
