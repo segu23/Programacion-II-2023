@@ -6,7 +6,7 @@
 #include "validacion.h"
 #include "tipo_elemento.c"
 #include "tipo_elemento.h"
-#include "pilas.c"
+#include "pilas_arreglos.c"
 #include "pilas.h"
 
 #define MAX 100
