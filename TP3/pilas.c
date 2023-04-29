@@ -1,7 +1,8 @@
-#include "pilas.h"
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include "pilas.h"
+#include "tipo_elemento.h"
 
 struct Nodo
 {
@@ -52,7 +53,7 @@ bool p_es_vacia(Pila pila)
 void p_mostrar(Pila pila)
 {
     Pila Paux = p_crear();
-    TipoElemento X = crear_te(0);
+    TipoElemento X;
     printf("Contenido de la pila: ");
     // Recorro la pila desopilándola y pasándola al auxiliar
     while (p_es_vacia(pila) != true)
