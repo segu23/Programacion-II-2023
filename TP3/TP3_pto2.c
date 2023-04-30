@@ -6,7 +6,7 @@
 #include "validacion.h"
 #include "tipo_elemento.c"
 #include "tipo_elemento.h"
-#include "pilas_arreglos.c"
+#include "pilas.c"
 #include "pilas.h"
 
 #define MAX 100
@@ -37,7 +37,7 @@ Pila cargar_pila (int longitud, int minimo, int maximo) {
     return pl;
 }
 
-// TipoElemento p_existe (Pila pila, int clave): Buscar una clave y determinar si existe en la Pila (sin perder la pila).
+// TipoElemento p_existe (Pila pila, int clave): Buscar una clave y determinar si existe en la Pila (sin perder la pila)
 bool p_existe (Pila pila, int clave) {
     if (p_es_vacia(pila)) return false;
 
@@ -60,27 +60,30 @@ bool p_existe (Pila pila, int clave) {
     return encontrada;
 }
 
-// void p_insertar (Pila pila, int posicion): Colocar en una posición ordinal determinada, recibida por parámetro, un nuevo elemento (Insertar un elemento nuevo).
+// void p_insertar (Pila pila, int posicion): Colocar en una posición ordinal determinada, recibida por parámetro, un nuevo elemento (Insertar un elemento nuevo)
 void p_insertar (Pila pila, TipoElemento elemento, int posicion) {
     if (p_es_llena(pila))            return;
     if (posicion > p_cantidad(pila)) return;
+
     int cont = 0;
     Pila Paux = p_crear();
 
     while (!p_es_vacia(pila)) {
-        p_apilar(Paux, p_desapilar(pila));
+        if (++cont == p_cantidad(pila) - posicion) {
+            p_apilar(Paux, elemento);
+        }
+
+        else p_apilar(Paux, p_desapilar(pila));
     }
     
     while (!p_es_vacia(Paux)) {
-
-        if (cont++ == posicion) p_apilar(pila, elemento);
-        else                    p_apilar(pila, p_desapilar(Paux)); 
+        p_apilar(pila, p_desapilar(Paux));
     }
 
     free(Paux);
 }
 
-// void p_borrar_primero (Pila pila, int clave): Eliminar de una pila un elemento dado (primera ocurrencia encontrada por la clave).
+// void p_borrar_primero (Pila pila, int clave): Eliminar de una pila un elemento dado (primera ocurrencia encontrada por la clave)
 void p_borrar_primero (Pila pila, int clave) {
     if (p_es_vacia(pila)) return;
 
@@ -102,7 +105,7 @@ void p_borrar_primero (Pila pila, int clave) {
     free(Paux);
 }
 
-// void p_intercambiar_posicion (Pila pila, int pos1, pos2): Intercambiar los valores de 2 posiciones ordinales de la pila, por ejemplo la 2da con la 4ta.
+// void p_intercambiar_posicion (Pila pila, int pos1, pos2): Intercambiar los valores de 2 posiciones ordinales de la pila, por ejemplo la 2da con la 4ta
 void p_intercambiar_posicion (Pila pila, int pos1, int pos2) {                                    
     if (p_es_vacia(pila) || pos1 > p_cantidad(pila) || pos2 > p_cantidad(pila) || pos1 == pos2) return;
 
@@ -145,7 +148,7 @@ void p_intercambiar_posicion (Pila pila, int pos1, int pos2) {
     free(Paux);
 }
 
-// Pila p_duplicar (Pila pila): Duplicar el contenido de una pila.
+// Pila p_duplicar (Pila pila): Duplicar el contenido de una pila
 Pila p_duplicar (Pila pila) {
     if (p_es_vacia(pila)) return p_crear();
 
@@ -167,7 +170,7 @@ Pila p_duplicar (Pila pila) {
     return Pdup;
 }
 
-// int p_cantidad (Pila pila): Contar los elementos de la pila. 
+// int p_cantidad (Pila pila): Contar los elementos de la pila
 int p_cantidad (Pila pila) {
     if (p_es_vacia(pila)) return 0;
 
@@ -194,7 +197,7 @@ int main () {
     Pila pl;
 
     printf("\n << Generando pila base...");
-    printf("\n\n << Ingrese la longitud de la pila [0; MAX]: ");
+    printf("\n\n << Ingrese la longitud de la pila [0; 100]: ");
     fgets(filtro, MAX, stdin);
     int longitud = EntradaEntera(filtro, 0, 0, MAX);
 
@@ -237,6 +240,8 @@ int main () {
 
                 if (existe) printf("\n >> El elemento con clave %d existe en la pila base", clave);
                 else        printf("\n >> El elemento con clave %d no existe en la pila base", clave);
+
+                printf("\n >> ");
                 system("pause");
             } break;
                 
@@ -253,6 +258,8 @@ int main () {
                 p_insertar(pl, elemento, posicion);
                 printf("\n >> Pila base actualizada: ");
                 p_mostrar(pl);
+
+                printf("\n >> ");
                 system("pause");
             } break;
 
@@ -264,6 +271,8 @@ int main () {
                 p_borrar_primero(pl, clave);
                 printf("\n >> Pila base actualizada: ");
                 p_mostrar(pl);
+
+                printf("\n >> ");
                 system("pause");
             } break;
 
@@ -278,7 +287,9 @@ int main () {
 
                 p_intercambiar_posicion(pl, pos1, pos2);
                 printf("\n >> Pila base actualizada: ");
+                
                 p_mostrar(pl);
+                printf("\n >> ");
                 system("pause");
             } break;
 
@@ -288,11 +299,13 @@ int main () {
                 p_mostrar(pl);
                 printf("\n >> Pila duplicada: ");
                 p_mostrar(Pdup);
+
+                printf("\n >> ");
                 system("pause");
             } break;
 
             case 6: {
-                printf("\n >> Cantidad de elementos de la pila base: %d", p_cantidad(pl));
+                printf("\n >> Cantidad de elementos de la pila base: %d \n >> ", p_cantidad(pl));
                 system("pause");
             } break;
 
