@@ -28,37 +28,48 @@ ambos limites con un mismo valor, e.g. "EntradaEntera(entrada, 1, 0, 0)".
 */
 
 int EntradaEntera(char buffer[], int nroNat, int LimInferior, int LimSuperior) {
-    int valido, numero;
+    int valido, numero, i;
+    char numeros[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
     do {
+        i = 0;
         buffer[strcspn(buffer, "\n")] = '\0';
         valido = 1;
         if (strchr(buffer, ',') != NULL || strchr(buffer, '.') != NULL) {
             valido = 0;
             printf("\n <! Entrada invalida (decimal)");
+        }
 
-        }       
-        if (sscanf(buffer, "%d", &numero) != 1) {
-            valido = 0;
-            printf("\n <! Entrada invalida (alfabetico)");
-        } else {
+        do {
+            if (strchr(numeros, buffer[i]) == NULL) {
+                valido = 0;
+                printf("\n <! Entrada invalida (alfabetico)");
+            }
+            i++;
+        } while (buffer[i] != '\0' && valido == 1);
+        
+        sscanf(buffer, "%d", &numero);
+        if (valido == 1) {
             if (nroNat == 1 && numero <= 0) {
                 valido = 0;
                 printf("\n <! Entrada invalida (valor no natural)");
             }
-            if (numero > LimSuperior && LimSuperior != LimInferior) {
+            else if (numero > LimSuperior && LimSuperior != LimInferior) {
                 valido = 0;
                 printf("\n <! Entrada invalida (valor fuera de rango)");
             }
-            if (numero < LimInferior && LimSuperior != LimInferior) {
+            else if (numero < LimInferior && LimSuperior != LimInferior) {
                 valido = 0;
                 printf("\n <! Entrada invalida (valor fuera de rango)");
             }
         }
+
         if (valido == 0) {
             printf("\n << Ingrese un valor valido: ");
             fgets(buffer, 100, stdin);
         }
     } while (valido == 0);
+
     fflush(stdin);
     return numero;
 }
