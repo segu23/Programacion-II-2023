@@ -3,8 +3,8 @@
 #include <string.h>
 #include <ctype.h>
 
-#ifndef TP1_Validacion
-#define TP1_Validacion
+#ifndef Validacion
+#define Validacion
 
 /*
 Instrucciones de uso de la función "EntradaEntera": esta función emite un aviso de reentrada por cada caso de no validación:
