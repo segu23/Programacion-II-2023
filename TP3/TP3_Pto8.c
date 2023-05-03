@@ -84,7 +84,7 @@ void main (){
     
  printf("\n Ingrese el tamanio de la Pila: ");
     fgets(filtro, 100, stdin);
-    Cant = EntradaEntera(filtro, 1, 0, 100);
+    Cant = EntradaEntera(filtro, 0, 1, 100);
     
     i = 1;
     while (i <= Cant) {
