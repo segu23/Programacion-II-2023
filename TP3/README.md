@@ -1,4 +1,4 @@
-# Trabajo Práctico Nro. 2: Listas
+# Trabajo Práctico Nro. 3: Pilas
 
 ## Participantes:
  - Maria Nazarena Gonzalez (Leg.190217)
