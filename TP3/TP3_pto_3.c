@@ -8,10 +8,11 @@
 /*3. Dadas dos pilas, determinar si sus contenidos son exactamente iguales (solo por la
 clave), sin destruirlas. Utilizar para la resolución del problema una única pila auxiliar.
 Determinar la complejidad algorítmica de la solución.*/
-bool compara_pilas(Pila a, Pila b);//complejodad algotirmica de orden(n)-Lineal
+bool compara_pilas(Pila a, Pila b);
 Pila carga_por_teclado();
 
 int main(){
+    printf("complejodad algotirmica de orden(n)-Lineal\n");
     Pila a=p_crear();
     Pila b=p_crear();
     a=carga_por_teclado();
