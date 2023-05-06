@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 #include "tipo_elemento.h"
-#include "pilas.h"`
+#include "pilas.h"
 #include "Validacion.h"
 
 Pila CantRepeticiones(Pila P)
@@ -38,7 +38,7 @@ Pila CantRepeticiones(Pila P)
                 }else{Repe++;}
             }
             Primera= 0;
-            X=te_crear_con_valor(Numero, Repe); //Se guarda en X->Clave el numero y en X->Valor las repeticiones
+            X=te_crear_con_valor(Numero, (void *)Repe); //Se guarda en X->Clave el numero y en X->Valor las repeticiones
             Repe= 0;
             p_apilar(PRta,X);
         }else if(p_es_vacia(P)){
@@ -52,7 +52,7 @@ Pila CantRepeticiones(Pila P)
                     p_apilar(P,X);
                 }else{Repe++;}
             }
-            X=te_crear_con_valor(Numero, Repe);
+            X=te_crear_con_valor(Numero, (void *)Repe);
             Repe = 0;
             p_apilar(PRta,X);    
         }
@@ -121,6 +121,7 @@ while(!p_es_vacia(PMostrarResultado)){
     printf("Pila original\n");
     p_mostrar(P);
     printf("-------------------------------\n");
+    printf("La complejidad algoritmica de la funcion Repeticiones es de algo de O(n^2) orden cuadratico, ya que para recorrer la pila y sacar los valores repetidos necesito de un while de N veces (siendo N el largo de la pila) y dentro de ese while hay otro para sacar el elemento y sus repeticiones, entonces tenemos N*N*O(1)= O(n^2)");
     
 
 }
