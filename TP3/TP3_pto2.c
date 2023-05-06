@@ -13,7 +13,7 @@
 
 // Dada una pila cargada con valores al azar realizar los siguientes ejercicios:
 
-Pila cargar_pila (int, int, int);
+//Pila cargar_pila (int, int, int);
 bool p_existe (Pila, int);
 void p_insertar (Pila, TipoElemento, int);
 void p_borrar_primero (Pila, int);
@@ -22,6 +22,7 @@ Pila p_duplicar (Pila);
 int  p_cantidad (Pila);
 
 // Pila cargar_pila (int cantidad, int inferior, int superior): crea una pila de numeros aleatorios dado una longitud y los extremos de un intervalo de valores posibles
+/*
 Pila cargar_pila (int longitud, int minimo, int maximo) {
     srand(time(NULL));
     TipoElemento elemento;
@@ -36,6 +37,7 @@ Pila cargar_pila (int longitud, int minimo, int maximo) {
 
     return pl;
 }
+*/// Función descartada
 
 // TipoElemento p_existe (Pila pila, int clave): Buscar una clave y determinar si existe en la Pila (sin perder la pila)
 bool p_existe (Pila pila, int clave) {
@@ -62,12 +64,7 @@ bool p_existe (Pila pila, int clave) {
 
 // void p_insertar (Pila pila, int posicion): Colocar en una posición ordinal determinada, recibida por parámetro, un nuevo elemento (Insertar un elemento nuevo)
 void p_insertar (Pila pila, TipoElemento elemento, int posicion) {
-    if (p_es_llena(pila) || posicion > p_cantidad(pila)) return;
-
-    else if (p_es_vacia(pila)) {
-        p_apilar(pila, elemento);
-        return;
-    }
+    if (p_es_llena(pila) || posicion > p_cantidad(pila) + 1) return;
 
     int cont = 0;
     Pila Paux = p_crear();
@@ -75,15 +72,16 @@ void p_insertar (Pila pila, TipoElemento elemento, int posicion) {
     while (!p_es_vacia(pila)) {
         cont++;
 
-        if (cont == posicion) {
-            p_apilar(Paux, elemento);
-        }
-        else p_apilar(Paux, p_desapilar(pila));
+        if (cont == posicion) p_apilar(Paux, elemento);
+        else                  p_apilar(Paux, p_desapilar(pila));
     }
 
-    while (!p_es_vacia(Paux)) {
-        p_apilar(pila, p_desapilar(Paux));
-    }
+    if (posicion == p_cantidad(Paux) + 1) {
+        p_apilar(pila, elemento);
+        while  (!p_es_vacia(Paux)) p_apilar(pila, p_desapilar(Paux));
+    } 
+    
+    else while (!p_es_vacia(Paux)) p_apilar(pila, p_desapilar(Paux));
 
     free(Paux);
 }
@@ -96,15 +94,15 @@ void p_borrar_primero (Pila pila, int clave) {
     TipoElemento aux;
     Pila Paux = p_crear();
 
-    while (!p_es_vacia(pila)) {
-        p_apilar(Paux, p_desapilar(pila));   
+    while (!p_es_vacia(pila) && primera == true) {
+        aux = p_desapilar(pila);
+
+        if (aux->clave == clave && primera) primera = false; 
+        else                                p_apilar(Paux, aux);
     }
 
     while (!p_es_vacia(Paux)) {
-        aux = p_desapilar(Paux);
-
-        if (aux->clave == clave && primera) primera = false;
-        else                                p_apilar(pila, aux);
+        p_apilar(pila, p_desapilar(Paux));
     }
 
     free(Paux);
@@ -200,14 +198,24 @@ int p_cantidad (Pila pila) {
 int main () {
     char filtro[MAX];
     bool corriendo = true;
+    TipoElemento elemento;
     int accion, posicion, clave;
-    Pila pl;
+    Pila pl = p_crear();
 
     printf("\n // Generando pila . . . ");
-    printf("\n << Ingrese la longitud de la pila [1; 100]: ");
+    printf("\n << Ingrese la longitud de la pila [0; 100]: ");
     fgets(filtro, MAX, stdin);
-    int longitud = EntradaEntera(filtro, 0, 1, MAX);
+    int longitud = EntradaEntera(filtro, 0, 0, MAX);
 
+    if (longitud != 0) {
+        for (int i = longitud; i > 0; i--) {
+            printf("\n << Ingrese la clave (pos: %d) a la pila: ", i);
+            fgets(filtro, MAX, stdin);
+            elemento = te_crear(EntradaEntera(filtro, 0, 0, 0));
+            p_apilar(pl, elemento);
+        } 
+    }
+    /*
     printf("\n << Ingrese el valor minimo de generacion aleatoria: ");
     fgets(filtro, MAX, stdin);
     int minimo = EntradaEntera(filtro, 0, 0, 1000);
@@ -216,9 +224,12 @@ int main () {
     fgets(filtro, MAX, stdin);
     int maximo = EntradaEntera(filtro, 0, minimo, 1000);
 
-    pl = cargar_pila(longitud, minimo, maximo);
+    pl = cargar_pila(longitud, minimo, maximo); <-------------------------------------------// Función descartada
+    */
     printf("\n // Pila generada . . . \n >> ");
-    p_mostrar(pl);
+    if (p_es_vacia(pl)) printf("Contenido de la pila: (vacio)");
+    else p_mostrar(pl);
+    
 
     printf("\n >> ");
     system("pause");
@@ -243,64 +254,79 @@ int main () {
             } break;
 
             case 1: {
-                printf("\n << Ingrese la clave a buscar en la pila: ");
-                fgets(filtro, MAX, stdin);
-                clave = EntradaEntera(filtro, 0, 0, 0);
-                bool existe = p_existe(pl, clave);
+                if (!p_es_vacia(pl)) {
+                    printf("\n << Ingrese la clave a buscar en la pila: ");
+                    fgets(filtro, MAX, stdin);
+                    clave = EntradaEntera(filtro, 0, 0, 0);
+                    bool existe = p_existe(pl, clave);
 
-                if (existe) printf("\n >> El elemento con clave %d existe en la pila . . . ", clave);
-                else        printf("\n >> El elemento con clave %d no existe en la pila . . . ", clave);
+                    if (existe) printf("\n >> El elemento con clave %d existe en la pila . . . ", clave);
+                    else        printf("\n >> El elemento con clave %d no existe en la pila . . . ", clave);
+                }
+                else printf("\n >! Pila vacia. Imposible buscar . . .  \n");
 
                 printf("\n << ");
                 system("pause");
             } break;
 
             case 2: {
-                printf("\n << Ingrese la clave del elemento a insertar en la pila: ");
-                fgets(filtro, MAX, stdin);
-                TipoElemento elemento = te_crear(EntradaEntera(filtro, 0, 0, 0));
+                if (!p_es_vacia(pl)) {
+                    printf("\n // Longitud actual de la pila: %d \n", p_cantidad(pl));
+                    printf("\n << Ingrese la posicion (ordinal) del elemento a insertar en la pila: ");
+                    fgets(filtro, MAX, stdin);
+                    posicion = EntradaEntera(filtro, 0, 1, p_cantidad(pl) + 1);
 
-                printf("\n // Longitud actual de la pila: %d", p_cantidad(pl));
-                printf("\n << Ingrese la posicion (ordinal) del elemento a insertar en la pila: ");
-                fgets(filtro, MAX, stdin);
-                posicion = EntradaEntera(filtro, 1, 0, p_cantidad(pl));
+                    printf("\n << Ingrese la clave del elemento a insertar en la pila: ");
+                    fgets(filtro, MAX, stdin);
+                    TipoElemento elemento = te_crear(EntradaEntera(filtro, 0, 0, 0));
 
-                p_insertar(pl, elemento, posicion);
-                printf("\n // Pila actualizada . . . \n >> ");
-                p_mostrar(pl);
+                    p_insertar(pl, elemento, posicion);
+                    printf("\n // Pila actualizada . . . \n >> ");
+                    p_mostrar(pl);
+                }
+                else printf("\n >! Pila vacia. Imposible insertar . . .  \n");
 
                 printf("\n << ");
                 system("pause");
             } break;
 
             case 3: {
-                printf("\n << Ingrese la clave a eliminar (primera ocurrencia encontrada) en la pila: ");
-                fgets(filtro, MAX, stdin);
-                clave = EntradaEntera(filtro, 0, 0, 0);
+                if (!p_es_vacia(pl)) {
+                    printf("\n // Pila original: \n >> ");
+                    p_mostrar(pl);
 
-                p_borrar_primero(pl, clave);
-                printf("\n // Pila actualizada . . . \n >> ");
-                p_mostrar(pl);
+                    printf("\n << Ingrese la clave a eliminar (primera ocurrencia encontrada) en la pila: ");
+                    fgets(filtro, MAX, stdin);
+                    clave = EntradaEntera(filtro, 0, 0, 0);
+
+                    p_borrar_primero(pl, clave);
+                    printf("\n // Pila actualizada . . . \n >> ");
+                    p_mostrar(pl);
+                }
+                else printf("\n >! Pila vacia. Imposible eliminar . . . \n");
 
                 printf("\n << ");
                 system("pause");
             } break;
 
             case 4: {
-                printf("\n << Ingrese la posicion (ordinal) del primer elemento a intercambiar: ");
-                fgets(filtro, MAX, stdin);
-                int pos1 = EntradaEntera(filtro, 1, 0, p_cantidad(pl));
+                if (!p_es_vacia(pl)) {
+                    printf("\n << Ingrese la posicion (ordinal) del primer elemento a intercambiar: ");
+                    fgets(filtro, MAX, stdin);
+                    int pos1 = EntradaEntera(filtro, 0, 1, p_cantidad(pl));
 
-                printf("\n << Ingrese la posicion (ordinal) del segundo elemento a intercambiar: ");
-                fgets(filtro, MAX, stdin);
-                int pos2 = EntradaEntera(filtro, 1, 0, p_cantidad(pl));
+                    printf("\n << Ingrese la posicion (ordinal) del segundo elemento a intercambiar: ");
+                    fgets(filtro, MAX, stdin);
+                    int pos2 = EntradaEntera(filtro, 0, 1, p_cantidad(pl));
 
-                printf("\n // Pila original: \n >> ");
-                p_mostrar(pl);
+                    printf("\n // Pila original: \n >> ");
+                    p_mostrar(pl);
 
-                p_intercambiar_posicion(pl, pos1, pos2);
-                printf("\n // Pila actualizada . . . \n >> ");
-                p_mostrar(pl);
+                    p_intercambiar_posicion(pl, pos1, pos2);
+                    printf("\n // Pila actualizada . . . \n >> ");
+                    p_mostrar(pl);
+                }
+                else printf("\n >! Pila vacia. Imposible intercambiar . . .  \n");
 
                 printf("\n << ");
                 system("pause");
@@ -309,9 +335,12 @@ int main () {
             case 5: {
                 Pila Pdup = p_duplicar(pl);
                 printf("\n // Pila original: \n >> ");
-                p_mostrar(pl);
+                if (p_es_vacia(pl)) printf("Contenido de la pila: (vacio)");
+                else p_mostrar(pl);
+
                 printf("\n // Nueva pila: \n >> ");
-                p_mostrar(Pdup);
+                if (p_es_vacia(pl)) printf("Contenido de la pila: (vacio)");
+                else p_mostrar(pl);
 
                 printf("\n << ");
                 system("pause");
@@ -325,5 +354,6 @@ int main () {
             default: break;
         }
     }
+    printf("\n ----------------------------------------------------------");
     return 0;
 }
