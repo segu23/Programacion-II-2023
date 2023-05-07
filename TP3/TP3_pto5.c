@@ -73,7 +73,7 @@ int main () {
     for (int i = 0; i < longitud; i++) {
         printf("\n << Ingrese la clave nro. %d a la pila: ", i + 1);
         fgets(filtro, MAX, stdin);
-        elemento = te_crear(EntradaEntera(filtro, 0, 0, 0));
+        elemento = te_crear(EntradaEntera(filtro, 0, -1000, 1000));
         p_apilar(pl, elemento);
     }
     /*

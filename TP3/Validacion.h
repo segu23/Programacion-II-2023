@@ -29,10 +29,11 @@ ambos limites con un mismo valor, e.g. "EntradaEntera(entrada, 1, 0, 0)".
 
 int EntradaEntera(char buffer[], int nroNat, int LimInferior, int LimSuperior) {
     int valido, numero, i;
-    char numeros[10] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    int nneg;
+    char numeros[11] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-'};
 
     do {
-        i = 0;
+        i = 0; nneg = 0;
         buffer[strcspn(buffer, "\n")] = '\0';
         valido = 1;
         if (strchr(buffer, ',') != NULL || strchr(buffer, '.') != NULL) {
@@ -48,7 +49,13 @@ int EntradaEntera(char buffer[], int nroNat, int LimInferior, int LimSuperior) {
             i++;
         } while (buffer[i] != '\0' && valido == 1);
         
+        if (strchr(buffer, '-') != NULL) nneg = 1;
+
+        //printf("\n >! Contenido del buffer: %s", buffer);
+        
         sscanf(buffer, "%d", &numero);
+
+        //printf("\n >! Valor en transito: %d", numero);
         if (valido == 1) {
             if (nroNat == 1 && numero <= 0) {
                 valido = 0;

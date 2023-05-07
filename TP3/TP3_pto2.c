@@ -10,6 +10,8 @@
 //#include "pilas.h"
 
 #define MAX 100
+#define MAXV 1000
+#define MINV -1000
 
 // Dada una pila cargada con valores al azar realizar los siguientes ejercicios:
 
@@ -211,7 +213,7 @@ int main () {
         for (int i = longitud; i > 0; i--) {
             printf("\n << Ingrese la clave (pos: %d) a la pila: ", i);
             fgets(filtro, MAX, stdin);
-            elemento = te_crear(EntradaEntera(filtro, 0, 0, 0));
+            elemento = te_crear(EntradaEntera(filtro, 0, MINV, MAXV));
             p_apilar(pl, elemento);
         } 
     }
@@ -257,7 +259,7 @@ int main () {
                 if (!p_es_vacia(pl)) {
                     printf("\n << Ingrese la clave a buscar en la pila: ");
                     fgets(filtro, MAX, stdin);
-                    clave = EntradaEntera(filtro, 0, 0, 0);
+                    clave = EntradaEntera(filtro, 0, MINV, MAXV);
                     bool existe = p_existe(pl, clave);
 
                     if (existe) printf("\n >> El elemento con clave %d existe en la pila . . . ", clave);
@@ -278,7 +280,7 @@ int main () {
 
                     printf("\n << Ingrese la clave del elemento a insertar en la pila: ");
                     fgets(filtro, MAX, stdin);
-                    TipoElemento elemento = te_crear(EntradaEntera(filtro, 0, 0, 0));
+                    TipoElemento elemento = te_crear(EntradaEntera(filtro, 0, MINV, MAXV));
 
                     p_insertar(pl, elemento, posicion);
                     printf("\n // Pila actualizada . . . \n >> ");
@@ -297,7 +299,7 @@ int main () {
 
                     printf("\n << Ingrese la clave a eliminar (primera ocurrencia encontrada) en la pila: ");
                     fgets(filtro, MAX, stdin);
-                    clave = EntradaEntera(filtro, 0, 0, 0);
+                    clave = EntradaEntera(filtro, 0, MINV, MAXV);
 
                     p_borrar_primero(pl, clave);
                     printf("\n // Pila actualizada . . . \n >> ");
