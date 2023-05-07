@@ -12,7 +12,7 @@ bool compara_pilas(Pila a, Pila b);
 Pila carga_por_teclado();
 
 int main(){
-    printf("complejodad algotirmica de orden(n)-Lineal\n");
+    printf("Complejodad algotirmica de orden(5n)-Lineal\n");
     Pila a=p_crear();
     Pila b=p_crear();
     a=carga_por_teclado();
@@ -21,10 +21,10 @@ int main(){
     p_mostrar(b);
     bool cop=compara_pilas(a,b);
     if(cop!=true){
-        printf("las pilas son distintas\n");
+        printf("\n\t\tLas pilas son distintas\n\n");
     }
     else{
-        printf("las pilas son iguales\n");
+        printf("\n\t\tLas pilas son iguales\n\n");
     }
     p_mostrar(a);
     p_mostrar(b);
@@ -34,14 +34,14 @@ Pila carga_por_teclado(){
     Pila p=p_crear();
     TipoElemento elemento;
     char filtro[100];
-    printf("¿Cuantos elementos tendra la pila? ");
+    printf("\n¿Cuantos elementos tendra la pila? ");
     fgets(filtro, 100, stdin);
     int longitud=EntradaEntera(filtro,0,0,100);
     if (longitud != 0) {
         for (int i = 0; i < longitud; i++) {
-            printf("clave elemento:");
+            printf("Clave elemento:");
             fgets(filtro, 100, stdin);
-            int clave=EntradaEntera(filtro,0,0,1000);
+            int clave=EntradaEntera(filtro,0,-1000,1000);
             elemento = te_crear(clave);
             p_apilar(p, elemento);
         }
@@ -88,3 +88,4 @@ bool compara_pilas(Pila a, Pila b){
     }
     return resultado;
 }
+
