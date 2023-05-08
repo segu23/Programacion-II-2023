@@ -4,10 +4,10 @@
 #include <time.h>
 
 #include "validacion.h"
-#include "tipo_elemento.c"
-//#include "tipo_elemento.h"
-#include "pilas.c"
-//#include "pilas.h"
+//#include "tipo_elemento.c"
+#include "tipo_elemento.h"
+//#include "pilas.c"
+#include "pilas.h"
 
 #define MAX 100
 #define MAXV 1000
