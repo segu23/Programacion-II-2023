@@ -46,6 +46,18 @@ void cargar_pila_solo_claves (Pila pila) {
 
     int clave_a_cargar = 0;
 
+    printf("\n¿Desea cargar un elemento?[s/n]: ");
+    fgets(cargar_otro_elemento, 2, stdin);
+    while(getchar() != '\n');
+
+    while((cargar_otro_elemento[0] != SI) && (cargar_otro_elemento[0] != NO)) {
+
+        printf("\n¿Desea cargar un elemento?[s/n]: ");
+        fgets(cargar_otro_elemento, 2, stdin);
+        while(getchar() != '\n');
+
+    }
+
     while ((i < MAX_LONGITUD) && (cargar_otro_elemento[0] == SI)) {
 
         printf("\nIngrese una clave para el elemento de la pila[-1000, 1000]: ");
@@ -271,6 +283,12 @@ void procesar_algoritmo () {
     printf("\nA continuación, la pila resultante:\n");
     p_mostrar(pila_interseccion);
 
+    printf("\n\nPila 1 resulta:\n");
+    p_mostrar(pila_1);
+
+    printf("\n\nPila 2 resulta:\n");
+    p_mostrar(pila_2);
+
     free(pila_1);
     free(pila_2);
     free(pila_interseccion);
@@ -280,15 +298,17 @@ void procesar_algoritmo () {
 void mensaje_bienvenida () {
 
     printf("\n--TP3-PTO7-INTERSECTAR-PILAS--\n\n");
+    printf("\nLa complejidad algorítmica por tiempo de ejecución es O(n^3)\n");
+    printf("\nRecuerde que si una de las pilas está vacia,\n");
+    printf("El resultado será una pila vacía.\n");
 
 }
 
 void mostrar_menu () {
 
     printf("\n-------MENU-------\n");
-    printf("1. Algoritmo\n");
-    printf("2. Complejidad\n");
-    printf("3. Salir\n");
+    printf("1. Iniciar programa\n");
+    printf("2. Salir\n");
 
 }
 
@@ -299,16 +319,16 @@ int recibir_opcion () {
     char buffer[MAX_BUFFER];
     cargar_buffer(buffer);
 
-    printf("\nIngrese su opcion[1, 2 o 3]: ");
+    printf("\nIngrese su opcion[1 o 2]: ");
     fgets(buffer, 100, stdin);
-    opcion = EntradaEntera(buffer, 0, 1, 3);
+    opcion = EntradaEntera(buffer, 0, 1, 2);
 
     return opcion;
 }
 
 void mostrar_complejidad () {
 
-    printf("\nLa complejidad algorítmica por tiempo de ejecución es O(n^3)\n");
+
 
 }
 
@@ -320,9 +340,6 @@ void procesar_menu (int opcion) {
             procesar_algoritmo();
         break;
         case 2:
-            mostrar_complejidad();
-        break;
-        case 3:
             return;
         break;
         default:
