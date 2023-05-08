@@ -4,9 +4,9 @@
 #include <time.h>
 
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
+//#include "tipo_elemento.c"
 #include "pilas.h"
-#include "pilas.c"
+//#include "pilas.c"
 #include "Validacion.h"
 
 #define MAX 100
