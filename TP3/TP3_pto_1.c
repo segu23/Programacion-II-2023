@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "pilas_apuntadores.c"
-#include "tipo_elemento.c"
+#include "pilas.h"
+#include "tipo_elemento.h"
 
 int main(){
     Pila pila = p_crear();

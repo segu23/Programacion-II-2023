@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include "pilas.h"
 #include "tipo_elemento.h"
-#include "pilas_apuntadores.c"
-#include "tipo_elemento.c"
 #include "Validacion.h"
 
 #define MAX 100
@@ -52,8 +50,8 @@ Pila eliminarOcurrenciasIterativamente(Pila pila, int clave){
  * @param iteracion Parametro acumulador que indica la iteración actual
  * @return Pila Pila que resulta de la eliminación de los elementos con la clave
  */
-Pila eliminarOcurrenciasRecursivamente(Pila pila, int clave, Pila aux, Pila resultado, int iteracion){
-    if(iteracion == (pila->cantidad+aux->cantidad)){
+Pila eliminarOcurrenciasRecursivamente(Pila pila, int clave, Pila aux, Pila resultado, int iteracion, int longitud){
+    if(iteracion == longitud){
         while(!p_es_vacia(aux)){
             p_apilar(pila, p_desapilar(aux));
         }
@@ -62,7 +60,7 @@ Pila eliminarOcurrenciasRecursivamente(Pila pila, int clave, Pila aux, Pila resu
         TipoElemento te = p_desapilar(pila);
         if(te->clave != clave) p_apilar(resultado, te);
         p_apilar(aux, te);
-        return eliminarOcurrenciasRecursivamente(pila, clave, aux, resultado, iteracion+1);
+        return eliminarOcurrenciasRecursivamente(pila, clave, aux, resultado, iteracion+1, longitud);
     }
 }
 
@@ -77,25 +75,25 @@ int main(){
     for(int i = 0; i < longitud; i++){
         printf("\n\n << Ingrese un número: ");
         fgets(filtro, MAX, stdin);
-        p_apilar(pila, te_crear(EntradaEntera(filtro, 0, 0, 999999)));
+        p_apilar(pila, te_crear(EntradaEntera(filtro, 0, 0, 0)));
     }
 
     p_mostrar(pila);
     
     printf("\n\n << Ingrese el número a eliminar: ");
     fgets(filtro, MAX, stdin);
-    int numeroObjetivo = EntradaEntera(filtro, 0, 0, MAX);
+    int numeroObjetivo = EntradaEntera(filtro, 0, 0, 0);
 
     printf("\n\n << Ingrese la modalidad a utilizar: ");
-    printf("\n   << RECURSIVAMENTE (1) ");
-    printf("\n   << ITERATIVAMENTE (2) \n");
+    printf("\n   << RECURSIVAMENTE (1) La complejidad de este algoritmo es de O(2n)");
+    printf("\n   << ITERATIVAMENTE (2) La complejidad de este algoritmo es de O(2n)\n");
     fgets(filtro, MAX, stdin);
     int modalidad = EntradaEntera(filtro, 0, 1, 2);
 
     printf("\n");
     Pila resultado;
     if(modalidad){
-        resultado = eliminarOcurrenciasRecursivamente(pila, numeroObjetivo, p_crear(), p_crear(), 0);
+        resultado = eliminarOcurrenciasRecursivamente(pila, numeroObjetivo, p_crear(), p_crear(), 0, longitud);
     }else{
         resultado = eliminarOcurrenciasIterativamente(pila, 1);
     }
