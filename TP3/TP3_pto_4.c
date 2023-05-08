@@ -2,9 +2,10 @@
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
-#include "pilas_apuntadores.c"
-#include "tipo_elemento.c"
+//#include "pilas_apuntadores.c"
+//#include "tipo_elemento.c"
 #include "pilas.h"
+#include "tipo_elemento.h"
 #include "Validacion.h"
 
 
@@ -53,15 +54,15 @@ if (numeroI > 0){
     resultado = DecimalAotrabase(numeroI,baseI);
     printf("El numero pasado a base %i es: %s\n",baseI, resultado);
     }
-if (numeroI < 0){
+else if (numeroI < 0){
     numeroI = (numeroI * -1) ;   
     resultado = DecimalAotrabase(numeroI,baseI);
     printf("El numero pasado a base %i es: -%s\n",baseI, resultado);
         }  
+else printf("El numero pasado a base %i es: 0\n",baseI);
 
 
-
-printf("La complejidad algortimica de la funcion DecimalAotrabase es de  O(Log N) ya que utiliza un ciclo que va dividiendo un \n numero hasta que este llegue a 0\n");
+printf("La complejidad algortimica de la funcion DecimalAotrabase es de  O(Log N) ya que utiliza un ciclo que va dividiendo un \nnumero hasta que este llegue a 0\n");
 system("pause");
 
 
