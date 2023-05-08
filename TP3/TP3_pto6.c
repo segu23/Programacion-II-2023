@@ -97,7 +97,7 @@ int main(){
     for(int i = 0; i < longitud; i++){
         printf("\n\n << Ingrese un número: ");
         fgets(filtro, MAX, stdin);
-        p_apilar(pila, te_crear(EntradaEntera(filtro, 0, 0, 999999)));
+        p_apilar(pila, te_crear(EntradaEntera(filtro, 0, -1000, 1000)));
     }
 
     p_mostrar(pila);
