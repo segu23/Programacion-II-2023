@@ -14,7 +14,7 @@ bool compara_pilas(Pila a, Pila b);
 Pila carga_por_teclado();
 
 int main(){
-    printf("Complejodad algotirmica de orden(5n)-Lineal\n");
+    printf("Complejidad algoritmica de orden(5n)-Lineal\n");
     Pila a=p_crear();
     Pila b=p_crear();
     a=carga_por_teclado();
