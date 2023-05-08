@@ -1,10 +1,12 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#include"pilas_apuntadores.c"
+//#include"pilas_apuntadores.c"
 //#include"pilas_arreglos.c"
-#include"tipo_elemento.c"
-#include"Validacion.h"
+//#include"tipo_elemento.c"
+#include "pilas.h"
+#include "tipo_elemento.h"
+#include "Validacion.h"
 /*3. Dadas dos pilas, determinar si sus contenidos son exactamente iguales (solo por la
 clave), sin destruirlas. Utilizar para la resolución del problema una única pila auxiliar.
 Determinar la complejidad algorítmica de la solución.*/
