@@ -1,9 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 
-#include"pilas_apuntadores.c"
+//#include"pilas_apuntadores.c"
 //#include"pilas_arreglos.c"
-#include"tipo_elemento.c"
+#include "tipo_elemento.h"
+#include "pilas.h"
+//#include"tipo_elemento.c"
 #include"Validacion.h"
 /*3. Dadas dos pilas, determinar si sus contenidos son exactamente iguales (solo por la
 clave), sin destruirlas. Utilizar para la resolución del problema una única pila auxiliar.
@@ -12,7 +14,7 @@ bool compara_pilas(Pila a, Pila b);
 Pila carga_por_teclado();
 
 int main(){
-    printf("Complejodad algotirmica de orden(5n)-Lineal\n");
+    printf("Complejidad algoritmica de orden(5n)-Lineal\n");
     Pila a=p_crear();
     Pila b=p_crear();
     a=carga_por_teclado();
