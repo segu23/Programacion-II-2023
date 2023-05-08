@@ -1,8 +1,6 @@
 #include <stdlib.h>
 #include "pilas.h"
 #include "tipo_elemento.h"
-#include "pilas_apuntadores.c"
-#include "tipo_elemento.c"
 #include "Validacion.h"
 
 #define MAX 100
@@ -117,7 +115,7 @@ int main(){
     printf("\n");
     Pila resultado;
     if(modalidad){
-        resultado = eliminarOcurrenciasRecursivamente(pila, numeroObjetivo, p_crear(), p_crear(), 0);
+        resultado = eliminarOcurrenciasRecursivamente(pila, numeroObjetivo, p_crear(), p_crear(), 0, longitud);
     }else{
         resultado = p_invertir(eliminarOcurrenciasIterativamente(pila, 1));
     }
