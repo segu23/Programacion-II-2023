@@ -90,7 +90,7 @@ void main (){
     while (i <= Cant) {
         printf("\n Ingrese el entero %d para la Pila:", i);
         fgets(filtro, 100, stdin);
-        Valor = EntradaEntera(filtro, 0, 0, 0);
+        Valor = EntradaEntera(filtro, 0, -1000, 1000);
         
             X = te_crear(Valor);
             p_apilar(P, X);
