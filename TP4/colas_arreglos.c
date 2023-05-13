@@ -70,7 +70,7 @@ TipoElemento c_recuperar(Cola cola)
 void c_mostrar(Cola cola)
 {
     Cola Caux = c_crear();
-    TipoElemento X = crear_te(0);
+    TipoElemento X;
     printf("Imprimiendo las Claves de la Cola \n");
     // La cola se debe desencolar y guardar en una auxiliar
     while (c_es_vacia(cola) != true)
