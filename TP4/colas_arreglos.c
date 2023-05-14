@@ -32,12 +32,18 @@ Cola c_crear()
 // Operación encolar de complejidad constante. ¿ Porque ?
 void c_encolar(Cola cola, TipoElemento elemento)
 {
+    if (c_es_llena(cola)) {
+        return;
+    }
     cola->final = paso(cola->final); // Hago avanzar el final
     cola->valores[cola->final] = elemento;
 }
 
 TipoElemento c_desencolar(Cola cola)
 { // Cual es su complejidad ?
+    if (c_es_vacia(cola)) {
+        return NULL;
+    }
     TipoElemento elemento = cola->valores[cola->frente];
     cola->frente = paso(cola->frente); // Avanza el Frente
     return elemento;
@@ -69,6 +75,10 @@ TipoElemento c_recuperar(Cola cola)
 
 void c_mostrar(Cola cola)
 {
+    if (c_es_vacia(cola)){
+        printf("COLA VACIA !!! \n");
+        return;
+    }
     Cola Caux = c_crear();
     TipoElemento X;
     printf("Imprimiendo las Claves de la Cola \n");

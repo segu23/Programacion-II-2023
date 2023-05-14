@@ -37,7 +37,6 @@ void c_encolar(Cola cola, TipoElemento elemento) {
 }
 
 TipoElemento c_desencolar(Cola cola) {
-    int i;
     if (c_es_vacia(cola)) {
         return NULL;
     }
