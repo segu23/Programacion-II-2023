@@ -3,8 +3,6 @@
 #include "colas.h"
 #include "tipo_elemento.h"
 #include "Validacion.h"
-#include "colas_punteros.c"
-#include "tipo_elemento.c"
 
 /*3. Dadas dos colas, determinar si sus contenidos son iguales tanto en posición como en
 datos (solo comparar por la clave), sin destruirlas. Utilizar para la resolución del
