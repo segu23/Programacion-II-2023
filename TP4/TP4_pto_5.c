@@ -7,6 +7,8 @@
 //#include "colas_punteros.c"
 #include "colas.h"
 
+#define MAX 100
+
 /*
 Dada una cola de valores enteros no repetidos y mayores o iguales a 2, obtener todos los valores que son Divisores Totales o parciales. 
 Se dice que un valor es Divisor Total si permite dividir a todos los demás valores de la cola en forma exacta. 
