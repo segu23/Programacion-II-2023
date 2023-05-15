@@ -74,11 +74,11 @@ char filtro[100];
 char filtro2[100];  
 printf("Ingrese el tamanio de la cola:\n");
 fgets(filtro,100,stdin);
-t = EntradaEntera(filtro,1,0,0);
+t = EntradaEntera(filtro,1,0,100);
 printf("Ingrese los elementos de la cola de a 1:\n");
 for (i = 0; i < t; i++){
     fgets(filtro2,100,stdin);
-    dato = EntradaEntera(filtro2,0,0,0);
+    dato = EntradaEntera(filtro2,0, -1000, 1000);
     x = te_crear(dato);
     c_encolar(c,x);
 }
