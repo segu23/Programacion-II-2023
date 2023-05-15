@@ -9,9 +9,9 @@
 #include "Validacion.h"
 #include <string.h>
 #include "colas.h"
-#include "colas_arreglos.c"
+//#include "colas_punteros.c"
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
+//#include "tipo_elemento.c"
 Cola Num_no_repetidos(Cola c, int t){
     int i = 0;
     int i2 = 0;
@@ -74,24 +74,29 @@ char filtro[100];
 char filtro2[100];  
 printf("Ingrese el tamanio de la cola:\n");
 fgets(filtro,100,stdin);
-t = EntradaEntera(filtro,1,0,100);
-printf("Ingrese los elementos de la cola de a 1:\n");
-for (i = 0; i < t; i++){
-    fgets(filtro2,100,stdin);
-    dato = EntradaEntera(filtro2,0, -1000, 1000);
-    x = te_crear(dato);
-    c_encolar(c,x);
+t = EntradaEntera(filtro,0,0,100);
+if (t != 0) {
+    printf("Ingrese los elementos de la cola de a 1:\n");
+    for (i = 0; i < t; i++){
+        fgets(filtro2,100,stdin);
+        dato = EntradaEntera(filtro2,0, -1000, 1000);
+        x = te_crear(dato);
+        c_encolar(c,x);
+    }
 }
 cres = Num_no_repetidos(c,t);
-if (c_es_vacia(cres)== true) {
+if (c_es_vacia(cres) == true) {
  printf("No hay numeros que no se repitan, la cola esta vacia\n");
 }
 else{
-    printf("Cola con los numeros no repetidos:\n");
-   c_mostrar(cres); 
+    printf("\nCola con los numeros no repetidos:\n");
+    c_mostrar(cres); 
 }
-printf("\nLa complejidad algoritmica de la funcion es O(n^2) ya que utiliza dos for anidados\n");
 
+printf("Cola original:\n");
+c_mostrar(c);
+
+printf("\nLa complejidad algoritmica de la funcion es O(n^2) ya que utiliza dos for anidados\n");
 
 system("pause");
     
