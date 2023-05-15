@@ -20,6 +20,7 @@
 const int TOTAL_RAND = 10;
 const int NIVELADOR_RAND = 5;
 
+//Se utiliza para guardar las posiciones, de los elementos en las colecciones, en los punteros a void de lista
 typedef struct posiciones {
 
     int posicion_pila;
@@ -111,6 +112,7 @@ int menor (int un_numero, int otro_numero) {
 
 }
 
+//Para cotejar que una clave no ha sido ya añadida a la lista (utiliza vector claves)
 bool elemento_esta (int clave, int claves[MAX_LONGITUD], int tamanio_claves) {
 
     bool esta = false;
@@ -130,18 +132,6 @@ bool elemento_esta (int clave, int claves[MAX_LONGITUD], int tamanio_claves) {
     }
 
     return esta;
-
-}
-
-posiciones_t* crear_posiciones (int posicion_p, int posicion_c) {
-
-    posiciones_t posiciones;
-    posiciones_t* ptr_posiciones = &posiciones;
-
-    posiciones.posicion_pila = posicion_p;
-    posiciones.posicion_cola = posicion_c;
-
-    return ptr_posiciones;
 
 }
 
@@ -172,9 +162,7 @@ Lista generar_lista_interseccion (Pila pila, Cola cola,
     TipoElemento p_elemento;
     TipoElemento c_elemento;
 
-    TipoElemento aux;
-
-    posiciones_t* posiciones;
+    posiciones_t posiciones[MAX_LONGITUD];
 
     int i = 0;
     int j = 0;
@@ -191,26 +179,11 @@ Lista generar_lista_interseccion (Pila pila, Cola cola,
 
                 if (!elemento_esta(p_elemento->clave, claves, tamanio_claves)) {
 
-                    printf("i %i\n", i);
-                    printf("j %i\n", j);
+                    posiciones[tamanio_claves-1].posicion_pila = i;
+                    posiciones[tamanio_claves-1].posicion_cola = j;
 
-                    aux = te_crear_con_valor(p_elemento->clave, (void*) crear_posiciones(i, j));
-                    posiciones = (posiciones_t*) aux->valor;
+                    l_agregar(lista_interseccion, te_crear_con_valor(p_elemento->clave, &posiciones[tamanio_claves-1]));
 
-                    // Esta seccion de codigo prueba que funciona, el problema esta en la lista
-                    printf("\n%i %i %i\n", aux->clave, posiciones->posicion_pila, posiciones->posicion_cola);
-
-                    //Luego de guardar el primero, la lista solo guarda basura dentro de los punteros a void
-                    //No entiencuentro porque
-
-                    l_insertar(lista_interseccion, aux, 1);
-
-                    aux = l_buscar(lista_interseccion, p_elemento->clave);
-                    posiciones = (posiciones_t*) aux->valor;
-
-                    printf("\n%i %i\n", posiciones->posicion_pila, posiciones->posicion_cola);
-
-                    //claves se utiliza para evitar repeticion, ya coteke que no es el problema
                     claves[tamanio_claves-1] = p_elemento->clave;
                     tamanio_claves++;
 
@@ -285,8 +258,6 @@ void procesar_algoritmo () {
     p_mostrar(pila);
     printf("\nLa cola aleatoria es: ");
     c_mostrar(cola);
-
-    //int tamanio_lista = menor(tamanio_pila, tamanio_cola);
 
     Lista lista_interseccion = generar_lista_interseccion(pila, cola, tamanio_pila, tamanio_cola);
 
