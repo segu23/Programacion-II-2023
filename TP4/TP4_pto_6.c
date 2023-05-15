@@ -17,8 +17,8 @@
 #define MAX_BUFFER 101
 #define MAX_LONGITUD 100
 
-const int TOTAL_RAND = 10;
-const int NIVELADOR_RAND = 5;
+const int TOTAL_RAND = 20;
+const int NIVELADOR_RAND = 10;
 
 //Se utiliza para guardar las posiciones, de los elementos en las colecciones, en los punteros a void de lista
 typedef struct posiciones {
@@ -66,53 +66,6 @@ int obtener_tamanio_cola () {
     return tamanio;
 }
 
-Pila generar_pila_aleatoria (int tamanio_pila) {
-
-    Pila pila = p_crear();
-
-    if (tamanio_pila > 0) {
-
-        for (int i = 1; i <= tamanio_pila; i++) {
-
-            p_apilar(pila, te_crear((rand()%TOTAL_RAND) - NIVELADOR_RAND));
-
-        }
-
-    }
-
-    return pila;
-}
-
-Cola generar_cola_aleatoria (int tamanio_cola) {
-
-    Cola cola = c_crear();
-
-    if (tamanio_cola > 0) {
-
-        for (int i = 1; i <= tamanio_cola; i++) {
-
-            c_encolar(cola, te_crear((rand()%TOTAL_RAND) - NIVELADOR_RAND));
-
-        }
-
-    }
-
-    return cola;
-}
-
-int menor (int un_numero, int otro_numero) {
-
-    if (un_numero <= otro_numero) {
-
-        return un_numero;
-
-    }
-
-    return otro_numero;
-
-}
-
-//Para cotejar que una clave no ha sido ya añadida a la lista (utiliza vector claves)
 bool elemento_esta (int clave, int claves[MAX_LONGITUD], int tamanio_claves) {
 
     bool esta = false;
@@ -132,6 +85,100 @@ bool elemento_esta (int clave, int claves[MAX_LONGITUD], int tamanio_claves) {
     }
 
     return esta;
+
+}
+
+Pila generar_pila_aleatoria (int tamanio_pila) {
+
+    Pila pila = p_crear();
+
+    if (tamanio_pila > 0) {
+
+        int claves[MAX_LONGITUD];
+
+        for (int i = 0; i < MAX_LONGITUD; i++) {
+
+            claves[i] = TOTAL_RAND + 1;
+
+        }
+
+        int tamanio_claves = 0;
+
+        int clave = 0;
+
+        int cargados = 0;
+
+        while (cargados < tamanio_pila) {
+
+            clave = (rand()%TOTAL_RAND) - NIVELADOR_RAND;
+
+            if (!elemento_esta(clave, claves, tamanio_claves)) {
+
+                p_apilar(pila, te_crear(clave));
+
+                claves[cargados] = clave;
+                tamanio_claves++;
+
+                cargados++;
+            }
+
+        }
+
+    }
+
+    return pila;
+}
+
+Cola generar_cola_aleatoria (int tamanio_cola) {
+
+    Cola cola = c_crear();
+
+    if (tamanio_cola > 0) {
+
+        int claves[MAX_LONGITUD];
+
+        for (int i = 0; i < MAX_LONGITUD; i++) {
+
+            claves[i] = TOTAL_RAND + 1;
+
+        }
+
+        int tamanio_claves = 0;
+
+        int clave = 0;
+
+        int cargados = 0;
+
+        while (cargados < tamanio_cola) {
+
+            clave = (rand()%TOTAL_RAND) - NIVELADOR_RAND;
+
+            if (!elemento_esta(clave, claves, tamanio_claves)) {
+
+                c_encolar(cola, te_crear(clave));
+
+                claves[cargados] = clave;
+                tamanio_claves++;
+
+                cargados++;
+            }
+
+        }
+
+    }
+
+    return cola;
+}
+
+int menor (int un_numero, int otro_numero) {
+
+    if (un_numero <= otro_numero) {
+
+        return un_numero;
+
+    }
+
+    return otro_numero;
 
 }
 
