@@ -2,10 +2,10 @@
 #include <stdlib.h>
 
 #include "validacion.h"
-#include "tipo_elemento.c"
-//#include "tipo_elemento.h"
-#include "colas_punteros.c"
-//#include "colas.h"
+//#include "tipo_elemento.c"
+#include "tipo_elemento.h"
+//#include "colas_punteros.c"
+#include "colas.h"
 
 #define MAX 100
 #define MAXV 1000
@@ -21,63 +21,41 @@ Ejemplo: si “C” contiene (8, 12, 2, 6, 4) se dice que “2” es el divisor 
 Y “4” es divisor parcial por divide a 8,12 y el mismo. 
 */
 
-void BuscarDivisores(Cola cola, Cola cdivtot, Cola cdivpar, int longitud) {
+void BuscarDivisores(Cola cola, Cola cdivtot, Cola cdivpar, float longitud) {
     if (c_es_vacia(cola)) return;
 
     TipoElemento aux, div;
-    int i, t, cont = 1;
+    int i, t, cont = 0;
 
-    for (i = 0; i < longitud; i++) {                                        // Posible error de lógica
+    for (i = 0; i < longitud; i++) {                                        
         aux = c_desencolar(cola);
         div = aux;
         c_encolar(cola, aux);
 
-        for (t = 1; t <= longitud; t++) {                                   // Posible error de lógica
+        for (t = 1; t <= longitud; t++) {                                   
             aux = c_desencolar(cola);
 
-            if (aux->clave % div->clave == 0) cont++;
+            if (aux->clave % div->clave == 0) cont++; 
 
             c_encolar(cola, aux);
         }
 
-        if      (cont == longitud)     c_encolar(cdivtot, div);
-        else if (cont >= longitud / 2) c_encolar(cdivpar, div);
+        if      (cont == longitud)               c_encolar(cdivtot, div);
+        else if (cont >= (float) (longitud / 2)) c_encolar(cdivpar, div);
 
         cont = 0;
     }
 }
 
-int c_cantidad (Cola cola) {
-    if (c_es_vacia(cola)) return 0;
-    
-    TipoElemento aux;
-    Cola Caux = c_crear();
-    int cont = 0;
-    int cantidad = c_cantidad(cola);
-
-    while (!c_es_vacia(cola)) {
-        c_encolar(Caux, c_desencolar(cola));
-        cont++;
-    }
-
-    while (!c_es_vacia(Caux)) {
-        c_encolar(cola, c_desencolar(Caux));
-    }
-
-    free(Caux);
-    return cont;
-}
-
-bool c_existe (Cola cola, int clave) {
+bool c_existe (Cola cola, int clave, int longitud) {
     if(c_es_vacia(cola)) return false;
 
     TipoElemento aux;
     bool salida = false;
-    int cantidad = c_cantidad(cola);
-    printf("\n Gate 1");
-    for (int i = 0; i < cantidad; i++) {
+
+    for (int i = 0; i < longitud; i++) {
         aux = c_desencolar(cola);
-        printf("\n Gate %d", i);
+
         if (aux->clave == clave) {
             salida = true;
         }
@@ -108,34 +86,35 @@ int main () {
 
             if (strchr(filtro, '-') != NULL) elemento = te_crear(EntradaEntera(filtro, 0, -1000, -2));
             else                             elemento = te_crear(EntradaEntera(filtro, 0, 2, 1000));
-            printf("\n Gate logico");
-            repite = c_existe(cl, elemento->clave);
 
-            if (repite) printf("\n>! Clave repetida; ingrese de nuevo . . . ");
+            repite = c_existe(cl, elemento->clave, longitud);
+
+            if (repite) printf("\n>! Clave repetida; ingrese de nuevo . . . \n");
             
         } while (repite);
 
         c_encolar(cl, elemento);
     }
    
-    printf("\n>> Pila generada . . . \n");
-    c_mostrar(cl);
+    if (longitud != 0) {
+        printf("\n>> Pila generada . . . \n");
+        c_mostrar(cl);
 
-    Cola cdivtot = c_crear();
-    Cola cdivpar = c_crear();
+        Cola cdivtot = c_crear();
+        Cola cdivpar = c_crear();
 
-    BuscarDivisores(cl, cdivtot, cdivpar, c_cantidad(cl));
+        BuscarDivisores(cl, cdivtot, cdivpar, longitud);
 
-    printf("\n>> Divisores totales . . . \n");
-    c_mostrar(cdivtot);
+        printf("\n>> Divisores totales . . . \n");
+        c_mostrar(cdivtot);
 
-    printf("\n>> Divisores parciales . . . \n");
-    c_mostrar(cdivpar);
+        printf("\n>> Divisores parciales . . . \n");
+        c_mostrar(cdivpar);
+    } 
+    else printf("\n>! Pila vacia. Imposible buscar divisores . . . \n");
 
-    printf("\nPlaceholder; la comlejidad de la solución es (BuscarDivisores()) es de O(n**2).");
-    printf("\nSi se considera tambien la complejidad de contar los elementos (c_cantidad() y BuscarDivisores()) entonces la complejidad sería O(2n) + O(n**2) = O(n**2)");
+    printf("\n>> Complejidad algoritmica; la complejidad de la solución de (BuscarDivisores()) es de O(n**2).");
+    printf("\n>> Terminando programa . . . \n");
 
-    printf("\n\n>> ");
-    system("pause");
     return 0;
 }
