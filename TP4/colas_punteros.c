@@ -109,4 +109,5 @@ TipoElemento c_recuperar(Cola cola) {
     else {
         X = cola->frente->datos;
     }
+    return X;
 }
