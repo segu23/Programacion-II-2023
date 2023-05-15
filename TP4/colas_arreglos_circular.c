@@ -90,6 +90,7 @@ TipoElemento c_recuperar(Cola cola) {
     else {
         X = cola->valores[cola->frente];
     }
+    return X;
 }
 
 
