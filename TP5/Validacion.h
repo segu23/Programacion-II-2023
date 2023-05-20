@@ -1,0 +1,102 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#ifndef Validacion
+#define Validacion
+
+/*
+Instrucciones de uso de la función "EntradaEntera": esta función emite un aviso de reentrada por cada caso de no validación:
+    - Si la entrada es decimal (opcional).
+    - Si la entrada contiene caracteres alfabeticos.
+    - Si la entrada no es natural (opcional).
+    - Si la entrada se halla fuera de rango (opcional).
+
+La función retornara un nro. entero válido según si se requiera que sea natural o que se halle dentro de un rango como si no.
+
+1er parámetro (char buffer[]): la instrucción requiere que toda ingreso por teclado a verificar sea proveido dentro de un "char vector[]".
+todos los espacios del vector deben estar inicializados con el carácter "\0" antes de asignarle el input.
+
+2do parámetro (int nroNat): parámetro de uso opcional, funciona como un booleano (1 = verdadero, 0 = falso). 
+Si se desea que la entrada solo admita nros. naturales se debe poner este parámetro en 1, e.g. "EntradaEntera(entrada, 1, 0, 0)". 
+en caso contrario, ponga 0, e.g. "EntradaEntera(entrada, 1, 0, 0)". 
+
+3er parámetro y 4to parámetro (int LimInferior, int LimSuperior): Si se desea, la función puede verificar que la entrada se encuentre 
+dentro de un rango dado incluyendo los extremos,  e.g. "EntradaEntera(entrada, 1, 1, 5)". Para inhabilitar esta funcionalidad se debe poner 
+ambos limites con un mismo valor, e.g. "EntradaEntera(entrada, 1, 0, 0)". 
+*/
+
+int EntradaEntera(char buffer[], int nroNat, int LimInferior, int LimSuperior) {
+    int valido, numero, i;
+    int nneg;
+    char numeros[11] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '-'};
+
+    do {
+        i = 0; nneg = 0;
+        buffer[strcspn(buffer, "\n")] = '\0';
+        valido = 1;
+        if (strchr(buffer, ',') != NULL || strchr(buffer, '.') != NULL) {
+            valido = 0;
+            printf("\n <! Entrada invalida (decimal)");
+        }
+
+        do {
+            if (strchr(numeros, buffer[i]) == NULL) {
+                valido = 0;
+                printf("\n <! Entrada invalida (alfabetico)");
+            }
+            i++;
+        } while (buffer[i] != '\0' && valido == 1);
+        
+        if (strchr(buffer, '-') != NULL) nneg = 1;
+
+        //printf("\n >! Contenido del buffer: %s", buffer);
+        
+        sscanf(buffer, "%d", &numero);
+
+        //printf("\n >! Valor en transito: %d", numero);
+        if (valido == 1) {
+            if (nroNat == 1 && numero <= 0) {
+                valido = 0;
+                printf("\n <! Entrada invalida (valor no natural)");
+            }
+            else if (numero > LimSuperior && LimSuperior != LimInferior) {
+                valido = 0;
+                printf("\n <! Entrada invalida (valor fuera de rango)");
+            }
+            else if (numero < LimInferior && LimSuperior != LimInferior) {
+                valido = 0;
+                printf("\n <! Entrada invalida (valor fuera de rango)");
+            }
+        }
+
+        if (valido == 0) {
+            printf("\n << Ingrese un valor valido: ");
+            fgets(buffer, 100, stdin);
+        }
+    } while (valido == 0);
+
+    fflush(stdin);
+    return numero;
+}
+
+/*
+Instrucciones de uso de la función "CadenaValida": esta función retorna un int como booleano (1 = V, 0 = F) dado una cadena de caracteres que se desea verficar 
+y otra cadena con los caracteres permitidos (en mayúscula) por el programador, e.g. CadenaValida(entrada, {'a', 'b', 'c', '\0'})
+*/
+
+int CadenaValida(char entrada[],  char permitidos[]) {
+    int valido = 1 , i;
+    entrada[strcspn(entrada, "\n")] = '\0';
+    for (i = 0; entrada[i] != '\0' && valido != 0; i++) {
+           entrada[i] = toupper(entrada[i]);
+           if (strrchr(permitidos,  entrada[i]) == NULL) {
+               printf(" !! Cadena invalida...... ¡¡\n");
+               valido = 0;
+            }
+    }   
+    return valido;
+}
+
+#endif
