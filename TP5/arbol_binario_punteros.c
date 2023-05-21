@@ -77,20 +77,20 @@ bool n_buscar_eliminar(NodoArbol padre, NodoArbol hijo, bool eliminado) {
             else if (hijo->hd != NULL) padre->hd = hijo->hd;  
             eliminado = true;             
         }
+
+        return eliminado;
     }
 
     else if (!eliminado) {
         n_buscar_eliminar(n_hijoizquierdo(padre), hijo, eliminado);
         n_buscar_eliminar(n_hijoderecho(padre),   hijo, eliminado);
     }
-    
-    return eliminado;
 }
 
 void eliminar_nodo(ArbolBinario a, NodoArbol n) {
     if (a == NULL || n == NULL || (n->hi != NULL && n->hd != NULL)) return;
 
-    else if (a->raiz != NULL && a->cant_nodos = 1 && a->raiz == n) {
+    else if (a->cant_nodos = 1 && a->raiz == n) {
         free(a->raiz);
         a->raiz == NULL;
         a->cant_nodos--;
