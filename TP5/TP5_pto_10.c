@@ -12,13 +12,12 @@ int arbol_max(int a, int b) {
 
 int calcularAlturaArbol(NodoArbol nodo) {
     if (nodo == NULL) {
-        return 0; // Si el nodo es nulo, la altura es 0
+        return 0;
     }
 
     int altura_izq = calcularAlturaArbol(nodo->hi);
     int altura_der = calcularAlturaArbol(nodo->hd);
 
-    // La altura del árbol es la máxima altura entre el subárbol izquierdo y derecho, más 1 por el nodo actual
     return arbol_max(altura_izq, altura_der) + 1;
 }
 
