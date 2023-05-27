@@ -6,6 +6,11 @@
 #include "Validacion.h"
 #include "tipo_elemento.h"
 
+#include "tipo_elemento.c"
+#include "arbol_avl.c"
+#include "arbol_binario_busqueda.c"
+#include "nodo.c"
+
 int arbol_max(int a, int b) {
     return a > b ? a : b;
 }
@@ -84,5 +89,5 @@ int main(){
     printf(" > Max: %i\n", maxBB);
     printf(" > Promedio: %i\n", contBB/cantidadRepeticiones);
     printf("\n");
-    printf(" - En conclusión, el auto-balanceo del arbol AVL es muy significante con respecto al binario de busqueda en");
+    printf(" - En conclusión, el auto-balanceo del arbol AVL es muy significante con respecto al binario de busqueda, \nllegando a reducirse practicamente a la mitad teniendo en cuenta su rama mas larga");
 }
