@@ -20,21 +20,18 @@ void mostrar_pocisiones(Lista L);
 
 /*Función que solicita el ingreso de un número entero o de "." como representación de nulo. La misma 
 devuelve verdadero en el primer caso y falso en el segundo.*/
-int ingresoEntero(int* n){
+bool ingresoEntero(int* n){
     char s[10];
-    int resultado =0;
+    bool resultado =true;
     *n=0;
     printf("Ingrese una clave numérica o '.' para nulo: ");
     scanf("%s", s);
     if (s[0]=='.'){
-        resultado = 1;
+        resultado = false;
     }else{
         for (int i = 0; s[i] != '\0'; i++) {
             if ((s[i]>='0')&&(s[i]<='9')){
                 *n = *n * 10 + (s[i] - 48);}
-            else{
-                resultado=2;
-            }
         }
     }
     return resultado;
@@ -49,10 +46,10 @@ void Cargar_SubArbol(ArbolBinario A, NodoArbol N, int sa){
     TipoElemento X;
     NodoArbol N1;
     int n;
-    int b;
+    bool b;
     if(!a_es_lleno(A)){
         b= ingresoEntero(&n);
-        if (b=0){
+        if (b){
             X= te_crear(n);
             
             if(sa == -1) N1 = a_conectar_hi(A, N, X);
@@ -61,8 +58,6 @@ void Cargar_SubArbol(ArbolBinario A, NodoArbol N, int sa){
 
             Cargar_SubArbol(A, N1, -1);
             Cargar_SubArbol(A, N1, 1);
-        }else{
-            printf("valor no valido\n");
         }
     }    
 }
@@ -106,16 +101,16 @@ Lista hojaslista(NodoArbol N){
         if ((n_hijoizquierdo(N)==NULL)&&(n_hijoderecho(N)==NULL)){
             x=n_recuperar(N);
             l_agregar(ret,x);
-        }else{
-            hojaslista(n_hijoizquierdo(N));
-            hojaslista(n_hijoderecho(N));
         }
+        hojaslista(n_hijoizquierdo(N));
+        hojaslista(n_hijoderecho(N));
     }
     return ret;
 }
 Lista hojas(ArbolBinario a){
     Lista ret;
-    hojaslista(a_raiz(a));
+    ret=l_crear();
+    ret=hojaslista(a_raiz(a));
     return ret;
 }
 
@@ -125,7 +120,7 @@ Lista interioreslista(NodoArbol N,NodoArbol R){
     TipoElemento X;
     Ret=l_crear();
     if (N!=NULL){
-        if ((n_hijoizquierdo(N)!=NULL)&&(n_hijoderecho(N)!=NULL)&&(N!=R)){
+        if (((n_hijoizquierdo(N)!=NULL)||(n_hijoderecho(N)!=NULL))&&(N!=R)){
             X=n_recuperar(N);
             l_agregar(Ret,X);
         }else{
@@ -149,9 +144,9 @@ Lista BuscarNodoslista(NodoArbol N, NodoArbol A){
     int i=0;
     Ret=l_crear();
     if (N!=NULL){
-        if ((N==A)){//cambiar
-            X=te_crear_con_valor(i,N);//cambiar
-            l_agregar(Ret,X);//cambiar
+        if ((N==A)){
+            X=te_crear_con_valor(i,N);
+            l_agregar(Ret,X);
             i++;
         }else{
             BuscarNodoslista(n_hijoizquierdo(N),A);
