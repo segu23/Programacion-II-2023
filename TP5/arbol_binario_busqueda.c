@@ -1,8 +1,7 @@
 #include "arbol_binario_busqueda.h"
 #include "nodo.h"
 
-static const int TAMANIO_MAXIMO = 100;
-
+#define TAMANIO_MAXIMO 100
 
 struct ArbolBinarioBusquedaRep {
     NodoArbol raiz;

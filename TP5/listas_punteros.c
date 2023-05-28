@@ -3,10 +3,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static const int TAMANIO_MAXIMO = 100;
+#define TAMANIO_MAXIMO_LISTAS 100
 
-#ifndef TP2_Listas_Apuntadores
-#define TP2_Listas_Apuntadores
+#ifndef LISTAS_PUNTEROS_C
+#define LISTAS_PUNTEROS_C
 
 struct Nodo {                                                                       
     TipoElemento datos;
@@ -34,7 +34,7 @@ bool l_es_vacia (Lista lista) {
 }
 
 bool l_es_llena (Lista lista) {
-    return lista->cantidad == TAMANIO_MAXIMO; 
+    return lista->cantidad == TAMANIO_MAXIMO_LISTAS; 
 }
 
 int l_longitud (Lista lista) {

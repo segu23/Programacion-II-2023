@@ -1,7 +1,7 @@
 #include "nodo.h"
 #include "arbol_avl.h"
 
-static const int TAMANIO_MAXIMO = 100;
+#define TAMANIO_MAXIMO_AVL 100
 
 NodoArbol avl_rotar_derecha(NodoArbol nodo);
 
@@ -33,7 +33,7 @@ bool avl_es_vacio(ArbolAVL a) {
 }
 
 bool avl_es_lleno(ArbolAVL a){
-    return (a->cantidad_elementos == TAMANIO_MAXIMO);
+    return (a->cantidad_elementos == TAMANIO_MAXIMO_AVL);
 }
 
 bool avl_es_rama_nula(NodoArbol pa) {

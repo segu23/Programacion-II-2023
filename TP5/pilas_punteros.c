@@ -5,7 +5,7 @@
 #include "pilas.h"
 #include "tipo_elemento.h"
 
-static const int TAMANIO_MAXIMO = 100;
+#define TAMANIO_MAXIMO 100
 
 struct Nodo
 {
