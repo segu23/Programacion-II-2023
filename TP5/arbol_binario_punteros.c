@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static const int TAMANIO_MAXIMO = 100;                                              
+#define TAMANIO_MAXIMO 100                                              
 
 #ifndef ARBOL_BINARIO_PUNTEROS_C
 #define ARBOL_BINARIO_PUNTEROS_C
@@ -81,27 +81,25 @@ bool n_buscar_eliminar(NodoArbol padre, NodoArbol hijo, bool eliminado) {
         return eliminado;
     }
 
-    else if (!eliminado) {
-        n_buscar_eliminar(n_hijoizquierdo(padre), hijo, eliminado);
-        n_buscar_eliminar(n_hijoderecho(padre),   hijo, eliminado);
-    }
+    else if (!eliminado) eliminado = n_buscar_eliminar(n_hijoizquierdo(padre), hijo, eliminado);
+    else if (!eliminado) eliminado = n_buscar_eliminar(n_hijoderecho(padre),   hijo, eliminado);
 }
 
-void eliminar_nodo(ArbolBinario a, NodoArbol n) {
-    if (a == NULL || n == NULL || (n->hi != NULL && n->hd != NULL)) return;
+void eliminar_nodo(ArbolBinario a, NodoArbol pa) {
+    if (a == NULL || pa == NULL || (pa->hi != NULL && pa->hd != NULL)) return;
 
-    else if (a->cant_nodos = 1 && a->raiz == n) {
+    else if (a->cant_nodos = 1 && a->raiz == pa) {
         free(a->raiz);
         a->raiz == NULL;
         a->cant_nodos--;
     }
 
-    else if (n_buscar_eliminar(a->raiz, n, false)) {
-        free(n);
+    else if (n_buscar_eliminar(a->raiz, pa, false)) {
+        free(pa);
         a->cant_nodos--;
     }
-    
-
 }
+
+
 
 #endif
