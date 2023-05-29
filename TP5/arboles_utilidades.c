@@ -8,6 +8,13 @@
 #ifndef ARBOLES_UTILIDADES_C
 #define ARBOLES_UTILIDADES_C
 
+void imprimir_espacios(int);
+void mostrar_arbol_binario_ascii_recursivo(NodoArbol, int, char*);
+void ln_mostrarLista(Iterador);
+void preorden(NodoArbol, Lista);
+void inorden(NodoArbol, Lista);
+void postorden(NodoArbol, Lista);
+
 void imprimir_espacios(int n) {
     for (int i = 0; i < n; i++) printf(" ");
 }
