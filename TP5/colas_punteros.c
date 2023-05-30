@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-static const int TAMANIO_MAXIMO = 99;
+#define TAMANIO_MAXIMO 99
 
 struct Nodo {
     TipoElemento datos;
@@ -25,19 +25,16 @@ Cola c_crear(void) {
 }
 
 void c_encolar(Cola cola, TipoElemento elemento) {
-    if (c_es_llena(cola)) {
-        return;
-    }
+    if (c_es_llena(cola)) return;
 
     struct Nodo *nuevo_nodo = malloc(sizeof(struct Nodo));
     nuevo_nodo->datos = elemento;
     nuevo_nodo->siguiente = NULL;
 
-    if (c_es_vacia(cola)) {
-        cola->frente = nuevo_nodo;
-    } else {
-        cola->final->siguiente = nuevo_nodo;
-    }
+    if (c_es_vacia(cola)) cola->frente = nuevo_nodo;
+    
+    else                  cola->final->siguiente = nuevo_nodo;
+    
     cola->final = nuevo_nodo;
 }
 
@@ -102,12 +99,10 @@ void c_mostrar(Cola cola) {
 
 TipoElemento c_recuperar(Cola cola) {
     TipoElemento X;
-    if (c_es_vacia(cola)) {
-        X = NULL;
-    }
-    else {
-        X = cola->frente->datos;
-    }
 
+    if (c_es_vacia(cola)) X = NULL;
+    
+    else                  X = cola->frente->datos;
+    
     return X;
 }

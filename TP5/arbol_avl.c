@@ -1,7 +1,7 @@
 #include "nodo.h"
 #include "arbol_avl.h"
 
-static const int TAMANIO_MAXIMO = 100;
+#define TAMANIO_MAXIMO 100
 
 NodoArbol avl_rotar_derecha(NodoArbol nodo);
 
@@ -53,33 +53,36 @@ NodoArbol avl_crear_nodo(TipoElemento te) {
     na->datos = te;
     na->hi = NULL;
     na->hd = NULL;
-
+    na->FE = 0;
     return na;
 }
 
 enum Balanceo avl_calcular_balanceo(NodoArbol nodo) {
     int diferenciaAltura = avl_altura_izq(nodo) - avl_altura_der(nodo);
     switch (diferenciaAltura) {
-        case -2: return DESBALANCEADO_DERECHA;
-
-        case -1: return APENAS_DESBALANCEADO_DERECHA;
-
-        case 1:  return APENAS_DESBALANCEADO_IZQUIERDA;
-        
-        case 2:  return DESBALANCEADO_IZQUIERDA;
-        
-        default: return BALANCEADO;
+        case -2:
+            return DESBALANCEADO_DERECHA;
+        case -1:
+            return APENAS_DESBALANCEADO_DERECHA;
+        case 1:
+            return APENAS_DESBALANCEADO_IZQUIERDA;
+        case 2:
+            return DESBALANCEADO_IZQUIERDA;
+        default:
+            return BALANCEADO;
     }
 }
 
 NodoArbol avl_insertar_recursivo(ArbolAVL a, TipoElemento te, NodoArbol pa) {
-    if (pa == NULL) return avl_crear_nodo(te);
+    if (pa == NULL) {
+        return avl_crear_nodo(te);
+    }
 
-    if (te->clave < pa->datos->clave) pa->hi = avl_insertar_recursivo(a, te, pa->hi);
-    
-    else if (te->clave > pa->datos->clave) pa->hd = avl_insertar_recursivo(a, te, pa->hd);
-    
-    else {
+    if (te->clave < pa->datos->clave) {
+        pa->hi = avl_insertar_recursivo(a, te, pa->hi);
+    } else if (te->clave > pa->datos->clave) {
+        pa->hd = avl_insertar_recursivo(a, te, pa->hd);
+    } else {
         // Es una inserción de un elemento duplicado
         // decrementamos para compensar el incremento
         // hecho anteriormente
@@ -94,9 +97,7 @@ NodoArbol avl_insertar_recursivo(ArbolAVL a, TipoElemento te, NodoArbol pa) {
         if (te->clave < pa->hi->datos->clave) {
             // Caso rotación derecha
             pa = avl_rotar_derecha(pa);
-        } 
-        
-        else {
+        } else {
             // Caso rotación izquierda-derecha
             pa->hi = avl_rotar_izquierda(pa->hi);
             return avl_rotar_derecha(pa);
@@ -107,9 +108,7 @@ NodoArbol avl_insertar_recursivo(ArbolAVL a, TipoElemento te, NodoArbol pa) {
         if (te->clave > pa->hd->datos->clave) {
             // Caso rotación izquierda
             pa = avl_rotar_izquierda(pa);
-        } 
-        
-        else {
+        } else {
             // Caso rotación derecha-izquierda
             pa->hd = avl_rotar_derecha(pa->hd);
             return avl_rotar_izquierda(pa);
@@ -127,7 +126,8 @@ void avl_insertar(ArbolAVL a, TipoElemento te) {
 NodoArbol avl_buscar_minimo(NodoArbol nodoArbol) {
     NodoArbol actual = nodoArbol;
 
-    while (actual && actual->hi != NULL) actual = actual->hi;
+    while (actual && actual->hi != NULL)
+        actual = actual->hi;
 
     return actual;
 }
@@ -138,10 +138,10 @@ NodoArbol avl_eliminar_recursivo(ArbolAVL arbol, NodoArbol nodoArbol, int claveA
         return nodoArbol;
     }
 
-    if (claveABorrar < nodoArbol->datos->clave) nodoArbol->hi = avl_eliminar_recursivo(arbol, nodoArbol->hi, claveABorrar);
-
-    else if (claveABorrar > nodoArbol->datos->clave) nodoArbol->hd = avl_eliminar_recursivo(arbol, nodoArbol->hd, claveABorrar);
-    
+    if (claveABorrar < nodoArbol->datos->clave)
+        nodoArbol->hi = avl_eliminar_recursivo(arbol, nodoArbol->hi, claveABorrar);
+    else if (claveABorrar > nodoArbol->datos->clave)
+        nodoArbol->hd = avl_eliminar_recursivo(arbol, nodoArbol->hd, claveABorrar);
     else {
         if (nodoArbol->hi == NULL && nodoArbol->hd == NULL) {
 //            free(nodoArbol);
@@ -165,14 +165,17 @@ NodoArbol avl_eliminar_recursivo(ArbolAVL arbol, NodoArbol nodoArbol, int claveA
         }
     }
 
-    if (nodoArbol == NULL) return nodoArbol;
+    if (nodoArbol == NULL) {
+        return nodoArbol;
+    }
 
     // Actualizar altura y re-balancear el árbol de ser necesario
     nodoArbol->FE = avl_max(avl_altura_izq(nodoArbol), avl_altura_der(nodoArbol)) + 1;
     enum Balanceo balanceState = avl_calcular_balanceo(nodoArbol);
 
     if (balanceState == DESBALANCEADO_IZQUIERDA) {
-        if (avl_calcular_balanceo(nodoArbol->hi) == BALANCEADO || avl_calcular_balanceo(nodoArbol->hi) == APENAS_DESBALANCEADO_IZQUIERDA) {
+        if (avl_calcular_balanceo(nodoArbol->hi) == BALANCEADO ||
+                avl_calcular_balanceo(nodoArbol->hi) == APENAS_DESBALANCEADO_IZQUIERDA) {
             return avl_rotar_derecha(nodoArbol);
         }
 
@@ -182,10 +185,10 @@ NodoArbol avl_eliminar_recursivo(ArbolAVL arbol, NodoArbol nodoArbol, int claveA
     }
 
     if (balanceState == DESBALANCEADO_DERECHA) {
-        if (avl_calcular_balanceo(nodoArbol->hd) == BALANCEADO || avl_calcular_balanceo(nodoArbol->hd) == APENAS_DESBALANCEADO_DERECHA) {
+        if (avl_calcular_balanceo(nodoArbol->hd) == BALANCEADO ||
+                avl_calcular_balanceo(nodoArbol->hd) == APENAS_DESBALANCEADO_DERECHA) {
             return avl_rotar_izquierda(nodoArbol);
         }
-
         // avl_calcular_balanceo(nodoArbol->hd) === Balanceo.APENAS_DESBALANCEADO_DERECHA
         nodoArbol->hd = avl_rotar_derecha(nodoArbol->hd);
         return avl_rotar_izquierda(nodoArbol);
@@ -200,13 +203,14 @@ void avl_eliminar(ArbolAVL a, int claveABorrar) {
 }
 
 TipoElemento avl_buscar_recursivo(NodoArbol nodoArbol, int clave) {
-    if (nodoArbol == NULL) return NULL;
-
-    else if (clave < nodoArbol->datos->clave) return avl_buscar_recursivo(nodoArbol->hi, clave);
-
-    else if (clave > nodoArbol->datos->clave) return avl_buscar_recursivo(nodoArbol->hd, clave);
-    
-    else return nodoArbol->datos;
+    if (nodoArbol == NULL)
+        return NULL;
+    else if (clave < nodoArbol->datos->clave)
+        return avl_buscar_recursivo(nodoArbol->hi, clave);
+    else if (clave > nodoArbol->datos->clave)
+        return avl_buscar_recursivo(nodoArbol->hd, clave);
+    else
+        return nodoArbol->datos;
 }
 
 TipoElemento avl_buscar(ArbolAVL a, int clave) {
@@ -219,14 +223,16 @@ TipoElemento avl_buscar(ArbolAVL a, int clave) {
 ////////////////////////////////////
 
 int avl_altura_izq(NodoArbol nodo) {
-    if (nodo->hi == NULL) return -1;
-
+    if (nodo->hi == NULL) {
+        return -1;
+    }
     return nodo->hi->FE;
 }
 
 int avl_altura_der(NodoArbol nodo) {
-    if (nodo->hd == NULL) return -1;
-
+    if (nodo->hd == NULL) {
+        return -1;
+    }
     return nodo->hd->FE;
 }
 

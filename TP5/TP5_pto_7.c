@@ -6,18 +6,19 @@
 bool Equibool(NodoArbol AB1,NodoArbol AB2){
     bool ret=true;
     TipoElemento x1,x2;
-    if ((AB1 == NULL)&&(AB2 == NULL)){} 
-    else if ((AB1 == NULL)||(AB2 == NULL)){
-        ret=false;
-    }else{
+    if ((AB1 != NULL)&&(AB2 != NULL)){
         x1=n_recuperar(AB1);
         x2=n_recuperar(AB2);
-        if(x1!=x2){ret=false;}
-        else{
-            Equibool(n_hijoizquierdo(AB1),n_hijoizquierdo(AB2));
-            Equibool(n_hijoderecho(AB1),n_hijoderecho(AB2));
+        if(x1->clave!=x2->clave){
+            ret=false;
+            return ret;
         }
-    }
+        ret=Equibool(n_hijoizquierdo(AB1),n_hijoizquierdo(AB2));
+        ret=Equibool(n_hijoderecho(AB1),n_hijoderecho(AB2));
+    }else if (((AB1 == NULL)&&(AB2 != NULL))||((AB1 != NULL)&&(AB2 == NULL))){
+        ret=false;
+        return ret;
+        }
     return ret;
 }
 bool Equi(ArbolBinario a, ArbolBinario b){
@@ -40,9 +41,7 @@ int ingresoEntero(int* n){
         for (int i = 0; s[i] != '\0'; i++) {
             if ((s[i]>='0')&&(s[i]<='9')){
                 *n = *n * 10 + (s[i] - 48);}
-            else{
-                resultado=2;
-            }
+            else{resultado=2;}
         }
     }
     return resultado;
@@ -60,7 +59,7 @@ void Cargar_SubArbol(ArbolBinario A, NodoArbol N, int sa){
     int b;
     if(!a_es_lleno(A)){
         b= ingresoEntero(&n);
-        if (b=0){
+        if (b==0){
             X= te_crear(n);
             
             if(sa == -1) N1 = a_conectar_hi(A, N, X);
@@ -69,8 +68,9 @@ void Cargar_SubArbol(ArbolBinario A, NodoArbol N, int sa){
 
             Cargar_SubArbol(A, N1, -1);
             Cargar_SubArbol(A, N1, 1);
-        }else{
-            printf("Valor no valido\n");
+        }else if(b==2){
+            printf("<! Entrada invalida (valor fuera de rango)\n");
+            Cargar_SubArbol(A, N,sa);
         }
     }    
 }

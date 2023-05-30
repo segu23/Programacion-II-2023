@@ -15,7 +15,7 @@ d. Determinar la complejidad algorítmica de los puntos “a”, “b”, “c�
 #include <stdlib.h>
 Lista hojas(ArbolBinario a);
 Lista interiores(ArbolBinario a);
-Lista BuscarNodos(ArbolBinario a,NodoArbol n);
+Lista BuscarNodos(ArbolBinario a,int b);
 void mostrar_pocisiones(Lista L);
 
 /*Función que solicita el ingreso de un número entero o de "." como representación de nulo. La misma 
@@ -32,9 +32,7 @@ int ingresoEntero(int* n){
         for (int i = 0; s[i] != '\0'; i++) {
             if ((s[i]>='0')&&(s[i]<='9')){
                 *n = *n * 10 + (s[i] - 48);}
-            else{
-                resultado=2;
-            }
+            else{resultado=2;}
         }
     }
     return resultado;
@@ -52,7 +50,7 @@ void Cargar_SubArbol(ArbolBinario A, NodoArbol N, int sa){
     int b;
     if(!a_es_lleno(A)){
         b= ingresoEntero(&n);
-        if (b=0){
+        if (b==0){
             X= te_crear(n);
             
             if(sa == -1) N1 = a_conectar_hi(A, N, X);
@@ -61,12 +59,12 @@ void Cargar_SubArbol(ArbolBinario A, NodoArbol N, int sa){
 
             Cargar_SubArbol(A, N1, -1);
             Cargar_SubArbol(A, N1, 1);
-        }else{
-            printf("valor no valido\n");
+        }else if(b==2){
+            printf("<! Entrada invalida (valor fuera de rango)\n");
+            Cargar_SubArbol(A, N,sa);
         }
     }    
 }
-
 /*Función que recibe el árbol a ser cargado y llama a la función recursiva que realiza
 la carga nodo por nodo*/
 void cargar_arbol_binario(ArbolBinario A){
@@ -76,7 +74,6 @@ void main(){
     ArbolBinario A,B;
     NodoArbol n;
     int c;
-    TipoElemento x;
     Lista L;
     char filtro[100];
     L=l_crear();
@@ -89,81 +86,74 @@ void main(){
     printf("--------------------Nodos interiores del arbol--------------------\n");
     L=interiores(A);
     l_mostrarLista(L);
-    printf("nodo a buscar:");
-    c=EntradaEntera(filtro,0,-100,100);
-    x=te_crear(c);
-    n=n_crear(x);
+    printf("<<Nodo a buscar:");
+    fgets(filtro,100,stdin);
+    c=EntradaEntera(filtro,0,0,1000);
     printf("--------------------Pocision de los nodos con la clave buscada--------------------\n");
-    L=BuscarNodos(A,n);   
+    L=BuscarNodos(A,c);   
     mostrar_pocisiones(L);
 }
 //Retornar una lista con todos los nodos terminales u hojas.
-Lista hojaslista(NodoArbol N){
-    Lista ret;
+Lista hojaslista(NodoArbol N,Lista ret){
     TipoElemento x;
-    ret=l_crear();
     if (N!=NULL){
         if ((n_hijoizquierdo(N)==NULL)&&(n_hijoderecho(N)==NULL)){
             x=n_recuperar(N);
             l_agregar(ret,x);
-        }else{
-            hojaslista(n_hijoizquierdo(N));
-            hojaslista(n_hijoderecho(N));
         }
+        hojaslista(n_hijoizquierdo(N),ret);
+        hojaslista(n_hijoderecho(N),ret);
     }
     return ret;
 }
 Lista hojas(ArbolBinario a){
     Lista ret;
-    hojaslista(a_raiz(a));
+    ret=l_crear();
+    ret=hojaslista(a_raiz(a),ret);
     return ret;
 }
 
 //Retornar en una estructura todos los nodos interiores (los que no son ni hojas ni raíz)
-Lista interioreslista(NodoArbol N,NodoArbol R){
-    Lista Ret;
-    TipoElemento X;
-    Ret=l_crear();
+Lista interioreslista(NodoArbol N,int R,Lista Ret){
+    TipoElemento X,n;
     if (N!=NULL){
-        if ((n_hijoizquierdo(N)!=NULL)&&(n_hijoderecho(N)!=NULL)&&(N!=R)){
+        n=n_recuperar(N);
+        if (((n_hijoizquierdo(N)!=NULL)||(n_hijoderecho(N)!=NULL))&&(n->clave!=R)){
             X=n_recuperar(N);
             l_agregar(Ret,X);
-        }else{
-            interioreslista(n_hijoizquierdo(N),R);
-            interioreslista(n_hijoderecho(N),R);
         }
+        interioreslista(n_hijoizquierdo(N),R,Ret);
+        interioreslista(n_hijoderecho(N),R,Ret);
     }
     return Ret;
 }
 Lista interiores(ArbolBinario a){
     Lista Ret;
+    TipoElemento r;
+    r=n_recuperar(a_raiz(a));
     Ret=l_crear();
-    Ret= interioreslista(a_raiz(a),a_raiz(a));
+    Ret= interioreslista(a_raiz(a),r->clave,Ret);
     return Ret;
 }
 
 //Buscar todas las ocurrencias de una clave dentro del árbol. Retornar la posición de cada ocurrencia (puntero al nodo).
-Lista BuscarNodoslista(NodoArbol N, NodoArbol A){
-    Lista Ret;
-    TipoElemento X;
-    int i=0;
-    Ret=l_crear();
+Lista BuscarNodoslista(NodoArbol N,int A,Lista Ret){
+    TipoElemento X,n;
     if (N!=NULL){
-        if ((N==A)){//cambiar
-            X=te_crear_con_valor(i,N);//cambiar
-            l_agregar(Ret,X);//cambiar
-            i++;
-        }else{
-            BuscarNodoslista(n_hijoizquierdo(N),A);
-            BuscarNodoslista(n_hijoderecho(N),A);
+        n=n_recuperar(N);
+        if ((n->clave==A)){
+            X=te_crear_con_valor(0,N);
+            l_agregar(Ret,X);
         }
+        BuscarNodoslista(n_hijoizquierdo(N),A,Ret);
+        BuscarNodoslista(n_hijoderecho(N),A,Ret);
     }
     return Ret;
 }
-Lista BuscarNodos(ArbolBinario a,NodoArbol n){
+Lista BuscarNodos(ArbolBinario a,int b){
     Lista Ret;
     Ret=l_crear();
-    Ret=BuscarNodoslista(a_raiz(a),n);
+    Ret=BuscarNodoslista(a_raiz(a),b,Ret);
     return Ret;
 }
 
@@ -174,6 +164,6 @@ void mostrar_pocisiones(Lista L){
     i=iterador(L);
     while(hay_siguiente(i)){
         x=siguiente(i);
-        printf("pocision:%p\n",x->valor);
+        printf("pocision: %p\n",x->valor);
     }
 }
