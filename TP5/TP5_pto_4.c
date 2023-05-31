@@ -3,8 +3,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include "arbol_binario.h"
-#include "Listas_Arreglos.c"
-#include "colas_punteros.c"
+#include "listas.h"
+#include "colas.h"
+//#include "Listas_Arreglos.c"
+//#include "colas_punteros.c"
 #include "tipo_elemento.h"
 #include "Validacion.h"
 //Item A
