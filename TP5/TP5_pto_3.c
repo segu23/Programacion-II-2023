@@ -143,20 +143,15 @@ int n_alturaSubArbol(NodoArbol n) {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - // f. Listar todos los nodos que est�n en el mismo nivel (solo la clave)
 
-Lista encolandoNivelRecursivamente(NodoArbol actual, int nivel, int *cont, Lista cola) {
-    if (actual != NULL) {
-        if (*cont == nivel) {
-            l_agregar(cola, n_recuperar(actual));
-            *cont -= 1;
-        }
+Lista mostrar_nodos_mismo_nivel(NodoArbol raiz, int nivel, Lista cola) {
+    if (raiz != NULL) {
+        if (nivel == 0) l_agregar(cola, n_recuperar(raiz));
 
-        else {
-            *cont += 1;
-            encolandoNivelRecursivamente(n_hijoizquierdo(actual), nivel, cont, cola);
-            encolandoNivelRecursivamente(n_hijoderecho(actual), nivel, cont, cola);
+        else if (nivel > 0) {
+            mostrar_nodos_mismo_nivel(n_hijoizquierdo(raiz), nivel - 1, cola);
+            mostrar_nodos_mismo_nivel(n_hijoderecho(raiz), nivel - 1, cola);
         }
     }
-    else *cont += 1;
 
     return cola;
 }
@@ -169,7 +164,7 @@ void n_mostrarNivel(ArbolBinario a, NodoArbol n) {
     Lista cola = l_crear();
 
     if (nivel == 0) l_agregar(cola, n_recuperar(a_raiz(a)));
-    else            cola = encolandoNivelRecursivamente(a_raiz(a), nivel, &cont, cola);
+    else            cola = mostrar_nodos_mismo_nivel(a_raiz(a), nivel, cola);
     
     l_mostrarLista(cola);
     free(cola);
