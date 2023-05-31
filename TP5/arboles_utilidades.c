@@ -102,7 +102,6 @@ void mostrar_arbol_binario (NodoArbol n, enum Recorrido r) {
 }
 
 void preorden(NodoArbol n, Lista lista) {
-    printf("\n Gate %d", __LINE__);
     if (n == NULL) l_agregar(lista, te_crear(0));
 
     else {
