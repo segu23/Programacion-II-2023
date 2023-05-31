@@ -5,11 +5,12 @@
 #include "arbol_binario_busqueda.h"
 #include "Validacion.h"
 #include "tipo_elemento.h"
+#include "nodo.h"
 
-#include "tipo_elemento.c"
-#include "arbol_avl.c"
-#include "arbol_binario_busqueda.c"
-#include "nodo.c"
+//#include "tipo_elemento.c"
+//#include "arbol_avl.c"
+//#include "arbol_binario_busqueda.c"
+//#include "nodo.c"
 
 int arbol_max(int a, int b) {
     return a > b ? a : b;
