@@ -4,8 +4,6 @@
 #include <stdlib.h>
 
 #include "arbol_binario.h"
-#include "Listas_Arreglos.c"
-#include "colas_punteros.c"
 #include "tipo_elemento.h"
 #include "Validacion.h"
 
