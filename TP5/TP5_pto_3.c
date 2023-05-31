@@ -7,11 +7,12 @@
 #include "tipo_elemento.h"
 #include "listas.h"
 
+/*
 #include "arboles_utilidades.c"
 #include "arbol_binario_punteros.c"
 #include "nodo.c"
 #include "tipo_elemento.c"
-
+*/
 
 #include "Validacion.h"
 
