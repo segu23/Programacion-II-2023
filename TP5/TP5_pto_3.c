@@ -7,12 +7,11 @@
 #include "tipo_elemento.h"
 #include "listas.h"
 
-/*
 #include "arboles_utilidades.c"
 #include "arbol_binario_punteros.c"
 #include "nodo.c"
 #include "tipo_elemento.c"
-*/
+
 
 #include "Validacion.h"
 
@@ -48,8 +47,10 @@ void BuscandoPadreRecursivamente(NodoArbol actual, NodoArbol hijo, bool *encontr
             *retorno = actual;
         }
 
-        else if (*encontrado == false) BuscandoPadreRecursivamente(n_hijoizquierdo(actual), hijo, encontrado, retorno);
-        else if (*encontrado == false) BuscandoPadreRecursivamente(n_hijoderecho(actual), hijo, encontrado, retorno);
+        else {
+            BuscandoPadreRecursivamente(n_hijoizquierdo(actual), hijo, encontrado, retorno);
+            BuscandoPadreRecursivamente(n_hijoderecho(actual), hijo, encontrado, retorno);
+        }
     }
 }
 
@@ -143,16 +144,19 @@ int n_alturaSubArbol(NodoArbol n) {
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - // f. Listar todos los nodos que est�n en el mismo nivel (solo la clave)
 
 Lista encolandoNivelRecursivamente(NodoArbol actual, int nivel, int *cont, Lista cola) {
-    if (*cont == nivel) {
-        l_agregar(cola, n_recuperar(actual));
-        *cont--;
-    }
+    if (actual != NULL) {
+        if (*cont == nivel) {
+            l_agregar(cola, n_recuperar(actual));
+            *cont -= 1;
+        }
 
-    else {
-        *cont++;
-        encolandoNivelRecursivamente(n_hijoizquierdo(actual), nivel, cont, cola);
-        encolandoNivelRecursivamente(n_hijoderecho(actual), nivel, cont, cola);
+        else {
+            *cont += 1;
+            encolandoNivelRecursivamente(n_hijoizquierdo(actual), nivel, cont, cola);
+            encolandoNivelRecursivamente(n_hijoderecho(actual), nivel, cont, cola);
+        }
     }
+    else *cont += 1;
 
     return cola;
 }
@@ -160,14 +164,15 @@ Lista encolandoNivelRecursivamente(NodoArbol actual, int nivel, int *cont, Lista
 void n_mostrarNivel(ArbolBinario a, NodoArbol n) {
     if (a == NULL || n == NULL) return;
 
-    printf("\n>> Claves de nodos en el nivel %d <<\n", n);
     int cont = 0, nivel = n_nivelNodo(a, n);
+    printf("\n>> Claves de nodos en el nivel %d <<\n", nivel);
     Lista cola = l_crear();
 
-    if (nivel == 0) l_agregar(cola, n_recuperar(a_raiz));
+    if (nivel == 0) l_agregar(cola, n_recuperar(a_raiz(a)));
     else            cola = encolandoNivelRecursivamente(a_raiz(a), nivel, &cont, cola);
     
     l_mostrarLista(cola);
+    free(cola);
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - // Cuerpo del programa
@@ -232,7 +237,7 @@ int main () {
 
                 do{
                     existe = true;
-                    mostrar_arbol_binario(a_raiz(arbol), IN_ORDEN);
+                    mostrar_arbol_binario(a_raiz(arbol), PRE_ORDEN);
                     printf("\n%d << Ingrese la clave de un nodo existente en el arbol: ", __LINE__);
                     fgets(filtro, MAX, stdin);
                     int clave = EntradaEntera(filtro, 0, -100000, 100000);
