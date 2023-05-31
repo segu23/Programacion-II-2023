@@ -1,8 +1,8 @@
 #ifndef UTILIDADES_H
 #define UTILIDADES_H
 
-#include "nodo.h"
 #include "listas.h"
+#include "nodo.h"
 
 enum Recorrido {
     PRE_ORDEN,

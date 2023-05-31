@@ -46,13 +46,14 @@ void ln_mostrarLista (Iterador iter) {
         return;
     }
 
-    struct Nodo *temp = iter->posicionActual;
+    TipoElemento temp = siguiente(iter);
 
     printf("\n>> Contenido (claves) del arbol: ");
-    while (temp != NULL) {
-        if (temp->datos->valor != NULL) printf(" %d", temp->datos->clave);
-        else                            printf(" .");
-        temp = temp->siguiente;
+    while (hay_siguiente(iter)) {
+        if (temp->valor != NULL) printf(" %d", temp->clave);
+        else                     printf(" .");
+        temp->valor = NULL;
+        temp =  siguiente(iter);
     }
 
     printf("\n");
@@ -62,7 +63,7 @@ void mostrar_arbol_binario (NodoArbol n, enum Recorrido r) {
     if (n == NULL) return;
 
     bool valido = true;
-
+    printf("\n Gate %d", __LINE__);
     switch (r) {
         case PRE_ORDEN : {
             Iterador iter = iterador_pre_orden(n);
@@ -102,6 +103,7 @@ void mostrar_arbol_binario (NodoArbol n, enum Recorrido r) {
 }
 
 void preorden(NodoArbol n, Lista lista) {
+    printf("\n Gate %d", __LINE__);
     if (n == NULL) l_agregar(lista, te_crear(0));
 
     else {
@@ -115,7 +117,9 @@ void preorden(NodoArbol n, Lista lista) {
 Iterador iterador_pre_orden (NodoArbol n) {
     if (n == NULL) return NULL;
     Lista pre_o = l_crear();
+    printf("\n Gate %d", __LINE__);
     preorden(n, pre_o);
+    printf("\n Gate %d", __LINE__);
     return iterador(pre_o);
 }
 
@@ -126,7 +130,6 @@ void inorden(NodoArbol n, Lista lista) {
         inorden(n->hi, lista);
         (n->datos)->valor = n;
         l_agregar(lista, n->datos);
-
         inorden(n->hd, lista);
     }
 }
