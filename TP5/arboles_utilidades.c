@@ -116,6 +116,7 @@ Iterador iterador_pre_orden (NodoArbol n) {
     if (n == NULL) return NULL;
     Lista pre_o = l_crear();
     preorden(n, pre_o);
+    l_agregar(pre_o, te_crear(0));
     return iterador(pre_o);
 }
 
@@ -134,6 +135,7 @@ Iterador iterador_in_orden (NodoArbol n) {
     if (n == NULL) return NULL;
     Lista in_o = l_crear();
     inorden(n, in_o);
+    l_agregar(in_o, te_crear(0));
     return iterador(in_o);
 }
 
@@ -152,6 +154,7 @@ Iterador iterador_post_orden (NodoArbol n) {
     if (n == NULL) return NULL;
     Lista post_o = l_crear();
     postorden(n, post_o);
+    l_agregar(post_o, te_crear(0));
     return iterador(post_o);
 }
 

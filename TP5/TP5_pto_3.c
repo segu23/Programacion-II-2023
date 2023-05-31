@@ -26,7 +26,7 @@ Para un nodo del arbol binario determinado:
     f. Listar todos los nodos que est�n en el mismo nivel (solo la clave)
 */
 
-void CreandoArbol(ArbolBinario);
+ArbolBinario CreandoArbol(ArbolBinario);
 
 void CargarSubArbol(ArbolBinario, NodoArbol, int);
 
@@ -68,16 +68,17 @@ NodoArbol n_nodoPadre(ArbolBinario a, NodoArbol hijo) {
 void n_mostrarHijos(NodoArbol n) {
     if (n == NULL) return;
 
-    else if (n_hijoizquierdo(n) == NULL && n_hijoderecho(n) == NULL) printf("\n>> El nodo sujeto clave %d no tiene nodos hijos . . .", n_recuperar(n)->clave);
+    else if (n_hijoizquierdo(n) == NULL && n_hijoderecho(n) == NULL) printf("\n>> El nodo sujeto clave %d no tiene nodos hijos . . .\n", n_recuperar(n)->clave);
 
     else {
         printf("\n>> Los hijos del nodo sujeto clave %d son: ", n_recuperar(n)->clave);
 
-        if (n_hijoizquierdo(n) != NULL) printf("\n>>_ Nodo hijo izquierdo: %d", n_recuperar(n_hijoizquierdo(n))->clave);
+        if (n_hijoizquierdo(n) != NULL) printf("\n>>_ Nodo hijo izquierdo: clave(%d)", n_recuperar(n_hijoizquierdo(n))->clave);
         else                            printf("\n>>_ Nodo hijo izquierdo: NULL");
 
-        if (n_hijoderecho(n) != NULL)   printf("\n>>_ Nodo hijo derecho: %d", n_recuperar(n_hijoderecho(n))->clave);
+        if (n_hijoderecho(n) != NULL)   printf("\n>>_ Nodo hijo derecho: clave(%d)", n_recuperar(n_hijoderecho(n))->clave);
         else                            printf("\n>>_ Nodo hijo derecho: NULL");
+        printf("\n");
     }
 }
 
@@ -88,9 +89,9 @@ void n_mostrarHermano(ArbolBinario a, NodoArbol n) {
 
     NodoArbol padre = n_nodoPadre(a, n);
 
-    if      (n_hijoizquierdo(padre) != NULL) printf("\n>> Nodo hermano del nodo sujeto clave %d: clave(%d) direccion(%d)", n_recuperar(n)->clave, n_recuperar(n_hijoizquierdo(padre))->clave, n_hijoizquierdo(n));
-    else if (n_hijoderecho(padre) != NULL)   printf("\n>> Nodo hermano del nodo sujeto clave %d: clave(%d) direccion(%d)", n_recuperar(n)->clave, n_recuperar(n_hijoderecho(padre))->clave, n_hijoderecho(n));
-    else                                     printf("\n>> El nodo sujeto clave %d no tiene nodo hermano . . .", n_recuperar(n)->clave);
+    if      (n_hijoizquierdo(padre) != NULL && n_hijoizquierdo(padre) != n) printf("\n>> Nodo hermano del nodo sujeto clave %d: clave(%d)\n", n_recuperar(n)->clave, n_recuperar(n_hijoizquierdo(padre))->clave);
+    else if (n_hijoderecho(padre) != NULL && n_hijoderecho(padre) != n)     printf("\n>> Nodo hermano del nodo sujeto clave %d: clave(%d)\n", n_recuperar(n)->clave, n_recuperar(n_hijoderecho(padre))->clave);
+    else                                                                    printf("\n>> El nodo sujeto clave %d no tiene nodo hermano . . .\n", n_recuperar(n)->clave);
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - // d. Calcular el nivel en el que se encuentra
@@ -140,7 +141,7 @@ int n_alturaSubArbol(NodoArbol n) {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - // f. Listar todos los nodos que est�n en el mismo nivel (solo la clave)
 
-void encolandoNivelRecursivamente(NodoArbol actual, int nivel, int *cont, Lista cola) {
+Lista encolandoNivelRecursivamente(NodoArbol actual, int nivel, int *cont, Lista cola) {
     if (*cont == nivel) {
         l_agregar(cola, n_recuperar(actual));
         *cont--;
@@ -151,15 +152,20 @@ void encolandoNivelRecursivamente(NodoArbol actual, int nivel, int *cont, Lista 
         encolandoNivelRecursivamente(n_hijoizquierdo(actual), nivel, cont, cola);
         encolandoNivelRecursivamente(n_hijoderecho(actual), nivel, cont, cola);
     }
+
+    return cola;
 }
 
 void n_mostrarNivel(ArbolBinario a, NodoArbol n) {
     if (a == NULL || n == NULL) return;
 
+    printf("\n>> Claves de nodos en el nivel %d <<\n", n);
     int cont = 0, nivel = n_nivelNodo(a, n);
     Lista cola = l_crear();
 
-    encolandoNivelRecursivamente(a_raiz(a), nivel, &cont, cola);
+    if (nivel == 0) l_agregar(cola, n_recuperar(a_raiz));
+    else            cola = encolandoNivelRecursivamente(a_raiz(a), nivel, &cont, cola);
+    
     l_mostrarLista(cola);
 }
 
@@ -175,43 +181,44 @@ int main () {
     printf("\n// Generando arbol binario . . . \n");
     printf("\n>! Aviso: el ingreso se realiza en pre-orden, para terminar la carga se le tiene que asignar NULL o '.' a todasa las hojas\n");
 
-    CreandoArbol(arbol);
+    arbol = CreandoArbol(arbol);
     printf("\n// Arbol binario generado . . . \n");
-    //mostrar_arbol_binario(a_raiz(arbol), PRE_ORDEN);
+    mostrar_arbol_binario(a_raiz(arbol), PRE_ORDEN);
 
     printf("\n<< ");
     system("pause");
 
-    bool existe = true;
+    bool existe;
     printf("\n// Asignando nodo sujeto de prueba . . .\n");
 
     do{
+        existe = true;
         printf("\n%d << Ingrese la clave de un nodo existente en el arbol: ", __LINE__);
         fgets(filtro, MAX, stdin);
+        fflush(stdin);
         int clave = EntradaEntera(filtro, 0, -100000, 100000);
-
+        
         sujeto = BuscarNodo(a_raiz(arbol), clave);
 
         if (sujeto == NULL) {
-            printf("\n>! Clave inexistentes, ingrese la clave de un nodo existente . . .");
+            printf("\n>! Clave inexistente, ingrese la clave de un nodo existente . . .\n");
             existe = false;
         }
     } while (!existe);
 
-    printf("\n>> Nodo asignado: clave(%d) direccion(%p)", n_recuperar(sujeto)->clave, sujeto);
+    printf("\n>> Nodo asignado: clave(%d) direccion(%p)\n", n_recuperar(sujeto)->clave, sujeto);
     
-    printf("<< ");
+    printf("\n<< ");
     system("pause");
 
     while(corriendo) {
-        printf("\n--> TP NRO. 5: COLAS <-- ");
-        printf("\n_ 1 >> Cargar otro arbol binario");
-        printf("\n_ 2 >> Cambiar nodo sujeto de prueba");
-        printf("\n_ 3 >> Comenzar resoluci�n del ejercicio");
+        printf("\n--> TP NRO. 5: ARBOLES BINARIOS <-- ");
+        printf("\n_ 1 >> Cambiar nodo sujeto de prueba");
+        printf("\n_ 2 >> Comenzar resolucion del ejercicio");
         printf("\n_ 0 >> Terminar programa");
         printf("\n\n%d << Ingrese accion: ", __LINE__);
         fgets(filtro, MAX, stdin);
-        accion = EntradaEntera(filtro, 0, 0, 6);
+        accion = EntradaEntera(filtro, 0, 0, 2);
 
         switch (accion) {
             case 0 : {
@@ -220,22 +227,10 @@ int main () {
             } break;
 
             case 1 : {
-                printf("\n// Generando arbol binario . . . \n");
-                printf("\n>! Aviso: el ingreso se realiza en pre-orden, para terminar la carga se le tiene que asignar NULL o '.' a todas las hojas ");
-                free(arbol);
-                CreandoArbol(arbol);
-                printf("\n// Arbol binario generado . . . \n");
-                mostrar_arbol_binario(a_raiz(arbol), PRE_ORDEN);
-
-                printf("\n<< ");
-                system("pause");
-            } break;
-
-            case 2 : {
-                bool existe = true;
-                printf("\n// Asignando nodo sujeto de prueba . . .");
+                printf("\n// Asignando nodo sujeto de prueba . . . \n");
 
                 do{
+                    existe = true;
                     mostrar_arbol_binario(a_raiz(arbol), IN_ORDEN);
                     printf("\n%d << Ingrese la clave de un nodo existente en el arbol: ", __LINE__);
                     fgets(filtro, MAX, stdin);
@@ -243,33 +238,33 @@ int main () {
 
                     sujeto = BuscarNodo(a_raiz(arbol), clave);
                     if (sujeto == NULL) {
-                        printf("\n>! Clave inexistentes, ingrese la clave de un nodo existente . . .");
+                        printf("\n>! Clave inexistentes, ingrese la clave de un nodo existente . . .\n");
                         existe = false;
                     }
 
-                    else printf("\n>> Nodo asignado: clave(%d) direccion(%p)", n_recuperar(sujeto)->clave, sujeto);
+                    else printf("\n>> Nodo asignado: clave(%d) direccion(%p)\n", n_recuperar(sujeto)->clave, sujeto);
 
                 } while (!existe);
 
-                printf("<< ");
+                printf("\n<< ");
                 system("pause");
             } break;
 
-            case 3 : {
-                printf("\n// Resolviendo . . .");
+            case 2 : {
+                printf("\n// Resolviendo . . .\n");
 
-                if (a_raiz(arbol) == sujeto) printf("\n>> El nodo sujeto es la raiz del arbol, no tiene nodo padre . . .");
-                else                         printf("\n>> La clave del nodo padre del nodo sujeto %d es: %d", n_recuperar(sujeto)->clave, n_recuperar(n_nodoPadre(arbol, sujeto))->clave);
+                if (a_raiz(arbol) == sujeto) printf("\n>> El nodo sujeto es la raiz del arbol, no tiene nodo padre . . .\n");
+                else                         printf("\n>> La clave del nodo padre del nodo sujeto %d es %d\n", n_recuperar(sujeto)->clave, n_recuperar(n_nodoPadre(arbol, sujeto))->clave);
 
-                n_mostrarHijos(sujeto);
+                n_mostrarHijos(sujeto);                        
 
-                n_mostrarHermano(arbol, sujeto);
+                n_mostrarHermano(arbol, sujeto);                
 
-                printf("\n>> El nodo sujeto clave %d se encuentra en el nivel: %d", n_recuperar(sujeto)->clave, n_nivelNodo(arbol, sujeto));
+                printf("\n>> El nodo sujeto clave %d se encuentra en el nivel %d\n", n_recuperar(sujeto)->clave, n_nivelNodo(arbol, sujeto));
 
-                printf("\n>> La altura del (sub)arbol que tiene al nodo sujeto como raiz es de %d nodos", n_alturaSubArbol(sujeto));
+                printf("\n>> La altura del (sub)arbol que tiene al nodo sujeto como raiz es de %d nodo/s\n", n_alturaSubArbol(sujeto));
 
-                n_mostrarNivel(arbol, sujeto);
+                n_mostrarNivel(arbol, sujeto);                  
 
                 printf("\n<< ");
                 system("pause");
@@ -284,9 +279,10 @@ int main () {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - // Funciones auxiliares
 
-void CreandoArbol(ArbolBinario a) {
+ArbolBinario CreandoArbol(ArbolBinario a) {
     a = a_crear();
     CargarSubArbol(a, NULL, 0);
+    return a;
 }
 
 void CargarSubArbol(ArbolBinario A, NodoArbol N, int sa){
@@ -323,7 +319,7 @@ bool IngresoEntero(ArbolBinario a, int* n){
         printf("\n%d << Ingrese una clave numerica o '.' para nulo: ", __LINE__);
         fgets(filtro, MAX, stdin);
 
-        if (strrchr(filtro, '.')  != NULL) {
+        if (strrchr(filtro, '.') != NULL) {
             resultado = false;
             if (a_es_vacio(a)) {
                 printf("\n>! El arbol esta vacio, ingrese una clave para el nodo raiz . . .\n");
@@ -333,7 +329,7 @@ bool IngresoEntero(ArbolBinario a, int* n){
 
         else aux = EntradaEntera(filtro, 0, -100000, 100000);
 
-        if (BuscarNodo(a_raiz(a), aux) != NULL) {
+        if (BuscarNodo(a_raiz(a), aux) != NULL && resultado) {
             printf("\n>! La clave ya existe en el arbol, ingrese una clave unica . . .\n");
             valido = false;
         }
@@ -352,18 +348,18 @@ void buscandoClaveRecursivamente(NodoArbol n, int clave, bool *encontrado, NodoA
             *retorno = n;
         }
 
-        else if (*encontrado == false) buscandoClaveRecursivamente(n_hijoizquierdo(n), clave, encontrado, retorno);
-        else if (*encontrado == false) buscandoClaveRecursivamente(n_hijoderecho(n), clave, encontrado, retorno);
+        else {
+            buscandoClaveRecursivamente(n_hijoizquierdo(n), clave, encontrado, retorno);
+            buscandoClaveRecursivamente(n_hijoderecho(n), clave, encontrado, retorno);
+        }
     }
 }
 
 NodoArbol BuscarNodo(NodoArbol n, int clave) {
     if (n == NULL) return NULL;
-    printf("\n Gate %d", __LINE__);
     bool encontrado = false;
     NodoArbol retorno = NULL;
     buscandoClaveRecursivamente(n, clave, &encontrado, &retorno);
-    printf("\n Gate %d", __LINE__);
     if (!encontrado) return NULL;
     else             return retorno;
 }
