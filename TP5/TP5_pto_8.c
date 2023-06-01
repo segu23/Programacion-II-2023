@@ -5,6 +5,7 @@
 
 #include "arbol_binario.h"
 #include "tipo_elemento.h"
+#include "nodo.h"
 #include "Validacion.h"
 
 void nodos_arbol(NodoArbol N, bool *NoHay){
