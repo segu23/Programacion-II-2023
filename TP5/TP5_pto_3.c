@@ -309,6 +309,7 @@ void CargarSubArbol(ArbolBinario A, NodoArbol N, int sa){
 }
 
 bool IngresoEntero(ArbolBinario a, int* n){
+    char permitidos[11] = {'.', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
     char filtro[MAX];
     bool resultado, valido;
     int aux;
@@ -328,7 +329,9 @@ bool IngresoEntero(ArbolBinario a, int* n){
             }
         }
 
-        else aux = EntradaEntera(filtro, 0, -100000, 100000);
+        else if (CadenaValida(filtro, permitidos) != 1) valido = false;
+
+        else aux = EntradaEntera(filtro, 0, 0, 100000);
 
         if (BuscarNodo(a_raiz(a), aux) != NULL && resultado) {
             printf("\n>! La clave ya existe en el arbol, ingrese una clave unica . . .\n");
