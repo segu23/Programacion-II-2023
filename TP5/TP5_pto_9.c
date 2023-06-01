@@ -172,7 +172,7 @@ int n_nivelNodo(ArbolBinario a, NodoArbol n) {
     else if (a_raiz(a) == n) return 0;
 
     int nivel = -1;
-    buscandoNivelRecursivamente(a_raiz(a), n, &nivel, 0);
+    buscandoNivelRecursivamente(a_raiz(a), n->datos->clave, &nivel, 0);
 
     return nivel;
 }
@@ -248,7 +248,7 @@ int obtener_altura_avl (ArbolAVL avl) {
 
     int cant_nodos_avl = avl_cantidad_elementos(avl);
 
-    int limite_nivel = antilogaritmo(TAMANIO_MAXIMO, 2);
+    int limite_nivel = antilogaritmo(avl_cantidad_elementos(avl), 2);
 
     if ((cant_nodos_avl + 1) == (potencia(2, limite_nivel - 1))) {
 
