@@ -11,13 +11,7 @@
 #include"arbol_avl.h"
 #include"nodo.h"
 
-#define TAMANIO_MAXIMO 100
 #define MAX_BUFFER 101
-
-//IMPORTANTE: La recepción de claves para el testeo está acotada en [-1000, 1000].
-
-const int MAX_CLAVE = 1000;
-const int MIN_CLAVE = -1000;
 
 int potencia (int base, int exponente) {
 
@@ -65,20 +59,6 @@ void cargar_buffer (char buffer[]) {
 
     }
 
-}
-
-int obtener_cantidad_nodos () {
-
-    int cantidad_nodos = 0;
-
-    char buffer[MAX_BUFFER];
-    cargar_buffer(buffer);
-
-    printf("\nIngrese cuantos nodos tendrá el árbol binario[0, 100]: ");
-    fgets(buffer, 100, stdin);
-    cantidad_nodos = EntradaEntera(buffer, 0, 0, 100);
-
-    return cantidad_nodos;
 }
 
 bool ingresoEntero(int* n, bool *letra){
