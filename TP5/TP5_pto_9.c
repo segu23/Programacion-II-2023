@@ -10,6 +10,7 @@
 #include"arboles_utilidades.h"
 #include"arbol_avl.h"
 #include"nodo.h"
+#include"tipo_elemento.h"
 
 #define MAX_BUFFER 101
 
