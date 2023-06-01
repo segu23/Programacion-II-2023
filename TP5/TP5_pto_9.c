@@ -204,7 +204,7 @@ int obtener_altura_binario (ArbolBinario binario) {
         while (hay_siguiente(ite_hojas)) {
 
             clave_aux = siguiente(ite_hojas)->clave;
-            int nivel = -1;
+            nivel = -1;
             buscandoNivelRecursivamente(a_raiz(binario), clave_aux, &nivel, 0);
             altura_aux = nivel;
 
@@ -346,9 +346,7 @@ int recibir_opcion () {
 
 void mostrar_complejidad () {
 
-    printf("\nLa complejidad algorítmica por tiempo de ejecución es O()\n");
-    printf("Dado que la consigna dice, cito '...a partir de un árbol binario sin un orden determinado'\n");
-    printf("La creación de dicho árbol binario  ");
+    printf("\nLa complejidad algorítmica por tiempo de ejecución es O(n^2)\n");
 
 }
 
