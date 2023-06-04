@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "tabla_hash.h"
-#include "../listas/listas.h"
+#include "listas.h"
 
 struct TipoRegistroTabla {
     TipoElemento tipo_elemento;

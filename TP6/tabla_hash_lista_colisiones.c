@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "tabla_hash.h"
-#include "D:\Mario\Prog_2_2009\2023\TADs\Listas\listas.h"
+#include "listas.h"
 
 struct TipoRegistroTabla {
     TipoElemento tipo_elemento;

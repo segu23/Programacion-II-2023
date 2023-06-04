@@ -1,7 +1,7 @@
 #ifndef TABLA_HASH_H
 #define TABLA_HASH_H
 
-#include "D:\Mario\Prog_2_2009\2023\TADs\Tipos\tipo_elemento.h"
+#include "tipo_elemento.h"
 
 struct TablaHashRep;
 typedef struct TablaHashRep *TablaHash;
