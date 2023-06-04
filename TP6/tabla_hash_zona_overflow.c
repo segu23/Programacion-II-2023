@@ -92,6 +92,7 @@ TipoElemento th_recuperar(TablaHash th, int clave) {
     struct TipoRegistroTabla *registroTabla = &th->tabla[pos];
     // Si está en la tabla, lo devuelvo
     if (registroTabla->ocupado && registroTabla->tipo_elemento->clave == clave) {
+        printf("si esta");
         return registroTabla->tipo_elemento;
     }
 
@@ -100,7 +101,7 @@ TipoElemento th_recuperar(TablaHash th, int clave) {
     while (i < th->capacidad) {
         struct TipoRegistroTabla *registroZO = &th->zona_overflow[i];
         if (registroZO->ocupado && registroZO->tipo_elemento->clave == clave) {
-            return registroTabla->tipo_elemento;
+            return registroZO->tipo_elemento;
         }
         i++;
     }
