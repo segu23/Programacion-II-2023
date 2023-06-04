@@ -4,9 +4,8 @@
 #include <stdlib.h>
 
 #include "arbol_binario.h"
-#include "Listas_Arreglos.c"
-#include "colas_punteros.c"
 #include "tipo_elemento.h"
+#include "nodo.h"
 #include "Validacion.h"
 
 void nodos_arbol(NodoArbol N, bool *NoHay){

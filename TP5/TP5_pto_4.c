@@ -2,10 +2,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
 #include "arbol_binario.h"
-#include "Listas_Arreglos.c"
-#include "colas_punteros.c"
+#include "listas.h"
+#include "colas.h"
 #include "tipo_elemento.h"
+#include "nodo.h"
+/*
+#include "arbol_binario_punteros.c"
+#include "tipo_elemento.c"
+#include "listas_arreglos.c"
+#include "colas_punteros.c"
+#include "nodo.c"
+*/
 #include "Validacion.h"
 //Item A
 Lista AnchuraEneario(ArbolBinario A){ 
@@ -257,6 +266,29 @@ void cargar_arbol_binario(ArbolBinario A){
     Cargar_SubArbol(A, NULL, 0);
 }
 
+void buscandoClaveRecursivamente(NodoArbol n, int clave, bool *encontrado, NodoArbol *retorno) {
+    if (n != NULL) {
+        if (n->datos->clave == clave) {
+            *encontrado = true;
+            *retorno = n;
+        }
+
+        else {
+            buscandoClaveRecursivamente(n_hijoizquierdo(n), clave, encontrado, retorno);
+            buscandoClaveRecursivamente(n_hijoderecho(n), clave, encontrado, retorno);
+        }
+    }
+}
+
+NodoArbol BuscarNodo(NodoArbol n, int clave) {
+    if (n == NULL) return NULL;
+    bool encontrado = false;
+    NodoArbol retorno = NULL;
+    buscandoClaveRecursivamente(n, clave, &encontrado, &retorno);
+    if (!encontrado) return NULL;
+    else             return retorno;
+}
+
 void main(){
     ArbolBinario A, A2;
     TipoElemento X;
@@ -360,24 +392,35 @@ void main(){
                 scanf("%c", &tecla);
 
             }else if(tecla == '5'){
+                bool existe;
                 system("cls");
                 printf("El arbol ingresado es Mostrado (en Pre-Orden):\n");
                 pre_orden(a_raiz(A));
 
-                if(a_es_vacio(A)){ printf("\nEl arbol esta vacio\n");}else{
+                do {
+                    existe = true;
+                    if(a_es_vacio(A)){ printf("\nEl arbol esta vacio\n");}else{
 
-                    printf("\nIngrese el nodo para buscar sus hermanos:\n");
-                    fgets(filtro, 100, stdin);
-                    BusquedaHermanoE = EntradaEntera(filtro, 0, 0, 0);
-                    
-                    Pto_E = Hermanos(A, BusquedaHermanoE);
-                    if(l_es_vacia(Pto_E)){
-                        printf("El nodo no tiene hermanos o es la raiz\n");
-                    }else{
-                        printf("La lista de los hermanos de %d es:\n", BusquedaHermanoE);
-                        l_mostrarLista(Pto_E);
+                        printf("\nIngrese el nodo para buscar sus hermanos:\n");
+                        fgets(filtro, 100, stdin);
+                        BusquedaHermanoE = EntradaEntera(filtro, 0, 0, 0);
+                        
+                        if (BuscarNodo(a_raiz(A), BusquedaHermanoE) != NULL) {
+                            Pto_E = Hermanos(A, BusquedaHermanoE);
+                            if(l_es_vacia(Pto_E)){
+                                printf("El nodo no tiene hermanos o es la raiz\n");
+                            }else{
+                                printf("La lista de los hermanos de %d es:\n", BusquedaHermanoE);
+                                l_mostrarLista(Pto_E);
+                            }
+                        }
+                        else {
+                            printf("\n>! Clave insexistente, ingrese una clave que exista en el arbol . . .");
+                            existe = false;
+                        }
                     }
-                }
+                } while (!existe);
+
                 printf("Presione enter para volver al menu\n");
                 scanf("%c", &tecla);
             }else if(tecla == '0'){menu = false;}

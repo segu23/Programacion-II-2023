@@ -1,6 +1,8 @@
 /*7. Determinar si dos árboles binarios son equivalentes.*/
 #include "arbol_binario.h"
 #include "nodo.h"
+#include "tipo_elemento.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 bool Equibool(NodoArbol AB1,NodoArbol AB2){

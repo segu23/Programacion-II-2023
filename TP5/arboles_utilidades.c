@@ -63,11 +63,10 @@ void mostrar_arbol_binario (NodoArbol n, enum Recorrido r) {
     if (n == NULL) return;
 
     bool valido = true;
-    printf("\n Gate %d", __LINE__);
     switch (r) {
         case PRE_ORDEN : {
             Iterador iter = iterador_pre_orden(n);
-            printf("\n>> Recorrido en PRE-ORDEN . . . \n");
+            printf("\n>> Recorrido en PRE-ORDEN <<");
             ln_mostrarLista(iter);
             free(iter);
             break;
@@ -75,7 +74,7 @@ void mostrar_arbol_binario (NodoArbol n, enum Recorrido r) {
 
         case IN_ORDEN : {
             Iterador iter = iterador_in_orden(n);
-            printf("\n>> Recorrido en IN-ORDEN . . . \n");
+            printf("\n>> Recorrido en IN-ORDEN <<");
             ln_mostrarLista(iter);
             free(iter);
             break;
@@ -83,7 +82,7 @@ void mostrar_arbol_binario (NodoArbol n, enum Recorrido r) {
 
         case POST_ORDEN : {
             Iterador iter = iterador_post_orden(n);
-            printf("\n>> Recorrido en POST-ORDEN . . . \n");
+            printf("\n>> Recorrido en POST-ORDEN <<");
             ln_mostrarLista(iter);
             free(iter);
             break;
@@ -91,19 +90,18 @@ void mostrar_arbol_binario (NodoArbol n, enum Recorrido r) {
 
         case BFS : {
             Iterador iter = iterador_bfs(n);
-            printf("\n>> Recorrido en BFS . . . \n");
+            printf("\n>> Recorrido en BFS <<");
             ln_mostrarLista(iter);
             free(iter);
             break;
         }
 
-        default: printf("\n>! Recorrido invalido...");
+        default: printf("\n>! Recorrido invalido . . .");
         break;
     }
 }
 
 void preorden(NodoArbol n, Lista lista) {
-    printf("\n Gate %d", __LINE__);
     if (n == NULL) l_agregar(lista, te_crear(0));
 
     else {
@@ -117,9 +115,8 @@ void preorden(NodoArbol n, Lista lista) {
 Iterador iterador_pre_orden (NodoArbol n) {
     if (n == NULL) return NULL;
     Lista pre_o = l_crear();
-    printf("\n Gate %d", __LINE__);
     preorden(n, pre_o);
-    printf("\n Gate %d", __LINE__);
+    l_agregar(pre_o, te_crear(0));
     return iterador(pre_o);
 }
 
@@ -138,6 +135,7 @@ Iterador iterador_in_orden (NodoArbol n) {
     if (n == NULL) return NULL;
     Lista in_o = l_crear();
     inorden(n, in_o);
+    l_agregar(in_o, te_crear(0));
     return iterador(in_o);
 }
 
@@ -156,6 +154,7 @@ Iterador iterador_post_orden (NodoArbol n) {
     if (n == NULL) return NULL;
     Lista post_o = l_crear();
     postorden(n, post_o);
+    l_agregar(post_o, te_crear(0));
     return iterador(post_o);
 }
 

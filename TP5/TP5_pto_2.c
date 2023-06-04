@@ -11,6 +11,15 @@ d. Determinar la complejidad algorítmica de los puntos “a”, “b”, “c�
 #include "arboles_utilidades.h"
 #include "listas.h"
 #include "Validacion.h"
+/*
+#include "arbol_binario_punteros.c"
+#include "nodo.c"
+#include "arboles_utilidades.c"
+#include "listas_punteros.c"
+*/
+#include "tipo_elemento.h"
+//#include "tipo_elemento.c"
+
 #include <stdio.h>
 #include <stdlib.h>
 Lista hojas(ArbolBinario a);
@@ -79,19 +88,31 @@ void main(){
     L=l_crear();
     A=a_crear();
     printf("--------------------Carga arbol--------------------\n");
+    printf(">! Aviso: el ingreso se realiza en pre-orden, para terminar la carga se le tiene que asignar NULL o '.' a todasa las hojas\n");
     cargar_arbol_binario(A);
-    printf("--------------------Hojas del arbol--------------------\n");
+
+    printf("\n--------------------Hojas del arbol--------------------\n");
     L=hojas(A);
     l_mostrarLista(L);
-    printf("--------------------Nodos interiores del arbol--------------------\n");
+    printf("\n// Complejidad algoritmica: se puede considerar que la complejidad es lineal,\n   ya que en cada nodo se realiza una verificación para determinar si es una hoja o no.\n   Por lo tanto, la complejidad algorítmica es O(N), donde N es el número de nodos en el árbol");
+    printf("\n// Nota: no se considera la complejidad algoritmica causada por operaciones del TAD.");
+
+    printf("\n--------------------Nodos interiores del arbol--------------------\n");
     L=interiores(A);
     l_mostrarLista(L);
-    printf("<<Nodo a buscar:");
+   
+    printf("\n// Complejidad algoritmica: también se considera que la complejidad es lineal.\n   En cada nodo, se realiza una verificación para determinar si es un nodo interno (es decir, tiene al menos un hijo o es la raiz) o no.\n   Por lo tanto, la complejidad algorítmica es O(N), donde N es el número de nodos en el árbol.");
+    printf("\n// Nota: no se considera la complejidad algoritmica causada por operaciones del TAD.\n");
+
+    printf("\n--------------------Pocision de los nodos con la clave buscada--------------------\n");
+    printf("<<Nodo a buscar: ");
     fgets(filtro,100,stdin);
     c=EntradaEntera(filtro,0,0,1000);
-    printf("--------------------Pocision de los nodos con la clave buscada--------------------\n");
-    L=BuscarNodos(A,c);   
+    L=BuscarNodos(A,c);
+    printf("\n");
     mostrar_pocisiones(L);
+    printf("\n// Complejidad algoritmica: la búsqueda de todas las ocurrencias requerirá recorrer todos los nodos del árbol.\n   En el peor caso, si todas las ocurrencias de la clave están presentes en el árbol,\n   se necesitará visitar todos los nodos para encontrarlas todas.\n   Por lo tanto, la complejidad algorítmica para buscar todas las ocurrencias de una clave en un árbol binario completo\n   y retornar la posición de cada ocurrencia es O(N), donde N es el número total de nodos en el árbol.");
+    printf("\n// Nota: no se considera la complejidad algoritmica causada por operaciones del TAD.");
 }
 //Retornar una lista con todos los nodos terminales u hojas.
 Lista hojaslista(NodoArbol N,Lista ret){
