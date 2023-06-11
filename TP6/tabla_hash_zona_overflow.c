@@ -92,7 +92,6 @@ TipoElemento th_recuperar(TablaHash th, int clave) {
     struct TipoRegistroTabla *registroTabla = &th->tabla[pos];
     // Si está en la tabla, lo devuelvo
     if (registroTabla->ocupado && registroTabla->tipo_elemento->clave == clave) {
-        printf("si esta");
         return registroTabla->tipo_elemento;
     }
 
