@@ -4,19 +4,19 @@
 #include <time.h>
 
 #include "listas.h"
-#include "listas_punteros.c"
+//#include "listas_punteros.c"
 
 #include "nodo.h"
-#include "nodo.c"
+//#include "nodo.c"
 
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
+//#include "tipo_elemento.c"
 
 #include "arbol_avl.h"
-#include "arbol_avl_m.c"
+//#include "arbol_avl_m.c"
 
 #include "tabla_hash.h"
-#include "tabla_hash_zona_overflow.c"
+//#include "tabla_hash_zona_overflow.c"
 
 #include "Validacion.h"
 
