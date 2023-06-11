@@ -93,7 +93,7 @@ void main () {
     printf("\n// Ingresando parametros de prueba . . . \n");
 
     printf("// Nota: se hace uso de una implementacion de arboles avl modificado (arbol_avl_m.c) para poder generar arboles de hasta 2000 nodos");
-    printf("\n0%d<< Ingrese la cantidad de nodos a generar (AVL limitado a 100) [1; 2000]: ", __LINE__);
+    printf("\n0%d<< Ingrese la cantidad de nodos a generar [1; 2000]: ", __LINE__);
     fgets(filtro, MAX, stdin);
     cantidad = EntradaEntera(filtro, 0, 1, 2000);
 
