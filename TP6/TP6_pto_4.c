@@ -24,6 +24,9 @@ const int MAX_OPCION_ARCHIVO = 5;
 const int MIN_OPCION_PRINCIPAL = 1;
 const int MAX_OPCION_PRINCIPAL = 3;
 
+const int MIN_OPCION_HASH = 1;
+const int MAX_OPCION_HASH = 3;
+
 typedef struct {
 
     int legajo;
@@ -146,6 +149,7 @@ void mostrar_alumno(FILE* gestion) {
 
 void recibir_datos_alumno (alumno_t* alumno, int previo_mayor_legajo) {
 
+    //Los legajos se generan automaticamente para poder acceder a ellos ordenadamente con el archivo binario
     alumno->legajo = previo_mayor_legajo + 1;
 
     printf("\nInicializando alumno con legajo %i.\n\n", alumno->legajo);
@@ -446,6 +450,107 @@ void interactuar_con_archivo (char ruta_gestion[]) {
 
 }
 
+int recibir_legajo_hash (int max_legajo) {
+
+    char cadena_aux[MAX_STRING];
+    cargar_buffer(cadena_aux);
+
+    printf("\nIngrese el legajo del usuario a recuperar[1-%i]: ", max_legajo);
+    scanf("%s", cadena_aux);
+    while (getchar() != '\n');
+
+    int legajo_hash = EntradaEntera(cadena_aux, 1, MIN_LEGAJO, max_legajo);
+
+    return legajo_hash;
+
+}
+
+void mostrar_menu_hash () {
+
+    printf("\n\n       OPCIONES HASH       \n\n");
+    printf("Mostrar tabla                 1\n");
+    printf("Recuperar y mostrar legajo    2\n");
+    printf("Salir                         3\n");
+
+}
+
+int recibir_opcion_hash () {
+
+    char cadena_aux[MAX_STRING];
+    cargar_buffer(cadena_aux);
+
+    mostrar_menu_hash();
+
+    printf("\nIngrese la acción a realizar[1-3]: ");
+    scanf("%s", cadena_aux);
+    while(getchar() != '\n');
+
+    int opcion = EntradaEntera(cadena_aux, 1, MIN_OPCION_HASH, MAX_OPCION_HASH);
+
+    return opcion;
+
+}
+
+void procesar_menu_hash (TablaHash tabla_hash, FILE* gestion) {
+
+    int opcion = 0;
+    opcion = recibir_opcion_hash();
+
+    int clave = 0;
+    int* legajo;
+
+    while (opcion != MAX_OPCION_HASH) {
+
+        switch(opcion) {
+
+            case 1:
+
+                th_mostrar_solo_ocupados(tabla_hash);
+
+            break;
+            case 2:
+
+                //El legajo es la clave, porque al alumno se lo busca en archivo binario mediante su legajo
+                clave = recibir_legajo_hash((obtener_tamanio_archivo(gestion)/sizeof(alumno_t)));
+                legajo = (int*) th_recuperar(tabla_hash, clave)->valor;
+                printf("\nEl legajo guardado en la tabla hash es: %i.\n", *legajo);
+
+            break;
+            default:
+
+                printf("Valor de opción no válido\n");
+
+            break;
+
+        }
+
+        opcion = recibir_opcion_hash();
+
+    }
+
+}
+
+void cargar_vector_claves_desde_archivo (int* vector_claves, FILE* gestion) {
+
+    alumno_t alumno_aux;
+
+    int tam_lectura = 1;
+
+    int i = 0;
+
+    while (tam_lectura == fread(&alumno_aux, sizeof(alumno_t), 1, gestion)) {
+
+        if (alumno_aux.activo == ACTIVO) {
+
+            vector_claves[i] = alumno_aux.legajo;
+            i++;
+
+        }
+
+    }
+
+}
+
 int funcion_hash_por_plegamiento (int clave) {
 
     char cadena_plegamiento[TAM_PLEGAMIENTO];
@@ -465,22 +570,46 @@ int funcion_hash_por_plegamiento (int clave) {
 
 void procesar_hash (FILE* gestion) {
 
-
     int tamanio_hash = funcion_hash_por_plegamiento(MAX_LEGAJO); //MAX_LEGAJO = 999999 -> posicion hash 1998 -> 999999/(1998*5) = 100,5
 
     TablaHash tabla_hash = th_crear(tamanio_hash*5, (*funcion_hash_por_plegamiento));
 
-    alumno_t alumno_aux;
+    int claves_guardadas = obtener_tamanio_archivo(gestion)/sizeof(alumno_t);
 
-    int tam_lectura = 1;
+    int* vector_claves;
 
-    while (tam_lectura == fread(&alumno_aux, sizeof(alumno_t), 1, gestion)) {
+    vector_claves = (int*) calloc(claves_guardadas, sizeof(int)); //Para guardar claves de acceso, sino void* valor no apuntará a nada en lo guardado en tablas hash.
 
-        th_insertar(tabla_hash, te_crear(alumno_aux.legajo));
+    if (vector_claves != NULL) {
+
+        cargar_vector_claves_desde_archivo(vector_claves, gestion);
+
+        alumno_t alumno_aux;
+
+        int tam_lectura = 1;
+
+        int i = 0;
+
+        while (tam_lectura == fread(&alumno_aux, sizeof(alumno_t), 1, gestion)) {
+
+            if (alumno_aux.activo == ACTIVO) {
+
+                th_insertar(tabla_hash, te_crear_con_valor(alumno_aux.legajo, &vector_claves[i]));
+                i++;
+
+            }
+
+        }
+
+        procesar_menu_hash(tabla_hash, gestion);
+
+        free(vector_claves);
+
+    } else {
+
+        printf("\nMemoria insuficiente.\n");
 
     }
-
-    th_mostrar_solo_ocupados(tabla_hash);
 
     free(tabla_hash);
 
