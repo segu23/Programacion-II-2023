@@ -4,19 +4,19 @@
 #include <time.h>
 
 #include "listas.h"
-//#include "listas_punteros.c"
+#include "listas_punteros.c"
 
 #include "nodo.h"
-//#include "nodo.c"
+#include "nodo.c"
 
 #include "tipo_elemento.h"
-//#include "tipo_elemento.c"
+#include "tipo_elemento.c"
 
 #include "arbol_avl.h"
-//#include "arbol_avl_m.c"
+#include "arbol_avl_m.c"
 
 #include "tabla_hash.h"
-//#include "tabla_hash_zona_overflow.c"
+#include "tabla_hash_zona_overflow.c"
 
 #include "Validacion.h"
 
@@ -92,7 +92,7 @@ void main () {
 
     printf("\n// Ingresando parametros de prueba . . . \n");
 
-    printf("// Nota: se hace uso de una implementacion de arboles avl modificado (arbol_avl_m.c) para poder generar arboles de hasta 2000 nodos");
+    printf("\n// Nota: se hace uso de una implementacion de arboles avl modificado (arbol_avl_m.c) para poder generar arboles de hasta 2000 nodos");
     printf("\n0%d<< Ingrese la cantidad de nodos a generar [1; 2000]: ", __LINE__);
     fgets(filtro, MAX, stdin);
     cantidad = EntradaEntera(filtro, 0, 1, 2000);
@@ -103,13 +103,13 @@ void main () {
 
     printf("\n%d<< Ingrese el valor maximo posible a generar [minimo; 2000]: ", __LINE__);
     fgets(filtro, MAX, stdin);
-    int maximo = EntradaEntera(filtro, 1, minimo, 2000);  
+    int maximo = EntradaEntera(filtro, 1, minimo-1, 2000);  
 
     printf("\n%d<< Ingrese la cantidad de veces a repetir la prueba [1; 1000]: ", __LINE__);
     fgets(filtro, MAX, stdin);
     int repeticiones = EntradaEntera(filtro, 0, 1, 1000);  
 
-    printf("\n// Nota: se recomienda usar ordenes de magnitud entre 5 y 8");
+    printf("\n// Nota: se recomienda usar ordenes de magnitud entre 3 y 6 incluidos, mayor 6 y el muestreo se vuelve mas lento . . .");
     printf("\n%d<< Ingrese el orden de magnitud de busquedas/prueba (10**n busquedas) [1; 8]: ", __LINE__);
     fgets(filtro, MAX, stdin);
     double potencia = EntradaEntera(filtro, 0, 1, 8);  
@@ -123,7 +123,7 @@ void main () {
     ArbolAVL avl = avl_crear();
 
     printf("\n// Tiempo acumulado por prueba dado %d busquedas/prueba\n", busquedas);
-    printf("\nPrueba / Tabla Hash (seg.) / Arbol AVL (seg.)");
+    printf("\nPrueba / Tabla Hash (seg.) / Arbol AVL (seg.) / Superioridad (mas rapido)");
 
     for (int i = 1 ; i <= repeticiones ; i++) {
         CargandoClaves(cantidad, minimo, maximo, th, avl);
@@ -147,13 +147,15 @@ void main () {
         avl_elapsed = (double)(end - start)/CLOCKS_PER_SEC;
         avl_acum += avl_elapsed;
 
-        printf("\n%d -   %.5f   -   %.5f", i, th_elapsed, avl_elapsed);
+        if      (th_elapsed > avl_elapsed) printf("\n%d -   %.8f   -   %.8f    -   AVL", i, th_elapsed, avl_elapsed);
+        else if (th_elapsed < avl_elapsed) printf("\n%d -   %.8f   -   %.8f    -   TH", i, th_elapsed, avl_elapsed);
+        else                               printf("\n%d -   %.8f   -   %.8f    -   IGUALDAD", i, th_elapsed, avl_elapsed);
     }
 
-    printf("\n\n>> Tiempo de busqueda en tabla Hash acumulado: %.3f seg.", th_acum);
-    printf("\n>> Tiempo de busqueda en arbol avl acumulado: %.3f seg.", avl_acum);
+    printf("\n\n>> Tiempo de busqueda en tabla Hash acumulado: %.3f seg. - Promedio: %.5f seg.", th_acum, (double)(th_acum/repeticiones));
+    printf("\n>> Tiempo de busqueda en arbol avl acumulado: %.3f seg.  - Promedio: %.5f seg.", avl_acum, (double)(avl_acum/repeticiones));
 
-    printf("\n\n// Conclusion: la busqueda en arbol avl es considerablemente mas rapida que la busqueda en tabla hash.");
+    printf("\n\n// Conclusion: la busqueda en arbol avl es considerablemente mas rapida que la busqueda en tabla hash. No solo se observa por los tiempos acumulados \n   sino que tambien se puede ver en la diferencia en acumulaciones de tiempo de busqueda de cada prueba.");
 
     printf("\n\n<< ");
     system("pause");
