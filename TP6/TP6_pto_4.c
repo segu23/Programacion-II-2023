@@ -9,8 +9,7 @@
 #include"tabla_hash.h"
 
 #define MAX_STRING 30
-#define TAM_PLEGAMIENTO 6
-#define MITAD_PLEGAMIENTO 3
+#define TAM_PLEGAMIENTO 7
 
 const int MIN_LEGAJO = 1;
 const int MAX_LEGAJO = 999999;
@@ -59,16 +58,6 @@ long int obtener_tamanio_archivo (FILE* archivo) {
     fseek(archivo, 0, SEEK_SET);
 
     return tamanio;
-
-}
-
-void poner_en_cero_cadena (char cadena[], int tam_cadena) {
-
-    for (int i = 0; i < tam_cadena; i++) {
-
-        cadena[i] = 0;
-
-    }
 
 }
 
@@ -512,7 +501,7 @@ void procesar_menu_hash (TablaHash tabla_hash, FILE* gestion) {
 
                 //El legajo es la clave, porque al alumno se lo busca en archivo binario mediante su legajo
                 clave = recibir_legajo_hash((obtener_tamanio_archivo(gestion)/sizeof(alumno_t)));
-                legajo = (int*) th_recuperar(tabla_hash, clave)->valor;
+                legajo = (int*) (th_recuperar(tabla_hash, clave)->valor);
                 printf("\nEl legajo guardado en la tabla hash es: %i.\n", *legajo);
 
             break;
@@ -551,16 +540,54 @@ void cargar_vector_claves_desde_archivo (int* vector_claves, FILE* gestion) {
 
 }
 
+void asegurar_digitos (char cadena_plegamiento[TAM_PLEGAMIENTO]) {
+
+    int i = 0;
+
+    while ((i < TAM_PLEGAMIENTO-1)) {
+
+        if (cadena_plegamiento[i] == '\0') {
+
+            switch (i) {
+
+                case 1:
+                    strcat(cadena_plegamiento, "00000");
+                break;
+                case 2:
+                    strcat(cadena_plegamiento, "0000");
+                break;
+                case 3:
+                    strcat(cadena_plegamiento, "000");
+                break;
+                case 4:
+                    strcat(cadena_plegamiento, "00");
+                break;
+                case 5:
+                    strcat(cadena_plegamiento, "0");
+                break;
+                default:
+                break;
+
+            }
+
+        }
+        i++;
+    }
+
+}
+
 int funcion_hash_por_plegamiento (int clave) {
 
     char cadena_plegamiento[TAM_PLEGAMIENTO];
-    poner_en_cero_cadena(cadena_plegamiento, 6);
-    strcat(cadena_plegamiento, "\0");
+    strcpy(cadena_plegamiento, "000000");
 
     sprintf(cadena_plegamiento, "%i", clave);
 
-    int primera_mitad = (cadena_plegamiento[0]-48)*100 + (cadena_plegamiento[1]-48)*10 + (cadena_plegamiento[2]-48);
-    int segunda_mitad = (cadena_plegamiento[3]-48)*100 + (cadena_plegamiento[4]-48)*10 + (cadena_plegamiento[5]-48);
+    asegurar_digitos(cadena_plegamiento); //Si el numero tiene menos de seis digitos, lo rellena
+
+    int primera_mitad = (cadena_plegamiento[5]-48)*100 + (cadena_plegamiento[4]-48)*10 + (cadena_plegamiento[3]-48);
+
+    int segunda_mitad = (cadena_plegamiento[2]-48)*100 + (cadena_plegamiento[1]-48)*10 + (cadena_plegamiento[0]-48);
 
     int posicion_hash = primera_mitad + segunda_mitad;
 
