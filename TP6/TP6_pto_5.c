@@ -4,19 +4,19 @@
 #include <time.h>
 
 #include "listas.h"
-#include "listas_punteros.c"
+//#include "listas_punteros.c"
 
 #include "nodo.h"
-#include "nodo.c"
+//#include "nodo.c"
 
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
+//#include "tipo_elemento.c"
 
 #include "arbol_avl.h"
-#include "arbol_avl_m.c"
+//#include "arbol_avl_m.c"
 
 #include "tabla_hash.h"
-#include "tabla_hash_lista_colisiones.c"
+//#include "tabla_hash_lista_colisiones.c"
 
 #include "Validacion.h"
 
@@ -155,7 +155,7 @@ void main () {
     printf("\n\n>> Tiempo de busqueda en tabla Hash acumulado: %.3f seg. - Promedio: %.5f seg.", th_acum, (double)(th_acum/repeticiones));
     printf("\n>> Tiempo de busqueda en arbol avl acumulado: %.3f seg.  - Promedio: %.5f seg.", avl_acum, (double)(avl_acum/repeticiones));
 
-    printf("\n\n// Conclusion: la busqueda en arbol avl es considerablemente mas rapida que la busqueda en tabla hash. No solo se observa por los tiempos acumulados \n   sino que tambien se puede ver en la diferencia en acumulaciones de tiempo de busqueda de cada prueba. \n   La diferencia puede variar segun la implementación pero para n >= 3 tanto como el tiempo acumulado de avl como su promedio es menor al de th.");
+    printf("\n\n// Conclusion: la busqueda en arbol avl es considerablemente mas rapida que la busqueda en tabla hash. No solo se observa en los tiempos acumulados \n   sino que tambien se puede ver en la diferencia en acumulaciones de tiempo de busqueda de cada prueba. \n   La diferencia puede variar segun la implementación pero para n >= 3 tanto como el tiempo acumulado de avl como su promedio es menor al de th.");
 
     printf("\n\n<< ");
     system("pause");
