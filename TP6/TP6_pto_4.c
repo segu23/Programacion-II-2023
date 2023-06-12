@@ -597,9 +597,9 @@ int funcion_hash_por_plegamiento (int clave) {
 
 void procesar_hash (FILE* gestion) {
 
-    int tamanio_hash = funcion_hash_por_plegamiento(MAX_LEGAJO); //MAX_LEGAJO = 999999 -> posicion hash 1998 -> 999999/(1998*5) = 100,5
+    int tamanio_hash = funcion_hash_por_plegamiento(MAX_LEGAJO); //MAX_LEGAJO = 999999 -> posicion hash 1998 -> 999999/1998 = 500
 
-    TablaHash tabla_hash = th_crear(tamanio_hash*5, (*funcion_hash_por_plegamiento));
+    TablaHash tabla_hash = th_crear(tamanio_hash, (*funcion_hash_por_plegamiento));
 
     int claves_guardadas = obtener_tamanio_archivo(gestion)/sizeof(alumno_t);
 
