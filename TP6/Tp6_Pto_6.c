@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 
 #include "tabla_hash.h"
-#include "listas.h"
+#include "Listas.h"
 #include "tipo_elemento.h"
 #include "Validacion.h"
 
@@ -17,6 +18,22 @@ int hashFunctionNroPrimo(int a) {
 }
 
 int esFechaValida(int anio, int mes, int dia) {
+    time_t T;
+    T = time(NULL);
+    struct tm *fecha;
+    fecha = localtime(&T);
+
+     if (anio > fecha->tm_year + 1900)
+        return 0;
+    else if (anio == fecha->tm_year + 1900) {
+        if (mes > fecha->tm_mon + 1)
+            return 0;
+        else if (mes == fecha->tm_mon + 1) {
+            if (dia > fecha->tm_mday)
+                return 0;
+        }
+    }
+
     if (anio < 2020 || anio > 2023 || mes < 1 || mes > 12 || dia < 1) {
         return 0;  
     }
@@ -99,7 +116,7 @@ void CargarDatos(TablaHash Vacunados){
     int i, CodHash;
     bool NomCorrecto =false;
     Datos = calloc(60,sizeof(char));
-    
+    printf("(El ingreso de personas va del anio 2020 hasta el dia de hoy)\n");
     printf("Ingrese la fecha de vacunacion de la siguiente manera (dd/mm/yyyy):\n");
     gets(Fecha);
     fflush(stdin);
@@ -109,7 +126,7 @@ void CargarDatos(TablaHash Vacunados){
 
     while(CodHash == -1){
         printf("Fecha Invalida\n");
-        printf("(El ingreso de personas va del anio 2020 al 2023)\n");
+        printf("(El ingreso de personas va del anio 2020 hasta el dia de hoy)\n");
         printf("Ingrese la fecha de vacunacion de la siguiente manera (dd/mm/yyyy):\n");
         gets(Fecha);
         fflush(stdin);
