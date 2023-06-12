@@ -137,7 +137,7 @@ void CargarDatos(TablaHash Vacunados){
     printf("Ingrese el DNI de la persona vacunada:\n");
     gets(DNI);
     fflush(stdin);
-    while(CadenaValida(DNI, PermitidosDNI) == 0 || strlen(DNI)< 7 || strlen(DNI)> 8){
+    while(CadenaValida(DNI, PermitidosDNI) == 0 || strlen(DNI)< 1 || strlen(DNI)> 9){
         printf("Ingrese un DNI Valido:\n"); 
         gets(DNI);
         fflush(stdin); 
@@ -159,23 +159,33 @@ void CargarDatos(TablaHash Vacunados){
         } 
     }
 
+    printf("Ingrese el nombre y apellido de la persona vacunada:\n");
+    gets(NomYApe);
+    fflush(stdin);
+    v = NomYApe;
 
     while(!NomCorrecto){
-        printf("Ingrese el nombre y apellido de la persona vacunada:\n");
-        gets(NomYApe);
-        fflush(stdin);
-        v = NomYApe;
-       
-        while(*v != '\0'){
+        NomCorrecto = true;
+        while(*v != '\0' && NomCorrecto){
             if(*v >= 'A' && *v <= 'z'){
                 NomCorrecto = true;
                 if(*v > 'Z' && *v < 'a'){
                     NomCorrecto = false;
                 }
-            }else if(*v == ' '){NomCorrecto = true;}
+            }else if(*v < 'A' || *v > 'z'){
+                NomCorrecto = false;
+                if(*v == ' '){NomCorrecto = true;}
+            } 
             v++;
         }
-        if(!NomCorrecto){printf("El nombre ingresado tiene caracteres no validos, ingrese nuevamente.\n");}
+        if(!NomCorrecto){
+            printf("El nombre ingresado tiene caracteres no validos, ingrese nuevamente.\n");
+            printf("Ingrese el nombre y apellido de la persona vacunada:\n");
+            gets(NomYApe);
+            fflush(stdin);
+            v = NomYApe;
+            }
+
     }
 
 
@@ -210,6 +220,7 @@ void BuscarVacunadosPorFecha(TablaHash Vacunados){
     Fe = calloc(15,sizeof(char));
     DNI = calloc(15,sizeof(char));
     NomYApe = calloc(30,sizeof(char));
+    printf("(El ingreso de personas va del anio 2020 hasta el dia de hoy)\n");
     printf("Ingrese la fecha de vacunacion de la siguente manera (dd/mm/yyyy):\n");
     gets(Fecha);
     fflush(stdin);
@@ -217,6 +228,7 @@ void BuscarVacunadosPorFecha(TablaHash Vacunados){
     Codigo = ValidarFecha(Fecha);
     while(Codigo == -1){
         printf("Fecha Invalida.\n");
+        printf("(El ingreso de personas va del anio 2020 hasta el dia de hoy)\n");
         printf("Ingrese la fecha de vacunacion de la siguiente manera (dd/mm/yyyy):\n");
         gets(Fecha);
         fflush(stdin);
