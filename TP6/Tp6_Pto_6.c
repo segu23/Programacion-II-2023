@@ -4,7 +4,7 @@
 
 
 #include "tabla_hash.h"
-#include "Listas.h"
+#include "listas.h"
 #include "tipo_elemento.h"
 #include "Validacion.h"
 
