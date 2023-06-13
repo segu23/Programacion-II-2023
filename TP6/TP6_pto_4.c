@@ -538,6 +538,8 @@ void cargar_vector_claves_desde_archivo (int* vector_claves, FILE* gestion) {
 
     }
 
+    fseek(gestion, 0, SEEK_SET);
+
 }
 
 void asegurar_digitos (char cadena_plegamiento[TAM_PLEGAMIENTO]) {
@@ -597,7 +599,7 @@ int funcion_hash_por_plegamiento (int clave) {
 
 void procesar_hash (FILE* gestion) {
 
-    int tamanio_hash = funcion_hash_por_plegamiento(MAX_LEGAJO); //MAX_LEGAJO = 999999 -> posicion hash 1998 -> 999999/1998 = 500
+    int tamanio_hash = funcion_hash_por_plegamiento(MAX_LEGAJO); //MAX_LEGAJO = 999999 -> posicion hash 1998 -> 999999/(1998*5) = 100,5
 
     TablaHash tabla_hash = th_crear(tamanio_hash, (*funcion_hash_por_plegamiento));
 
@@ -645,9 +647,9 @@ void procesar_hash (FILE* gestion) {
 void mostrar_menu_principal () {
 
     printf("\n\n        MENU PRINCIPAL        \n\n");
-    printf("Trabajar con archivo           1\n");
-    printf("Crear y visualizar tabla hash  2\n");
-    printf("Salir                          3\n");
+    printf("Trabajar con archivo                1\n");
+    printf("Crear e interactuar con tabla hash  2\n");
+    printf("Salir                               3\n");
 
 }
 
