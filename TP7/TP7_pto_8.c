@@ -95,5 +95,5 @@ void main() {
     if (ComparandoConjuntos(A, B)) printf("\n> Los conjuntos son iguales.");
     else                           printf("\n> Los conjuntos no son iguales.");
 
-    printf("\n\n/ Conclusion: la complejidad algoritmica de la solucion es O(n**2), siendo n la cantidad de elementos del uno de los conjuntos si los dos conjuntos son iguales.\n  La complejidad es de orden cuadratico independientemente de la implementación que se use.\n\n");    
+    printf("\n\n/ Conclusion: la complejidad algoritmica de la solucion es O(n**2), siendo n la cantidad de elementos del uno de los conjuntos si los dos conjuntos son iguales.\n  La complejidad es de orden cuadratico usando cualquiera de las dos implementaciones.\n\n");    
 }
