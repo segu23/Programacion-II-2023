@@ -28,7 +28,7 @@ bool ComparandoConjuntos(Conjunto C1, Conjunto C2) {          // La complejidad 
     TipoElemento X;
 
     if (nC1 == nC2) {                                         //                        | Arbol avl                                                | Listas (punteros)
-        for (int i = 1 ; i <= nC1 ; i++) {                    // Complejidad de bloque  | O(n * (n + n * log n)) = O(n**2 + n**2 log n) = O(n**2)  | O(n**2)
+        for (int i = 1 ; i <= nC1 ; i++) {                    // Complejidad de bloque  | O(n * (n + n * log n)) = O(n**2 + n**2 log n) = O(n**2)  | O(2n**2) = O(n**2)
             X = cto_recuperar(C1, i);                         // Complejidad de función | O(n)                                                     | O(n)
             if (cto_pertenece(C2, X->clave)) contador++;      // Complejidad de función | O(n * log n)                                             | O(n)
         }
