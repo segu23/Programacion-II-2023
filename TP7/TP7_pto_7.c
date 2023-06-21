@@ -5,6 +5,8 @@
 #include "conjuntos.h"
 //#include "conjuntos_listas.c"
 
+//#include "listas_punteros.c"
+
 #include "tipo_elemento.h"
 //#include "tipo_elemento.c"
 
