@@ -50,7 +50,7 @@ void CargandoConjunto (Conjunto CTO, int nX) {
                 repetido = false;
                 printf("\n%d< Ingrese la clave del elemento nro. %d: ", __LINE__, i);
                 fgets(filtro, MAX, stdin);
-                clave = EntradaEntera(filtro, 0, 999999, 999999);
+                clave = EntradaEntera(filtro, 0, -999999, 999999);
 
                 if (cto_pertenece(CTO, clave)) {
                     repetido = true;
