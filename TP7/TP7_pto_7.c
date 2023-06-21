@@ -144,5 +144,5 @@ void main() {
     else if (CB == PARCIAL)  printf("\n> C es subconjunto PARCIAL de B");
     else                     printf("\n> C no es subconjunto de B");
 
-    printf("\n\n/ Conclusion: la complejidad algoritmica de la solucion es O(n**2), siendo n la cantidad de elementos del uno de los conjuntos si los dos conjuntos son iguales.\n  La complejidad es de orden cuadratico independientemente de la implementación que se use.\n\n");    
+    printf("\n\n/ Conclusion: la complejidad algoritmica de la solucion es O(n**2), siendo n la cantidad de elementos del uno de los conjuntos si los dos conjuntos son iguales.\n  La complejidad es de orden cuadratico usando cualquiera de las dos impelementaciones.\n\n");    
 }
