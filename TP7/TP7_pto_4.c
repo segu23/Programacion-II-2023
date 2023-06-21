@@ -3,15 +3,15 @@
 #include <stdbool.h>
 
 #include "conjuntos.h"
-#include "conjuntos_listas.c"
+//#include "conjuntos_listas.c"
 
-#include "listas_punteros.c"
+//#include "listas_punteros.c"
 
 #include "tipo_elemento.h"
-#include "tipo_elemento.c"
+//#include "tipo_elemento.c"
 
 #include "Validacion.h"
-#include "Validacion.c"
+//#include "Validacion.c"
 
 #define MAX 100
 
@@ -34,8 +34,8 @@ bool BuscandoSubconjuntos(Conjunto C1, Conjunto C2) {
         if (cto_pertenece(C2, X->clave)) contador++;
     }
 
-    if      (contador == nC1) return true;
-    else                      return false;
+    if    (contador == nC1) return true;
+    else                    return false;
 }
 
 void CargandoConjunto (Conjunto CTO, int nX) {
