@@ -35,6 +35,7 @@ void cto_borrar(Conjunto conjunto, int clave) {
 }
 
 bool cto_pertenece(Conjunto conjunto, int clave) {
+    if (cto_es_vacio(conjunto)) return false;
     Iterador iter = iterador(conjunto->lista);
     TipoElemento elemento;
     while (hay_siguiente(iter)) {
@@ -91,7 +92,7 @@ Conjunto cto_diferencia(Conjunto conjunto_a, Conjunto conjunto_b) {
     return resultado;
 }
 
-TipoElemento cto_recuperar(Conjunto conjunto, int posicion_ordinal){
+TipoElemento cto_recuperar(Conjunto conjunto, int posicion_ordinal){            // Complejidad de función O(n)
     return l_recuperar(conjunto->lista, posicion_ordinal);
 }
 
